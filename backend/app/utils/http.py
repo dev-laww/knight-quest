@@ -132,6 +132,7 @@ class Response(JSONResponse):
 
 class Routes:
     __routers = [
+        'app.routers.authentication'
     ]
 
     @staticmethod

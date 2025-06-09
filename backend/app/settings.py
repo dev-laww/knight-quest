@@ -9,6 +9,9 @@ class AppMode(enum.Enum):
 
 
 class Settings(BaseSettings):
+    google_client_id: str
+    google_client_secret: str
+    jwt_secret_key: str
     app_mode: AppMode = AppMode.DEVELOPMENT
 
     model_config = SettingsConfigDict(

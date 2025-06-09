@@ -5,6 +5,7 @@ from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import create_model
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.middleware.sessions import SessionMiddleware
 
 from . import http
 from .logging import logger
@@ -44,6 +45,8 @@ def setup_app(app: FastAPI):
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    app.add_middleware(SessionMiddleware, secret_key=settings.jwt_secret_key)
 
     http.Routes.load(app)
 
