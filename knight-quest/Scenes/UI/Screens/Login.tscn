@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nxb17kb8w8xf"]
+
+[ext_resource type="Script" uid="uid://ci308f8qbyl1n" path="res://Scripts/UI/Screens/Login.cs" id="1_5pq2s"]
+
+[node name="Login" type="CanvasLayer"]
+script = ExtResource("1_5pq2s")
