@@ -1,7 +1,8 @@
 ﻿from fastapi import APIRouter, Request
+from starlette.responses import RedirectResponse
 
 from ..utils.auth_providers import oauth
-from ..utils.http import ResponseBuilder
+from ..utils.jwt import *
 
 router = APIRouter(
     prefix='/auth',
@@ -24,6 +25,9 @@ async def auth_callback(request: Request):
     print("TOKEN KEYS:", list(token.keys()))
 
     user_info = await oauth.google.userinfo(token=token)
-    return ResponseBuilder.build_success('Authentication successful!', data=user_info)
+    token = encode(user_info)
+
+    return RedirectResponse(f'unity://knightquest?authToken={token}')
+
 
 router.include_router(google_router)
