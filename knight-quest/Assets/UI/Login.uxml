@@ -1,0 +1,12 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles.uss?fileID=7433441132597879392&amp;guid=aa04056ff76925a4f91e3eca38f44d73&amp;type=3#Styles" />
+    <engine:VisualElement style="flex-grow: 1; justify-content: center;">
+        <engine:VisualElement name="VisualElement" style="flex-grow: 0; justify-content: space-evenly; align-items: stretch; align-self: center; flex-direction: column; align-content: center; width: 50%; height: 575px; flex-shrink: 0;">
+            <engine:TextField placeholder-text="Email" name="email" />
+            <engine:TextField placeholder-text="Password" password="true" mask-character="•" name="password" />
+            <engine:Button text="Login" name="login" style="margin-top: 34px;" />
+            <engine:Label text="or login using" style="font-size: 15px; -unity-text-align: upper-center;" />
+            <engine:Button text="Google" name="google-login" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

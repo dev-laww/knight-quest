@@ -1,0 +1,10 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.16); justify-content: space-between;">
+        <engine:VisualElement style="flex-grow: 0; background-color: rgb(216, 226, 112); flex-shrink: 0; height: 20%;" />
+        <engine:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 100%; height: 30%;">
+            <engine:VisualElement style="flex-grow: 1; -unity-background-image-tint-color: rgba(255, 255, 255, 0); background-color: rgb(114, 214, 114);" />
+            <engine:VisualElement style="flex-grow: 1; background-color: rgb(55, 55, 55);" />
+            <engine:VisualElement style="flex-grow: 1; background-color: rgb(153, 153, 255);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
