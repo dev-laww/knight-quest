@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class DeepLinkManager : MonoBehaviour
+public class DeepLinkManager : Singleton<DeepLinkManager>
 {
-    public static DeepLinkManager Instance { get; private set; }
-
     [Tooltip("Custom link name to match deep link url prefix")]
     public string linkName = "knightquest";
 
@@ -17,24 +14,13 @@ public class DeepLinkManager : MonoBehaviour
 
     public string DeepLinkUrl { get; private set; }
 
-    private void Awake()
+    protected override void OnAwake()
     {
-        if (Instance is null)
-        {
-            Instance = this;
-            Application.deepLinkActivated += OnDeepLinkActivated;
+        Application.deepLinkActivated += OnDeepLinkActivated;
 
-            if (!string.IsNullOrEmpty(Application.absoluteURL))
-            {
-                OnDeepLinkActivated(Application.absoluteURL);
-            }
+        if (!string.IsNullOrEmpty(Application.absoluteURL)) return;
 
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        OnDeepLinkActivated(Application.absoluteURL);
     }
 
     private void OnDeepLinkActivated(string url)
