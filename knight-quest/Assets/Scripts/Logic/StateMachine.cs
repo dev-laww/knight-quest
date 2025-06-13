@@ -1,59 +1,56 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-
-public class DelegateStateMachine
+public class StateMachine : MonoBehaviour
 {
-    public delegate void State();
+    [Tooltip("Initial state to start the state machine")]
+    public State InitialState;
 
-    private State currentState;
+    public State CurrentState { get; private set; }
 
-    private readonly Dictionary<State, StateFlows> states = new();
+    private List<State> states = new();
 
-    public void AddStates(State normal, State enterState = null, State leaveState = null)
+    private void Awake()
     {
-        var stateFlows = new StateFlows(normal, enterState, leaveState);
-        states[normal] = stateFlows;
+        states.AddRange(GetComponentsInChildren<State>());
     }
 
-    public void ChangeState(State toStateDelegate)
+    private void Start()
     {
-        states.TryGetValue(toStateDelegate, out var stateDelegates);
-        SetState(stateDelegates);
-    }
-
-    public void SetInitialState(State stateDelegate)
-    {
-        states.TryGetValue(stateDelegate, out var stateFlows);
-        SetState(stateFlows);
-    }
-
-    public State GetCurrentState() => currentState;
-
-    public void Update() => currentState?.Invoke();
-
-    private void SetState(StateFlows stateFlows)
-    {
-        if (currentState != null)
+        if (InitialState is null)
         {
-            states.TryGetValue(currentState, out var currentStateDelegates);
-            currentStateDelegates?.LeaveState?.Invoke();
+            Debug.LogError("Initial state is not set. Please assign an initial state in the inspector.");
+            return;
         }
 
-        currentState = stateFlows.Normal;
-        stateFlows?.EnterState?.Invoke();
+        ChangeState(InitialState);
     }
 
-    private class StateFlows
+    private void Update()
     {
-        public State Normal { get; private set; }
-        public State EnterState { get; private set; }
-        public State LeaveState { get; private set; }
+        CurrentState?.Tick();
+    }
 
-        public StateFlows(State normal, State enterState = null, State leaveState = null)
+    public void ChangeState(State newState)
+    {
+        if (newState == CurrentState) return;
+
+        CurrentState?.Exit();
+        CurrentState = newState;
+        CurrentState.Enter();
+    }
+
+    public void ChangeState<T>() where T : State
+    {
+        var newState = states.Find(s => s is T);
+
+        if (newState is null)
         {
-            Normal = normal;
-            EnterState = enterState;
-            LeaveState = leaveState;
+            Debug.LogError($"State of type {typeof(T).Name} not found in the state machine.");
+            return;
         }
+
+        ChangeState(newState);
     }
 }
