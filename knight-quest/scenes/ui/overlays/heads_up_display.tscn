@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf6rph7p0k8y7"]
+[gd_scene load_steps=5 format=3 uid="uid://cf6rph7p0k8y7"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_vfvld"]
 [ext_resource type="PackedScene" uid="uid://mqdvfqgo4wwf" path="res://scenes/ui/common/nine_patch_rect.tscn" id="2_6jlxp"]
 [ext_resource type="Script" uid="uid://wwg6w3elyw1c" path="res://scripts/ui/overlays/heads_up_display.gd" id="2_r0aol"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_r0aol"]
+resource_name = "answer_button_group"
 
 [node name="HeadsUpDisplay" type="MarginContainer"]
 anchors_preset = 15
@@ -71,3 +74,61 @@ size_flags_stretch_ratio = 0.3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Bottom/QuestionsContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="QuestionLabel" type="RichTextLabel" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.105882, 0.133333, 0.211765, 1)
+text = "Question"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="FirstAnswerButton" type="Button" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_r0aol")
+text = "Answer 1"
+metadata/answer_index = 0
+
+[node name="SecondAnswerButton" type="Button" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_r0aol")
+text = "Answer 2"
+metadata/answer_index = 1
+
+[node name="ThirdAnswerButton" type="Button" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_r0aol")
+text = "Answer 3"
+metadata/answer_index = 2
+
+[node name="FourthAnswerButton" type="Button" parent="VBoxContainer/Bottom/QuestionsContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_r0aol")
+text = "Answer 4"
+metadata/answer_index = 3
