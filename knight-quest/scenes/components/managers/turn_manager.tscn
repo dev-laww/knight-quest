@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfdm55jit0843"]
+
+[ext_resource type="Script" uid="uid://bwbo0oqaimhps" path="res://scripts/components/managers/turn_manager.gd" id="1_aj1af"]
+
+[node name="TurnManager" type="Node"]
+script = ExtResource("1_aj1af")
+
+[node name="TurnTimer" type="Timer" parent="."]
