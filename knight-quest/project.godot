@@ -24,9 +24,14 @@ window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
+"res://addons/": "gray",
 "res://android/": "gray",
 "res://assets/": "orange",
 "res://builds/": "gray",
