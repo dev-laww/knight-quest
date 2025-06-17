@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbw6djrw7xne1"]
+
+[ext_resource type="Script" uid="uid://c41j302f30chh" path="res://scripts/components/managers/question_manager.gd" id="1_bl3f4"]
+
+[node name="QuestionManager" type="Node"]
+script = ExtResource("1_bl3f4")
