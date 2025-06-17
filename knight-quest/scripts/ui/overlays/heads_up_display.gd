@@ -2,8 +2,8 @@ extends MarginContainer
 class_name HeadsUpDisplay
 
 
-@onready var player_position: Marker2D = %PlayerPosition
-@onready var enemy_position: Marker2D = %EnemyPosition
+@onready var player_position: Marker2D = %PlayerPosition.global_position
+@onready var enemy_position: Marker2D = %EnemyPosition.global_position
 @onready var question_label: RichTextLabel = %QuestionLabel
 @onready var answer_buttons: Array[Node] = [%FirstAnswerButton, %SecondAnswerButton, %ThirdAnswerButton, %FourthAnswerButton]
 @onready var answer_button_group: ButtonGroup = %FirstAnswerButton.button_group
