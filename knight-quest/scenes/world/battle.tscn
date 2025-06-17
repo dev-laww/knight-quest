@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://0ioux0qjw16k"]
+[gd_scene load_steps=2 format=3 uid="uid://0ioux0qjw16k"]
+
+[ext_resource type="PackedScene" uid="uid://cf6rph7p0k8y7" path="res://scenes/ui/overlays/heads_up_display.tscn" id="1_hjx2g"]
 
 [node name="Battle" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HeadsUpDisplay" parent="UI" instance=ExtResource("1_hjx2g")]

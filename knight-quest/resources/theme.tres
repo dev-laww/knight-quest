@@ -35,3 +35,7 @@ Button/styles/focus = SubResource("StyleBoxEmpty_b751m")
 Button/styles/hover = SubResource("StyleBoxTexture_aaf3v")
 Button/styles/normal = SubResource("StyleBoxTexture_aaf3v")
 Button/styles/pressed = SubResource("StyleBoxTexture_886mr")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
