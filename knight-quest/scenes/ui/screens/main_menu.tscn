@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpo7vhduf7n86"]
+
+[ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_38o7l"]
+[ext_resource type="Script" uid="uid://bqdtgy3g7a306" path="res://scripts/ui/screens/main_menu.gd" id="1_nee2d"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_nee2d")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_38o7l")
+
+[node name="StartButton" type="Button" parent="CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start"
