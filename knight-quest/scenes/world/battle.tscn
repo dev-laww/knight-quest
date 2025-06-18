@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://0ioux0qjw16k"]
+[gd_scene load_steps=8 format=3 uid="uid://0ioux0qjw16k"]
 
 [ext_resource type="PackedScene" uid="uid://bbw6djrw7xne1" path="res://scenes/components/managers/question_manager.tscn" id="1_ehm8x"]
 [ext_resource type="Script" uid="uid://d1qjlor5wiia2" path="res://scripts/world/battle.gd" id="1_fs26p"]
@@ -6,18 +6,29 @@
 [ext_resource type="PackedScene" uid="uid://dqpduk7nq4wmo" path="res://scenes/entities/characters/player.tscn" id="2_ehm8x"]
 [ext_resource type="PackedScene" uid="uid://yev5xqmq1t2q" path="res://scenes/entities/enemies/star.tscn" id="3_fs26p"]
 [ext_resource type="PackedScene" uid="uid://dfdm55jit0843" path="res://scenes/components/managers/turn_manager.tscn" id="4_t5uxl"]
+[ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="7_5r7dh"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_fs26p")
 player_scene = ExtResource("2_ehm8x")
 enemy_scene = ExtResource("3_fs26p")
 
-[node name="QuestionManager" parent="." instance=ExtResource("1_ehm8x")]
+[node name="QuestionManager" parent="." node_paths=PackedStringArray("heads_up_display") instance=ExtResource("1_ehm8x")]
+heads_up_display = NodePath("../UI/HeadsUpDisplay")
 
-[node name="TurnManager" parent="." node_paths=PackedStringArray("question_manager") instance=ExtResource("4_t5uxl")]
+[node name="TurnManager" parent="." node_paths=PackedStringArray("question_manager", "heads_up_display") instance=ExtResource("4_t5uxl")]
 question_manager = NodePath("../QuestionManager")
+heads_up_display = NodePath("../UI/HeadsUpDisplay")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HeadsUpDisplay" parent="UI" instance=ExtResource("1_hjx2g")]
 unique_name_in_owner = true
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 300.0
+offset_top = 137.0
+offset_right = 343.0
+offset_bottom = 166.0
+theme = ExtResource("7_5r7dh")
+text = "Start"

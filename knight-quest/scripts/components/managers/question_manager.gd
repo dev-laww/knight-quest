@@ -2,17 +2,24 @@ extends Node
 class_name QuestionManager
 
 
-func get_question() -> Question:
-    var question: Question = Question.new()
+@export var heads_up_display: HeadsUpDisplay
+
+var current_question: Question = null
+
     
-    question.question_text = "What is the capital of France?"
-    question.answers = ["Berlin", "Madrid", "Paris", "Rome"]
-    question.correct_answer_index = 2
+func get_question() -> Question:
+    current_question = Question.new()
+ 
+    current_question.question_text = "What is the capital of France?"
+    current_question.answers = ["Berlin", "Madrid", "Paris", "Rome"]
+    current_question.correct_answer_index = 2
 
-    return question
+    heads_up_display.set_question(current_question)
+
+    return current_question
 
 
-func check_answer(question: Question, selected_index: int) -> bool:
-    if selected_index < 0 or selected_index >= question.answers.size():
+func check_answer(selected_index: int) -> bool:
+    if selected_index < 0 or selected_index >= current_question.answers.size():
         return false
-    return selected_index == question.correct_answer_index
+    return selected_index == current_question.correct_answer_index
