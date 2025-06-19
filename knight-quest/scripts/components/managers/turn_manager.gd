@@ -16,8 +16,6 @@ signal turn_completed
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var player_answer_index: int = -1
 var came_from_player_turn: bool = false
-var is_executing: bool = false
-var is_enemy_turn_running: bool = false
 
 func _ready() -> void:
     state_machine.add_state(idle_state)
