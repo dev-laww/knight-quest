@@ -26,7 +26,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/collapse_folders/plugin.cfg")
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/center_pivot_offset/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/node_library/plugin.cfg", "res://addons/palette_importer/plugin.cfg")
 
 [file_customization]
 
