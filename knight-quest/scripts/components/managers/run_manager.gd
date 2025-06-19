@@ -10,4 +10,4 @@ class_name RunManager
 
 
 func _ready() -> void:
-    pass
+    get_tree().create_timer(4).timeout.connect(turn_manager.start)

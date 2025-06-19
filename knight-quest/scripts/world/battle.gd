@@ -5,13 +5,10 @@ extends Node2D
 
 
 @onready var turn_manager: TurnManager = $TurnManager
-@onready var start_button: Button = $StartButton
 @onready var heads_up_display: HeadsUpDisplay = %HeadsUpDisplay
 
 
 func _ready() -> void:
-    start_button.pressed.connect(turn_manager.start)
-
     var player = player_scene.instantiate()
     var enemy = enemy_scene.instantiate()
 
