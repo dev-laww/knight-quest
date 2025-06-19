@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://yyvuxydbepux"]
+
+[ext_resource type="Texture2D" uid="uid://b1nl8hw4jxm3s" path="res://assets/art/ui/heart_and_mana.png" id="1_522x7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pdy0"]
+atlas = ExtResource("1_522x7")
+region = Rect2(32, 0, 13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_522x7"]
+atlas = ExtResource("1_522x7")
+region = Rect2(20, 0, 13, 13)
+
+[node name="HealtBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="EmptyHeartContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_right = 13.0
+offset_bottom = 13.0
+theme_override_constants/separation = 0
+
+[node name="EmptyHeartTemplate" type="TextureRect" parent="EmptyHeartContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_4pdy0")
+
+[node name="FullHeartContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+theme_override_constants/separation = 0
+
+[node name="FullHeartTemplate" type="TextureRect" parent="FullHeartContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_522x7")
