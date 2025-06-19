@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://hojvr8au35xp"]
+
+[ext_resource type="Script" uid="uid://cvwwdkwdpfh0p" path="res://scripts/components/managers/run_manager.gd" id="1_0v0uy"]
+[ext_resource type="PackedScene" uid="uid://bi76x172yppbt" path="res://scenes/components/managers/stats_manager.tscn" id="2_cyjgy"]
+
+[node name="RunManager" type="Node"]
+script = ExtResource("1_0v0uy")
+
+[node name="PlayerStatsManager" parent="." instance=ExtResource("2_cyjgy")]
+
+[node name="EnemyStatsManager" parent="." instance=ExtResource("2_cyjgy")]
