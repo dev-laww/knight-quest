@@ -1,5 +1,5 @@
 extends Node
-class_name TurnManager
+class_name RunManager
 
 signal player_turn_started
 signal player_answered(correct: bool)
@@ -28,7 +28,6 @@ func _ready() -> void:
     turn_timer.timeout.connect(_on_turn_timeout)
 
 func start() -> void:
-    print("TurnManager started")
     state_machine.change_state(player_turn_state)
     state_machine.update()
 

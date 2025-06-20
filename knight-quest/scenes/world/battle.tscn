@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cf6rph7p0k8y7" path="res://scenes/ui/overlays/heads_up_display.tscn" id="1_hjx2g"]
 [ext_resource type="PackedScene" uid="uid://dqpduk7nq4wmo" path="res://scenes/entities/characters/player.tscn" id="2_ehm8x"]
 [ext_resource type="PackedScene" uid="uid://b2fshu4a5e41d" path="res://scenes/entities/enemies/star.tscn" id="3_fs26p"]
-[ext_resource type="PackedScene" uid="uid://dfdm55jit0843" path="res://scenes/components/managers/turn_manager.tscn" id="4_t5uxl"]
+[ext_resource type="PackedScene" uid="uid://dfdm55jit0843" path="res://scenes/components/managers/run_manager.tscn" id="4_t5uxl"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_fs26p")
@@ -15,7 +15,7 @@ enemy_scene = ExtResource("3_fs26p")
 [node name="QuestionManager" parent="." node_paths=PackedStringArray("heads_up_display") instance=ExtResource("1_ehm8x")]
 heads_up_display = NodePath("../UI/HeadsUpDisplay")
 
-[node name="TurnManager" parent="." node_paths=PackedStringArray("question_manager", "heads_up_display") instance=ExtResource("4_t5uxl")]
+[node name="RunManager" parent="." node_paths=PackedStringArray("question_manager", "heads_up_display") instance=ExtResource("4_t5uxl")]
 question_manager = NodePath("../QuestionManager")
 heads_up_display = NodePath("../UI/HeadsUpDisplay")
 
