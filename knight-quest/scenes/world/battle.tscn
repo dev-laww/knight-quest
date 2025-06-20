@@ -12,11 +12,11 @@ script = ExtResource("1_fs26p")
 player_scene = ExtResource("2_ehm8x")
 enemy_scene = ExtResource("3_fs26p")
 
-[node name="QuestionManager" parent="." node_paths=PackedStringArray("heads_up_display") instance=ExtResource("1_ehm8x")]
-heads_up_display = NodePath("../UI/HeadsUpDisplay")
-
 [node name="RunManager" parent="." node_paths=PackedStringArray("question_manager", "heads_up_display") instance=ExtResource("4_t5uxl")]
 question_manager = NodePath("../QuestionManager")
+heads_up_display = NodePath("../UI/HeadsUpDisplay")
+
+[node name="QuestionManager" parent="." node_paths=PackedStringArray("heads_up_display") instance=ExtResource("1_ehm8x")]
 heads_up_display = NodePath("../UI/HeadsUpDisplay")
 
 [node name="UI" type="CanvasLayer" parent="."]

@@ -10,13 +10,15 @@ signal turn_completed
 
 @export var question_manager: QuestionManager
 @export var heads_up_display: HeadsUpDisplay
+
+@onready var player_stats_manager: StatsManager = $PlayerStatsManager
+@onready var enemy_stats_manager: StatsManager = $EnemyStatsManager
 @onready var turn_timer: Timer = $TurnTimer
 @onready var current_question: Question = question_manager.current_question
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var player_answer_index: int = -1
 var came_from_player_turn: bool = false
-var execute: Callable
 
 func _ready() -> void:
     state_machine.add_state(idle_state)
@@ -26,6 +28,9 @@ func _ready() -> void:
     state_machine.set_initial_state(idle_state)
     heads_up_display.answer_selected.connect(submit_player_answer)
     turn_timer.timeout.connect(_on_turn_timeout)
+
+
+    get_tree().create_timer(3).timeout.connect(start)
 
 func start() -> void:
     state_machine.change_state(player_turn_state)
@@ -58,13 +63,10 @@ func enter_execute() -> void:
     state_machine.update()
 
 func execute_state() -> void:
-    await execute.call()
+    await execute()
 
-    if came_from_player_turn:
-        state_machine.change_state(enemy_turn_state)
-    else:
-        turn_completed.emit()
-        state_machine.change_state(player_turn_state)
+    turn_completed.emit()
+    state_machine.change_state(player_turn_state)
 
 func enter_enemy_turn() -> void:
     print("=== ENEMY TURN ===")
@@ -83,10 +85,12 @@ func submit_player_answer(answer_index: int) -> void:
     if state_machine.current_state != "player_turn_state": return
     player_answer_index = answer_index
     var is_correct = question_manager.check_answer(answer_index)
+
     print("Player answered: ", question_manager.current_question.answers[answer_index])
     print("Answer is: ", "Correct" if is_correct else "Incorrect")
+
     player_answered.emit(is_correct)
-    state_machine.change_state(execute_state)
+    state_machine.change_state(enemy_turn_state)
 
 func _on_turn_timeout() -> void:
     if state_machine.current_state != "player_turn_state": return
@@ -95,3 +99,21 @@ func _on_turn_timeout() -> void:
 
     player_timeout.emit()
     state_machine.change_state(execute_state)
+
+func execute() -> void:
+    print("Executing turn...")
+
+    var is_correct = question_manager.check_answer(player_answer_index)
+
+    if is_correct:
+        enemy_stats_manager.take_damage(player_stats_manager.damage)
+    else:
+        player_stats_manager.take_damage(enemy_stats_manager.damage)
+
+    player_stats_manager.tick_status_effects()
+    enemy_stats_manager.tick_status_effects()
+
+    print("Player stats after execution: ", player_stats_manager._stats)
+    print("Enemy stats after execution: ", enemy_stats_manager._stats)
+
+    await get_tree().create_timer(.5).timeout

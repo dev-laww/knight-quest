@@ -7,9 +7,7 @@ signal stat_decreased(type: StatType, value: int)
 signal stat_depleted(type: StatType)
 
 @export var max_health: int = 10
-@export var damage: int:
-    get: return _stats[StatType.Damage]
-    set(value): _set_stat(StatType.Damage, value)
+@export var base_damage: int = 1
 @export var invulnerable: bool = false
 
 enum StatType {
@@ -32,11 +30,15 @@ var _max_stats := {}
 var health: int:
     get: return _stats[StatType.Health]
     set(value): _set_stat(StatType.Health, value)
+var damage: int:
+    get: return _stats[StatType.Damage]
+    set(value): _set_stat(StatType.Damage, value)
 
 func _ready():
     _max_stats[StatType.Health] = max_health
-    _max_stats[StatType.Damage] = damage
+    _max_stats[StatType.Damage] = INF
     _stats[StatType.Health] = max_health
+    _stats[StatType.Damage] = base_damage
 
 func heal(amount: int, mode: ModifyMode = ModifyMode.VALUE):
     match mode:
@@ -96,3 +98,7 @@ func _set_stat(type: StatType, value: int):
 
     if clamped == 0:
         stat_depleted.emit(type)
+
+
+func tick_status_effects() -> void:
+    pass

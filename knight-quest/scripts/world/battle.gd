@@ -5,7 +5,7 @@ extends Node2D
 
 
 @onready var run_manager: RunManager = $RunManager
-@onready var heads_up_display: HeadsUpDisplay = $HeadsUpDisplay
+@onready var heads_up_display: HeadsUpDisplay = %HeadsUpDisplay
 
 
 func _ready() -> void:
