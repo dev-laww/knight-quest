@@ -7,10 +7,14 @@ signal stat_decreased(type: StatType, value: int)
 signal stat_depleted(type: StatType)
 
 @export var max_health: int = 10
+@export var damage: int:
+    get: return _stats[StatType.Damage]
+    set(value): _set_stat(StatType.Damage, value)
 @export var invulnerable: bool = false
 
 enum StatType {
-    Health
+    Health,
+    Damage
 }
 
 enum ModifyMode {
@@ -20,6 +24,7 @@ enum ModifyMode {
 
 var _stats := {
     StatType.Health: 0,
+    StatType.Damage: 0
 }
 
 var _max_stats := {}
@@ -30,6 +35,7 @@ var health: int:
 
 func _ready():
     _max_stats[StatType.Health] = max_health
+    _max_stats[StatType.Damage] = damage
     _stats[StatType.Health] = max_health
 
 func heal(amount: int, mode: ModifyMode = ModifyMode.VALUE):
@@ -51,6 +57,20 @@ func take_damage(amount: int, mode: ModifyMode = ModifyMode.VALUE):
             damage_amount = amount
 
     health -= damage_amount
+
+func increase_damage(amount: int, mode: ModifyMode = ModifyMode.VALUE):
+    match mode:
+        ModifyMode.PERCENTAGE:
+            damage += int(_max_stats[StatType.Damage] * (amount / 100.0))
+        ModifyMode.VALUE:
+            damage += amount
+
+func decrease_damage(amount: int, mode: ModifyMode = ModifyMode.VALUE):
+    match mode:
+        ModifyMode.PERCENTAGE:
+            damage -= int(_max_stats[StatType.Damage] * (amount / 100.0))
+        ModifyMode.VALUE:
+            damage -= amount
 
 func set_invulnerable(value: bool):
     invulnerable = value

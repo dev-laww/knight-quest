@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://yev5xqmq1t2q"]
+[gd_scene load_steps=15 format=3 uid="uid://b2fshu4a5e41d"]
 
+[ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/enemies/enemy.tscn" id="1_ag5br"]
 [ext_resource type="Texture2D" uid="uid://ckrww66sqygv0" path="res://assets/art/entities/enemies/star/star.png" id="1_hrkyn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ag5br"]
@@ -34,7 +35,7 @@ region = Rect2(384, 0, 64, 64)
 atlas = ExtResource("1_hrkyn")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_mcw1h"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_whrc7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -98,24 +99,24 @@ _data = {
 &"idle": SubResource("Animation_hrkyn")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p35xu"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_68dqs"]
 animation = &"idle"
+advance_on_start = true
 
-[node name="Star" type="Node2D"]
-scale = Vector2(2.5, 2.5)
+[node name="Star" instance=ExtResource("1_ag5br")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
 position = Vector2(0, -16)
-sprite_frames = SubResource("SpriteFrames_mcw1h")
+sprite_frames = SubResource("SpriteFrames_whrc7")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
+frame = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 libraries = {
 &"": SubResource("AnimationLibrary_ag5br")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeAnimation_p35xu")
+[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+tree_root = SubResource("AnimationNodeAnimation_68dqs")
 anim_player = NodePath("../AnimationPlayer")
