@@ -16,6 +16,7 @@ signal turn_completed
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var player_answer_index: int = -1
 var came_from_player_turn: bool = false
+var execute: Callable
 
 func _ready() -> void:
     state_machine.add_state(idle_state)
@@ -53,12 +54,12 @@ func leave_player_turn():
 
 func enter_execute() -> void:
     print("=== EXECUTE PHASE ===")
-    execute_phase_started.emit()
 
+    execute_phase_started.emit()
     state_machine.update()
 
 func execute_state() -> void:
-    await execute()
+    await execute.call()
 
     if came_from_player_turn:
         state_machine.change_state(enemy_turn_state)
@@ -88,12 +89,10 @@ func submit_player_answer(answer_index: int) -> void:
     player_answered.emit(is_correct)
     state_machine.change_state(execute_state)
 
-func execute() -> void:
-    print("Executing status effects and game logic...")
-    await get_tree().create_timer(4.0).timeout
-
 func _on_turn_timeout() -> void:
     if state_machine.current_state != "player_turn_state": return
+
     print("Player turn timed out!")
+
     player_timeout.emit()
     state_machine.change_state(execute_state)
