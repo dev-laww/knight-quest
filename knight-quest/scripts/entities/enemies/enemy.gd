@@ -16,6 +16,13 @@ func take_turn(player_stats_manager: StatsManager) -> void:
     print("Enemy took its turn, dealt damage: ", stats_manager.damage)
     action_completed.emit()
 
+    await get_tree().create_timer(.5).timeout
+
+func take_damage(amount: int, modify_mode: StatsManager.ModifyMode = StatsManager.ModifyMode.VALUE) -> void:
+    stats_manager.take_damage(amount, modify_mode)
+
+func is_alive() -> bool:
+    return stats_manager.current_health > 0
 
 func _on_stat_depleted(type: StatsManager.StatType) -> void:
     if type == StatsManager.StatType.Health:
