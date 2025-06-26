@@ -18,17 +18,17 @@ signal turn_completed
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var player_answer_index: int = -1
-var came_from_player_turn: bool = false
 
 func _ready() -> void:
     state_machine.add_state(idle_state)
     state_machine.add_state(player_turn_state, enter_player_turn, leave_player_turn)
+    state_machine.add_state(enemy_turn_state, enter_enemy_turn)
     state_machine.add_state(execute_state, enter_execute)
-    state_machine.add_state(enemy_turn_state, enter_enemy_turn, leave_enemy_turn)
+
     state_machine.set_initial_state(idle_state)
+
     heads_up_display.answer_selected.connect(submit_player_answer)
     turn_timer.timeout.connect(_on_turn_timeout)
-
 
     get_tree().create_timer(3).timeout.connect(start)
 
@@ -38,7 +38,6 @@ func start() -> void:
 
 func idle_state() -> void:
     print("Idle state")
-    pass
 
 func player_turn_state() -> void:
     pass
@@ -53,7 +52,6 @@ func enter_player_turn() -> void:
     state_machine.update()
 
 func leave_player_turn():
-    came_from_player_turn = true
     turn_timer.stop()
 
 func enter_execute() -> void:
@@ -76,18 +74,26 @@ func enter_enemy_turn() -> void:
 
 func enemy_turn_state() -> void:
     await get_tree().create_timer(3.0).timeout
-    state_machine.change_state(execute_state)
 
-func leave_enemy_turn() -> void:
-    came_from_player_turn = false
+    player_stats_manager.take_damage(enemy_stats_manager.damage)
+    print("Enemy attacks player for ", enemy_stats_manager.damage, " damage!")
+
+    state_machine.change_state(execute_state)
 
 func submit_player_answer(answer_index: int) -> void:
     if state_machine.current_state != "player_turn_state": return
+
     player_answer_index = answer_index
+
     var is_correct = question_manager.check_answer(answer_index)
 
     print("Player answered: ", question_manager.current_question.answers[answer_index])
     print("Answer is: ", "Correct" if is_correct else "Incorrect")
+
+    if is_correct:
+        enemy_stats_manager.take_damage(player_stats_manager.damage)
+
+    # play attack animations
 
     player_answered.emit(is_correct)
     state_machine.change_state(enemy_turn_state)
@@ -98,22 +104,12 @@ func _on_turn_timeout() -> void:
     print("Player turn timed out!")
 
     player_timeout.emit()
-    state_machine.change_state(execute_state)
+    state_machine.change_state(enemy_turn_state)
 
 func execute() -> void:
     print("Executing turn...")
 
-    var is_correct = question_manager.check_answer(player_answer_index)
-
-    if is_correct:
-        enemy_stats_manager.take_damage(player_stats_manager.damage)
-    else:
-        player_stats_manager.take_damage(enemy_stats_manager.damage)
-
     player_stats_manager.tick_status_effects()
     enemy_stats_manager.tick_status_effects()
 
-    print("Player stats after execution: ", player_stats_manager._stats)
-    print("Enemy stats after execution: ", enemy_stats_manager._stats)
-
-    await get_tree().create_timer(.5).timeout
+    await get_tree().create_timer(1.0).timeout
