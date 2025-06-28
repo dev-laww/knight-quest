@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b2fshu4a5e41d"]
 
-[ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/enemies/enemy.tscn" id="1_ag5br"]
+[ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/entity.tscn" id="1_ag5br"]
 [ext_resource type="Texture2D" uid="uid://ckrww66sqygv0" path="res://assets/art/entities/enemies/star/star.png" id="1_hrkyn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ag5br"]
@@ -111,7 +111,7 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_whrc7")
 animation = &"idle"
 autoplay = "idle"
-frame = 5
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 libraries = {

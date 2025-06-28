@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dqpduk7nq4wmo"]
+[gd_scene load_steps=13 format=3 uid="uid://dqpduk7nq4wmo"]
 
+[ext_resource type="Script" uid="uid://kjfj17mf1wny" path="res://scripts/entities/characters/Player.cs" id="1_4rl2u"]
 [ext_resource type="Texture2D" uid="uid://bj0uld6hmn47i" path="res://assets/art/entities/characters/player/player.png" id="1_6jr6q"]
+[ext_resource type="PackedScene" uid="uid://bi76x172yppbt" path="res://scenes/components/managers/stats_manager.tscn" id="1_kjp8n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6jr6q"]
 atlas = ExtResource("1_6jr6q")
@@ -83,6 +85,9 @@ animation = &"idle"
 
 [node name="Player" type="Node2D"]
 scale = Vector2(2.5, 2.5)
+script = ExtResource("1_4rl2u")
+
+[node name="StatsManager" parent="." instance=ExtResource("1_kjp8n")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)
