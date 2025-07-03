@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://0ioux0qjw16k"]
+[gd_scene load_steps=11 format=3 uid="uid://0ioux0qjw16k"]
 
+[ext_resource type="Script" uid="uid://dw0w0v0uwrdqj" path="res://scripts/world/Battle.cs" id="1_5r7dh"]
 [ext_resource type="PackedScene" uid="uid://cf6rph7p0k8y7" path="res://scenes/ui/overlays/heads_up_display.tscn" id="1_hjx2g"]
 [ext_resource type="PackedScene" uid="uid://b2fshu4a5e41d" path="res://scenes/entities/enemies/star.tscn" id="3_fs26p"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/Encounter.cs" id="3_t5uxl"]
@@ -24,6 +25,7 @@ TurnDuration = 30
 metadata/_custom_type_script = "uid://cqe31o4yik31k"
 
 [node name="Battle" type="Node2D"]
+script = ExtResource("1_5r7dh")
 
 [node name="RunManager" parent="." node_paths=PackedStringArray("hud") instance=ExtResource("4_t5uxl")]
 hud = NodePath("../UI/HeadsUpDisplay")
@@ -34,4 +36,6 @@ configuration = SubResource("Resource_82pbm")
 [node name="HeadsUpDisplay" parent="UI" instance=ExtResource("1_hjx2g")]
 unique_name_in_owner = true
 
-[node name="Player" parent="." instance=ExtResource("6_t5uxl")]
+[node name="Entities" type="Node" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("6_t5uxl")]

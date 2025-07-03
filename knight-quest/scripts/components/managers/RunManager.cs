@@ -22,6 +22,7 @@ public partial class RunManager : Node
 
     [Signal] public delegate void PlayerTurnTimeoutEventHandler();
     [Signal] public delegate void PlayerAnsweredEventHandler(bool correct);
+    [Signal] public delegate void EncounterStartedEventHandler(Entity[] enemies);
 
     private DelegateStateMachine stateMachine = new();
     private Player player => this.GetPlayer();
@@ -189,9 +190,8 @@ public partial class RunManager : Node
             var enemyEntity = enemy.InstanceOrFree<Entity>();
 
             currentEnemies.Add(enemyEntity);
-
-            // TODO: add to the scene or manage it in some way
-            AddChild(enemyEntity);
         }
+        
+        EmitSignalEncounterStarted(currentEnemies.ToArray());
     }
 }

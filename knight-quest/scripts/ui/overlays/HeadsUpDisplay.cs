@@ -20,6 +20,9 @@ public partial class HeadsUpDisplay : MarginContainer
 
     [Signal] public delegate void AnswerSelectedEventHandler(int index);
 
+    public Vector2 PlayerGlobalPosition => playerPosition.GetGlobalPosition();
+    public Vector2 EnemyGlobalPosition => enemyPosition.GetGlobalPosition();
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
