@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using GodotUtilities.Util;
+using Game.Utils;
 
 namespace Game.Components;
 

@@ -3,7 +3,7 @@ using Game.Autoloads;
 using Game.Data;
 using Godot;
 using GodotUtilities;
-using GodotUtilities.Util;
+using Game.Utils;
 
 namespace Game.UI;
 

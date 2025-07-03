@@ -9,7 +9,6 @@ using Godot;
 using Godot.Collections;
 using GodotUtilities;
 using GodotUtilities.Logic;
-using GodotUtilities.Util;
 
 namespace Game;
 
@@ -80,12 +79,12 @@ public partial class RunManager : Node
 
     private void ExitPlayerTurn() => turnTimer.Stop();
 
-    private void EnemyTurn()
+    private async void EnemyTurn()
     {
         Logger.Debug("Enemy's turn started, selecting an enemy to act.");
         var enemy = aliveEnemies.PickRandom();
 
-        enemy.TakeTurn(player);
+        await enemy.TakeTurn(player);
 
         stateMachine.ChangeState(Execute);
     }
@@ -149,7 +148,7 @@ public partial class RunManager : Node
         stateMachine.ChangeState(EnemyTurn);
     }
 
-    private void OnAnswerSelected(int answerIndex)
+    private async void OnAnswerSelected(int answerIndex)
     {
         if (stateMachine.GetCurrentState() != PlayerTurn) return;
 
@@ -162,7 +161,7 @@ public partial class RunManager : Node
         if (correct)
         {
             var enemy = aliveEnemies.PickRandom();
-            player.TakeTurn(enemy);
+            await player.TakeTurn(enemy);
 
             // TODO: make player take less damage or something else based on the answer
             stateMachine.ChangeState(Execute);
