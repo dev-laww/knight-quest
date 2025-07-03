@@ -1,11 +1,19 @@
+using System.Threading.Tasks;
 using Godot;
 using GodotUtilities;
 
 namespace Game.Entities;
 
+// TODO: make use of a state machine for the player
 [Scene]
 public partial class Player : Entity
 {
+    private const string ATTACK = "attack";
+
+    [Node] private AnimationTree animationTree;
+
+    private AnimationNodeStateMachinePlayback playback;
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
@@ -16,5 +24,14 @@ public partial class Player : Entity
     public override void _Ready()
     {
         this.AddToGroup();
+        playback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
+    }
+
+    public override async Task TakeTurn(Entity target)
+    {
+        await base.TakeTurn(target);
+        playback.Travel(ATTACK);
+
+        await ToSignal(animationTree, "animation_finished");
     }
 }

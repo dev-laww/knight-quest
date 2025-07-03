@@ -1,7 +1,8 @@
+using System.Threading.Tasks;
 using Game.Components;
 using Godot;
 using GodotUtilities;
-using GodotUtilities.Util;
+using Game.Utils;
 
 namespace Game;
 
@@ -26,7 +27,7 @@ public partial class Entity : Node2D
         StatsManager.StatDepleted += OnStatDepleted;
     }
 
-    public virtual void TakeTurn(Entity target)
+    public virtual Task TakeTurn(Entity target)
     {
         var targetStatsManager = target.StatsManager;
 
@@ -34,6 +35,8 @@ public partial class Entity : Node2D
         Logger.Debug($"{Name} attacks {target.Name} for {StatsManager.Damage} damage!");
 
         // TODO: Play animations, etc.
+
+        return Task.CompletedTask;
     }
 
     private void OnStatDepleted(StatsManager.Stat stat)
