@@ -31,10 +31,11 @@ public partial class Entity : Node2D
     {
         var targetStatsManager = target.StatsManager;
 
-        targetStatsManager.TakeDamage(StatsManager.Damage);
-        Logger.Debug($"{Name} attacks {target.Name} for {StatsManager.Damage} damage!");
+        var attack = new DamageFactory.AttackBuilder(this)
+            .Build();
 
-        // TODO: Play animations, etc.
+        targetStatsManager.ReceiveAttack(attack);
+        Logger.Debug($"{Name} attacks {target.Name} for {StatsManager.Damage} damage!");
 
         return Task.CompletedTask;
     }

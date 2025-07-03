@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Data;
 using Godot;
 using Game.Utils;
 
@@ -13,6 +14,9 @@ public partial class StatsManager : Node
     [Signal] public delegate void StatDecreasedEventHandler(int value, Stat stat);
     [Signal] public delegate void StatDepletedEventHandler(Stat stat);
     [Signal] public delegate void DamageTakenEventHandler(int amount);
+    [Signal] public delegate void AttackReceivedEventHandler(Attack attack);
+    [Signal] public delegate void StatusEffectAddedEventHandler(StatusEffect effect);
+    [Signal] public delegate void StatusEffectRemovedEventHandler(StatusEffect effect);
 
     [Export] private bool Invulnerable;
 
@@ -37,6 +41,8 @@ public partial class StatsManager : Node
 
     private int baseMaxHealth;
     private int baseDamage;
+    private Dictionary<string, StatusEffect> statusEffects = [];
+    private Entity entity;
 
     public override void _Ready()
     {
@@ -44,6 +50,11 @@ public partial class StatsManager : Node
 
         baseMaxHealth = MaxHealth;
         baseDamage = Damage;
+        entity = GetParentOrNull<Entity>();
+
+        if (entity != null) return;
+
+        Logger.Error("StatsManager must be a child of an Entity node.");
     }
 
     public void Heal(int amount, ModifyMode mode = ModifyMode.Value)
@@ -58,6 +69,8 @@ public partial class StatsManager : Node
 
     public void TakeDamage(int amount, ModifyMode mode = ModifyMode.Value)
     {
+        if (Invulnerable) return;
+
         Health -= mode switch
         {
             ModifyMode.Percentage => Mathf.RoundToInt(MaxHealth * (amount / 100f)),
@@ -114,9 +127,47 @@ public partial class StatsManager : Node
             EmitSignalStatDepleted(statType);
     }
 
+    public void ReceiveAttack(Attack attack)
+    {
+        TakeDamage(attack.Damage);
+
+        if (!attack.HasStatusEffects) return;
+
+        foreach (var effect in attack.StatusEffects)
+            AddStatusEffect(effect);
+    }
+
+    public void AddStatusEffect(StatusEffect effect)
+    {
+        if (effect == null) return;
+
+        effect.ApplyStatusEffect(entity);
+        statusEffects.Add(effect.Id, effect);
+        EmitSignalStatusEffectAdded(effect);
+
+        Logger.Debug($"Status effect added {effect.Name} to {entity.Name}.");
+    }
+
+    public void RemoveStatusEffect(string id)
+    {
+        if (!statusEffects.TryGetValue(id, out var effect)) return;
+
+        effect.Remove();
+        statusEffects.Remove(id);
+        EmitSignalStatusEffectRemoved(effect);
+
+        Logger.Debug($"Status effect removed {effect.Name} from {entity.Name}.");
+    }
+
     public void TickStatusEffects()
     {
-        Logger.Debug("Ticking status effects...");
+        foreach (var effect in statusEffects.Values)
+        {
+            effect.Update();
+            if (effect.RemainingDuration > 0) continue;
+
+            RemoveStatusEffect(effect.Id);
+        }
     }
 
     public enum ModifyMode
