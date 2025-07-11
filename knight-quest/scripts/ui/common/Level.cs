@@ -1,0 +1,66 @@
+using Godot;
+using GodotUtilities;
+
+namespace Game.UI;
+
+[Scene]
+public partial class Level : Button
+{
+    private bool hovered;
+
+    public override void _Notification(int what)
+    {
+        if (what != NotificationSceneInstantiated) return;
+
+        WireNodes();
+    }
+
+    public override void _Ready()
+    {
+        MouseEntered += OnMouseEntered;
+        MouseExited += OnMouseExited;
+        ButtonUp += OnButtonUp;
+        ButtonDown += OnButtonDown;
+    }
+
+    private void OnMouseEntered()
+    {
+        hovered = true;
+
+        var tween = CreateTween();
+
+        tween.TweenProperty(this, "scale", new Vector2(1.02f, 1.02f), 0.05f)
+            .SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.In);
+    }
+
+    private void OnMouseExited()
+    {
+        hovered = false;
+        
+        var tween = CreateTween();
+
+        tween.TweenProperty(this, "scale", new Vector2(1f, 1f), 0.05f)
+            .SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.In);
+    }
+
+    private void OnButtonUp()
+    {
+        var tween = CreateTween();
+        var targetScale = hovered ? new Vector2(1.02f, 1.02f) : new Vector2(1f, 1f);
+
+        tween.TweenProperty(this, "scale", targetScale, 0.05f)
+            .SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.In);
+    }
+
+    private void OnButtonDown()
+    {
+        var tween = CreateTween();
+
+        tween.TweenProperty(this, "scale", new Vector2(0.98f, 0.98f), 0.05f)
+            .SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.In);
+    }
+}

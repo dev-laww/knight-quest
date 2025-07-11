@@ -1,0 +1,73 @@
+[gd_scene load_steps=15 format=3 uid="uid://dc8s677y6qtgv"]
+
+[ext_resource type="Script" uid="uid://bx1rnd5riutkm" path="res://scripts/ui/common/Level.cs" id="1_hr3dh"]
+[ext_resource type="PackedScene" uid="uid://mqdvfqgo4wwf" path="res://scenes/ui/common/nine_patch_rect.tscn" id="1_t84un"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t84un"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hr3dh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ocpf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osa2b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7o511"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ahnr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgh6q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g6ebs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bnjlr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tmny7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rav45"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hr3dh"]
+outline_size = 4
+outline_color = Color(0.105882, 0.133333, 0.211765, 1)
+
+[node name="Level" type="Button"]
+custom_minimum_size = Vector2(150, 100)
+offset_right = 16.0
+offset_bottom = 16.0
+pivot_offset = Vector2(75, 50)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t84un")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_hr3dh")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8ocpf")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_osa2b")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7o511")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_5ahnr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qgh6q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_g6ebs")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bnjlr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_tmny7")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rav45")
+script = ExtResource("1_hr3dh")
+
+[node name="NinePatchRect" parent="." instance=ExtResource("1_t84un")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Name"
+label_settings = SubResource("LabelSettings_hr3dh")
