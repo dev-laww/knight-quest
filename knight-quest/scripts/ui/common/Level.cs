@@ -1,3 +1,4 @@
+using Game.Data;
 using Godot;
 using GodotUtilities;
 
@@ -6,6 +7,8 @@ namespace Game.UI;
 [Scene]
 public partial class Level : Button
 {
+    [Export] public LevelInfo LevelInfo;
+
     private bool hovered;
 
     public override void _Notification(int what)
@@ -37,7 +40,7 @@ public partial class Level : Button
     private void OnMouseExited()
     {
         hovered = false;
-        
+
         var tween = CreateTween();
 
         tween.TweenProperty(this, "scale", new Vector2(1f, 1f), 0.05f)
