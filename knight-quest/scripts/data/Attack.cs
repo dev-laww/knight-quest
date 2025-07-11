@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Game.Data;
 using Godot;
 
-namespace Game.Utils;
+namespace Game.Data;
 
 public partial class Attack: RefCounted
 {
