@@ -13,4 +13,11 @@ public static class NodeExtensions
 
         return player as Player;
     }
+
+    public static RunManager? GetRunManager(this Node node)
+    {
+        var runManager = node.GetTree().GetNodesInGroup("RunManager").FirstOrDefault();
+
+        return runManager as RunManager;
+    }
 }

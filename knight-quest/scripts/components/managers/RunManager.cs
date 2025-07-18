@@ -20,6 +20,7 @@ public partial class RunManager : Node
 
     [Node] private Timer turnTimer;
 
+    [Signal] public delegate void TurnEndedEventHandler();
     [Signal] public delegate void PlayerTurnTimeoutEventHandler();
     [Signal] public delegate void PlayerAnsweredEventHandler(bool correct);
     [Signal] public delegate void EncounterStartedEventHandler(Entity[] enemies);
@@ -31,6 +32,7 @@ public partial class RunManager : Node
     private readonly List<Entity> currentEnemies = [];
     private int currentEncounterIndex = -1;
     private Array<Entity> aliveEnemies => new(currentEnemies.Where(enemy => enemy.IsAlive).ToArray());
+    private int currentTurn;
 
     public override void _Notification(int what)
     {
@@ -41,6 +43,8 @@ public partial class RunManager : Node
 
     public override async void _Ready()
     {
+        this.AddToGroup();
+
         stateMachine.AddStates(Idle);
         stateMachine.AddStates(PlayerTurn, EnterPlayerTurn, ExitPlayerTurn);
         stateMachine.AddStates(EnemyTurn);
@@ -98,6 +102,8 @@ public partial class RunManager : Node
         {
             enemy.StatsManager.TickStatusEffects();
         }
+
+        EmitSignalTurnEnded();
 
         if (!player.IsAlive)
         {
@@ -191,7 +197,7 @@ public partial class RunManager : Node
 
             currentEnemies.Add(enemyEntity);
         }
-        
+
         EmitSignalEncounterStarted(currentEnemies.ToArray());
     }
 }
