@@ -9,13 +9,20 @@ public class DamageFactory
     public class AttackBuilder(Entity source)
     {
         // TODO: move crit chance to stats manager
-        private const float CRITICAL_CHANCE = 0.2f;
+        private float critChance;
 
-        private readonly List<StatusEffect.Info> statusEffectPool = [];
+        // TODO: create a pool of status effects that can be applied to the attack
+        // private readonly List<StatusEffect> statusEffectPool = [];
 
-        public AttackBuilder SetStatusEffectPool(IEnumerable<StatusEffect.Info> pool)
+        public AttackBuilder SetStatusEffectPool(IEnumerable<StatusEffect> pool)
         {
-            statusEffectPool.AddRange(pool);
+            // statusEffectPool.AddRange(pool);
+            return this;
+        }
+
+        public AttackBuilder ApplyCriticalChance(float chance)
+        {
+            critChance = chance;
             return this;
         }
 
@@ -36,7 +43,7 @@ public class DamageFactory
             //     effects.Add(instance);
             // }
 
-            var isCritical = MathUtil.RNG.RandfRange(0, 1) < CRITICAL_CHANCE;
+            var isCritical = MathUtil.RNG.RandfRange(0, 1) < critChance;
             var damage = source.StatsManager.Damage;
             var calculatedDamage = damage * (isCritical ? 2 : 1);
 

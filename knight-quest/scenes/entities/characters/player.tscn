@@ -1,8 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://dqpduk7nq4wmo"]
+[gd_scene load_steps=35 format=3 uid="uid://dqpduk7nq4wmo"]
 
 [ext_resource type="Script" uid="uid://kjfj17mf1wny" path="res://scripts/entities/characters/Player.cs" id="1_4rl2u"]
 [ext_resource type="Texture2D" uid="uid://bj0uld6hmn47i" path="res://assets/art/entities/characters/player/player.png" id="1_6jr6q"]
 [ext_resource type="PackedScene" uid="uid://bi76x172yppbt" path="res://scenes/components/managers/stats_manager.tscn" id="1_kjp8n"]
+[ext_resource type="PackedScene" uid="uid://bdhw2ftqghgg2" path="res://scenes/components/managers/status_effect_manager.tscn" id="3_mgwnb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5hi7"]
 atlas = ExtResource("1_6jr6q")
@@ -244,14 +245,17 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 scale = Vector2(2.5, 2.5)
 script = ExtResource("1_4rl2u")
 
-[node name="StatsManager" parent="." instance=ExtResource("1_kjp8n")]
+[node name="StatsManager" parent="." node_paths=PackedStringArray("statusEffectManager") instance=ExtResource("1_kjp8n")]
+statusEffectManager = NodePath("../StatusEffectManager")
+
+[node name="StatusEffectManager" parent="." instance=ExtResource("3_mgwnb")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_qhiqc")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
-frame = 14
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

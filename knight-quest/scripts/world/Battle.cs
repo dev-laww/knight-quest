@@ -1,3 +1,4 @@
+using Game.Components;
 using Game.UI;
 using Game.Utils;
 using Godot;

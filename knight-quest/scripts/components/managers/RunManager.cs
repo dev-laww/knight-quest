@@ -9,7 +9,7 @@ using Godot;
 using Godot.Collections;
 using GodotUtilities;
 
-namespace Game;
+namespace Game.Components;
 
 [Scene]
 public partial class RunManager : Node

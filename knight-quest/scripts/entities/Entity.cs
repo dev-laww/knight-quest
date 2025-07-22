@@ -10,6 +10,7 @@ namespace Game;
 public partial class Entity : Node2D
 {
     [Node] public StatsManager StatsManager;
+    [Node] public StatusEffectManager StatusEffectManager;
 
     [Signal] public delegate void DiedEventHandler();
 
@@ -31,8 +32,7 @@ public partial class Entity : Node2D
     {
         var targetStatsManager = target.StatsManager;
 
-        var attack = new DamageFactory.AttackBuilder(this)
-            .Build();
+        var attack = StatsManager.CreateAttack();
 
         targetStatsManager.ReceiveAttack(attack);
         Logger.Debug($"{Name} attacks {target.Name} for {StatsManager.Damage} damage!");

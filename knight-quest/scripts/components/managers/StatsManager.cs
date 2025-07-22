@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Game.Data;
 using Godot;
 using Game.Utils;
@@ -15,11 +14,9 @@ public partial class StatsManager : Node
     [Signal] public delegate void StatDepletedEventHandler(Stat stat);
     [Signal] public delegate void DamageTakenEventHandler(int amount);
     [Signal] public delegate void AttackReceivedEventHandler(Attack attack);
-    [Signal] public delegate void StatusEffectAddedEventHandler(StatusEffect effect);
-    [Signal] public delegate void StatusEffectRemovedEventHandler(StatusEffect effect);
 
+    [Export] private StatusEffectManager statusEffectManager;
     [Export] private bool Invulnerable;
-
     [Export] public int MaxHealth = 10;
 
     public int Health
@@ -35,13 +32,21 @@ public partial class StatsManager : Node
         private set => SetStat(ref damage, value, Stat.Damage);
     }
 
+    [Export(PropertyHint.Range, "0,100,1")]
+    public int CriticalChance
+    {
+        get => critChance;
+        private set => SetStat(ref critChance, value, Stat.CriticalChance);
+    }
+
+    private float CriticalChancePercent => 1f / CriticalChance;
+
     private int damage = 1;
     private int health;
-    private readonly Dictionary<string, int> speedModifiers = [];
+    private int critChance = 25;
 
     private int baseMaxHealth;
     private int baseDamage;
-    private Dictionary<string, StatusEffect> statusEffects = [];
     private Entity entity;
 
     public override void _Ready()
@@ -130,45 +135,26 @@ public partial class StatsManager : Node
     public void ReceiveAttack(Attack attack)
     {
         TakeDamage(attack.Damage);
+        EmitSignalAttackReceived(attack);
 
-        if (!attack.HasStatusEffects) return;
-
-        foreach (var effect in attack.StatusEffects)
-            AddStatusEffect(effect);
+        statusEffectManager.OnAttackReceived(attack);
     }
 
-    public void AddStatusEffect(StatusEffect effect)
+    public Attack CreateAttack(StatusEffect[] pool = null)
     {
-        if (effect == null) return;
+        if (pool == null)
+            pool = [];
 
-        effect.ApplyStatusEffect(entity);
-        statusEffects.Add(effect.Id, effect);
-        EmitSignalStatusEffectAdded(effect);
+        var attack = new DamageFactory.AttackBuilder(entity)
+            .ApplyCriticalChance(CriticalChancePercent)
+            .SetStatusEffectPool(pool)
+            .Build();
 
-        Logger.Debug($"Status effect added {effect.Name} to {entity.Name}.");
+        statusEffectManager.OnAttackOutgoing(attack);
+        return attack;
     }
 
-    public void RemoveStatusEffect(string id)
-    {
-        if (!statusEffects.TryGetValue(id, out var effect)) return;
-
-        effect.Remove();
-        statusEffects.Remove(id);
-        EmitSignalStatusEffectRemoved(effect);
-
-        Logger.Debug($"Status effect removed {effect.Name} from {entity.Name}.");
-    }
-
-    public void TickStatusEffects()
-    {
-        foreach (var effect in statusEffects.Values)
-        {
-            effect.Update();
-            if (effect.RemainingDuration > 0) continue;
-
-            RemoveStatusEffect(effect.Id);
-        }
-    }
+    public void TickStatusEffects() => statusEffectManager.TickAllStatusEffects();
 
     public enum ModifyMode
     {
@@ -180,5 +166,6 @@ public partial class StatsManager : Node
     {
         Damage,
         Health,
+        CriticalChance
     }
 }

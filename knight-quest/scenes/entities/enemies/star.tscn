@@ -106,18 +106,19 @@ advance_on_start = true
 [node name="Star" instance=ExtResource("1_ag5br")]
 scale = Vector2(2.5, 2.5)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
 position = Vector2(0, -16)
+scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_whrc7")
 animation = &"idle"
 autoplay = "idle"
-frame = 2
+frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
 &"": SubResource("AnimationLibrary_ag5br")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="4"]
 tree_root = SubResource("AnimationNodeAnimation_68dqs")
 anim_player = NodePath("../AnimationPlayer")
