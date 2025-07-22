@@ -14,9 +14,6 @@ public partial class HeadsUpDisplay : MarginContainer
     [Node] private Marker2D enemyPosition;
     [Node] private RichTextLabel questionLabel;
     [Node] private Button firstAnswerButton;
-    [Node] private Button secondAnswerButton;
-    [Node] private Button thirdAnswerButton;
-    [Node] private Button fourthAnswerButton;
 
     [Signal] public delegate void AnswerSelectedEventHandler(int index);
 
@@ -43,6 +40,41 @@ public partial class HeadsUpDisplay : MarginContainer
         QuestionManager.Instance.QuestionRequested -= OnQuestionRequested;
     }
 
+    public void Reset()
+    {
+        questionLabel.Text = string.Empty;
+
+        var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
+
+        foreach (var button in answerButtons)
+        {
+            if (button is not Button answerButton) continue;
+
+            answerButton.Text = string.Empty;
+            answerButton.Visible = false;
+            answerButton.ButtonPressed = false;
+            answerButton.Disabled = false;
+        }
+    }
+
+    public void ToggleAnswerButtons(bool disabled = false)
+    {
+        var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
+
+        foreach (var button in answerButtons)
+        {
+            if (button is not Button answerButton) continue;
+
+            if (answerButton.ButtonPressed)
+            {
+                answerButton.ButtonPressed = false;
+                continue;
+            }
+
+            answerButton.Disabled = disabled;
+        }
+    }
+
     private void OnAnswerButtonPressed(BaseButton button)
     {
         var answerIndex = button.GetMeta("answer_index").As<int>();
@@ -50,30 +82,29 @@ public partial class HeadsUpDisplay : MarginContainer
         Logger.Debug($"Answer selected: {answerIndex}");
 
         EmitSignalAnswerSelected(answerIndex);
+        ToggleAnswerButtons(true);
     }
 
     private void OnQuestionRequested(Question question)
     {
+        Reset();
+
         questionLabel.Text = question.QuestionText;
 
-        var answerButtons = new List<Button>
-        {
-            firstAnswerButton,
-            secondAnswerButton,
-            thirdAnswerButton,
-            fourthAnswerButton
-        };
+        var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
 
         for (var i = 0; i < answerButtons.Count; i++)
         {
+            if (answerButtons[i] is not Button answerButton) continue;
+
             if (i < question.Answers.Length)
             {
-                answerButtons[i].Text = question.Answers[i];
-                answerButtons[i].Visible = true;
+                answerButton.Text = question.Answers[i];
+                answerButton.Visible = true;
             }
             else
             {
-                answerButtons[i].Visible = false;
+                answerButton.Visible = false;
             }
         }
     }

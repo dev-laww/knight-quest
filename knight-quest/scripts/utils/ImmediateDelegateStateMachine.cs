@@ -32,5 +32,7 @@ public partial class ImmediateDelegateStateMachine : RefCounted
         currentState();
     }
 
+    public void ChangeStateDeferred(State toState) => Callable.From(() => ChangeState(toState)).CallDeferred();
+
     public State GetCurrentState() => currentState;
 }

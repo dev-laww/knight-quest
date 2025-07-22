@@ -8,7 +8,6 @@ using Game.Utils;
 using Godot;
 using Godot.Collections;
 using GodotUtilities;
-using GodotUtilities.Logic;
 
 namespace Game;
 
@@ -33,6 +32,7 @@ public partial class RunManager : Node
     private int currentEncounterIndex = -1;
     private Array<Entity> aliveEnemies => new(currentEnemies.Where(enemy => enemy.IsAlive).ToArray());
     private int currentTurn;
+    private bool turnHandled;
 
     public override void _Notification(int what)
     {
@@ -41,7 +41,7 @@ public partial class RunManager : Node
         WireNodes();
     }
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         this.AddToGroup();
 
@@ -53,8 +53,6 @@ public partial class RunManager : Node
         stateMachine.AddState(Victory);
         stateMachine.AddState(Defeat);
 
-        await ToSignal(this, SignalName.Ready);
-
         turnTimer.Timeout += OnTurnTimerTimeout;
         hud.AnswerSelected += OnAnswerSelected;
 
@@ -63,8 +61,7 @@ public partial class RunManager : Node
 
     public void Start()
     {
-        StartNextEncounter();
-        stateMachine.ChangeState(PlayerTurn);
+        stateMachine.ChangeState(EncounterTransition);
     }
 
     private void Idle() { }
@@ -72,6 +69,7 @@ public partial class RunManager : Node
     private void PlayerTurn()
     {
         QuestionManager.GetQuestion();
+        turnHandled = false;
         turnTimer.Start(configuration.TurnDuration);
         Logger.Debug("Player's turn started, waiting for answer.");
     }
@@ -118,63 +116,6 @@ public partial class RunManager : Node
     {
         if (currentEncounterIndex >= configuration.Encounters.Length - 1)
         {
-            Logger.Debug("No more encounters left, switching to victory state.");
-            stateMachine.ChangeState(Victory);
-            return;
-        }
-
-        StartNextEncounter();
-        stateMachine.ChangeState(PlayerTurn);
-    }
-
-    private void Victory()
-    {
-        Logger.Debug("Victory state reached, handling victory logic.");
-    }
-
-    private void Defeat()
-    {
-        Logger.Debug("Defeat state reached, handling defeat logic.");
-    }
-
-    private void OnTurnTimerTimeout()
-    {
-        if (stateMachine.GetCurrentState() != PlayerTurn) return;
-
-        Logger.Debug("Turn timer timed out, switching to enemy turn.");
-
-        EmitSignalPlayerTurnTimeout();
-        stateMachine.ChangeState(EnemyTurn);
-    }
-
-    private async void OnAnswerSelected(int answerIndex)
-    {
-        if (stateMachine.GetCurrentState() != PlayerTurn) return;
-
-        var correct = QuestionManager.IsAnswerCorrect(answerIndex);
-
-        Logger.Debug($"Player answered  {(correct ? "correctly" : "incorrectly")}");
-
-        EmitSignalPlayerAnswered(correct);
-
-        if (correct)
-        {
-            var enemy = aliveEnemies.PickRandom();
-            await player.TakeTurn(enemy);
-
-            // TODO: make player take less damage or something else based on the answer
-            stateMachine.ChangeState(Execute);
-            return;
-        }
-
-        turnTimer.Stop();
-        stateMachine.ChangeState(EnemyTurn);
-    }
-
-    private void StartNextEncounter()
-    {
-        if (currentEncounterIndex >= configuration.Encounters.Length - 1)
-        {
             Logger.Debug("All encounters completed, switching to victory state.");
             stateMachine.ChangeState(Victory);
             return;
@@ -192,5 +133,53 @@ public partial class RunManager : Node
         }
 
         EmitSignalEncounterStarted(currentEnemies.ToArray());
+        stateMachine.ChangeState(PlayerTurn);
+    }
+
+    private void Victory()
+    {
+        Logger.Debug("Victory state reached, handling victory logic.");
+    }
+
+    private void Defeat()
+    {
+        Logger.Debug("Defeat state reached, handling defeat logic.");
+    }
+
+    private void OnTurnTimerTimeout()
+    {
+        if (stateMachine.GetCurrentState() != PlayerTurn || turnHandled) return;
+
+        turnHandled = true;
+
+        Logger.Debug("Turn timer timed out, switching to enemy turn.");
+        EmitSignalPlayerTurnTimeout();
+        stateMachine.ChangeState(EnemyTurn);
+    }
+
+    private async void OnAnswerSelected(int answerIndex)
+    {
+        if (stateMachine.GetCurrentState() != PlayerTurn || turnHandled) return;
+
+        turnHandled = true;
+        turnTimer.Stop();
+
+        var correct = QuestionManager.IsAnswerCorrect(answerIndex);
+
+        Logger.Debug($"Player answered  {(correct ? "correctly" : "incorrectly")}");
+
+        EmitSignalPlayerAnswered(correct);
+
+        if (correct)
+        {
+            var enemy = aliveEnemies.PickRandom();
+            await player.TakeTurn(enemy);
+
+            // TODO: make player take less damage or something else based on the answer
+            stateMachine.ChangeState(Execute);
+            return;
+        }
+
+        stateMachine.ChangeStateDeferred(EnemyTurn);
     }
 }
