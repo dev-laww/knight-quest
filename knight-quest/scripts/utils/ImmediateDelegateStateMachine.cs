@@ -31,4 +31,6 @@ public partial class ImmediateDelegateStateMachine : RefCounted
         currentState = toState;
         currentState();
     }
+
+    public State GetCurrentState() => currentState;
 }

@@ -25,7 +25,7 @@ public partial class RunManager : Node
     [Signal] public delegate void PlayerAnsweredEventHandler(bool correct);
     [Signal] public delegate void EncounterStartedEventHandler(Entity[] enemies);
 
-    private DelegateStateMachine stateMachine = new();
+    private ImmediateDelegateStateMachine stateMachine = new();
     private Player player => this.GetPlayer();
 
     private Encounter currentEncounter;
@@ -45,15 +45,13 @@ public partial class RunManager : Node
     {
         this.AddToGroup();
 
-        stateMachine.AddStates(Idle);
-        stateMachine.AddStates(PlayerTurn, EnterPlayerTurn, ExitPlayerTurn);
-        stateMachine.AddStates(EnemyTurn);
-        stateMachine.AddStates(EncounterTransition);
-        stateMachine.AddStates(Execute);
-        stateMachine.AddStates(Victory);
-        stateMachine.AddStates(Defeat);
-
-        stateMachine.SetInitialState(Idle);
+        stateMachine.AddState(Idle);
+        stateMachine.AddState(PlayerTurn);
+        stateMachine.AddState(EnemyTurn);
+        stateMachine.AddState(EncounterTransition);
+        stateMachine.AddState(Execute);
+        stateMachine.AddState(Victory);
+        stateMachine.AddState(Defeat);
 
         await ToSignal(this, SignalName.Ready);
 
@@ -63,8 +61,6 @@ public partial class RunManager : Node
         GetTree().CreateTimer(1f).Timeout += Start;
     }
 
-    public override void _Process(double delta) => stateMachine.Update();
-
     public void Start()
     {
         StartNextEncounter();
@@ -73,16 +69,12 @@ public partial class RunManager : Node
 
     private void Idle() { }
 
-    private void PlayerTurn() { }
-
-    private void EnterPlayerTurn()
+    private void PlayerTurn()
     {
         QuestionManager.GetQuestion();
         turnTimer.Start(configuration.TurnDuration);
         Logger.Debug("Player's turn started, waiting for answer.");
     }
-
-    private void ExitPlayerTurn() => turnTimer.Stop();
 
     private async void EnemyTurn()
     {
@@ -175,6 +167,7 @@ public partial class RunManager : Node
             return;
         }
 
+        turnTimer.Stop();
         stateMachine.ChangeState(EnemyTurn);
     }
 
