@@ -4,12 +4,12 @@ using Godot;
 
 namespace Game;
 
-public partial class RunDetails : RefCounted
+public partial class RunConfig : RefCounted
 {
     public enum GradeLevel { }
     public enum SubjectArea { }
 
     public GradeLevel Grade;
     public SubjectArea Subject;
-    public RunConfiguration RunConfiguration;
+    public CombatSequence CombatSequence;
 }

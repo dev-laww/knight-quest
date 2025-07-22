@@ -16,7 +16,7 @@ namespace Game;
 public partial class RunManager : Node
 {
     [Export] private HeadsUpDisplay hud;
-    [Export] private RunConfiguration configuration;
+    [Export] private CombatSequence configuration;
 
     [Node] private Timer turnTimer;
 

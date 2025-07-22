@@ -3,7 +3,7 @@
 namespace Game.Data;
 
 [GlobalClass]
-public partial class RunConfiguration : Resource
+public partial class CombatSequence : Resource
 {
     [Export] public Encounter[] Encounters = [];
     [Export] public int TurnDuration = 30;
