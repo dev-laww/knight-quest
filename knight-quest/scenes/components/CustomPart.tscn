@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4tm07tk50mo3"]
+
+[ext_resource type="Script" uid="uid://hgkbm4a0tn0v" path="res://scripts/components/CustomPartButton.cs" id="1_5x7l1"]
+[ext_resource type="Resource" uid="uid://bwx8uqadxigkd" path="res://resources/partItem/hair3.tres" id="2_cugj8"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hair3" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+script = ExtResource("1_5x7l1")
+PartData = ExtResource("2_cugj8")
+
+[node name="GridContainer2" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hair3" type="TextureButton" parent="GridContainer2"]
+layout_mode = 2
+script = ExtResource("1_5x7l1")
+PartData = ExtResource("2_cugj8")
