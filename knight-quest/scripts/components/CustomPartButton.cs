@@ -16,9 +16,16 @@ public partial class CustomPartButton : TextureButton
     {
         TextureNormal = PartData.Icon;
         equipButton = GetNode<Button>("EquipButton");
+        equipButton.Visible = false;
         equipButton.Pressed += ToggleEquipState;
+        Pressed += OnCustomPartButtonPressed;
         UpdateEquipButtonText();
     }
+
+    private void OnCustomPartButtonPressed()
+    {
+        equipButton.Visible = true;
+    }    
 
     private void ToggleEquipState()
     {

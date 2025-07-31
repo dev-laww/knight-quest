@@ -19,7 +19,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Item" parent="GridContainer" instance=ExtResource("1_a11du")]
-visible = false
 layout_mode = 2
 PartData = ExtResource("3_a11du")
 
@@ -28,6 +27,5 @@ layout_mode = 2
 PartData = ExtResource("2_cugj8")
 
 [node name="Item3" parent="GridContainer" instance=ExtResource("1_a11du")]
-visible = false
 layout_mode = 2
 PartData = ExtResource("4_ts4dq")
