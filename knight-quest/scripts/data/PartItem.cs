@@ -15,4 +15,5 @@ public partial class PartItem : Resource
     [Export] public Texture2D Icon { get; set; }
     [Export] public SpriteFrames AnimationFrames { get; set; }
     [Export(PropertyHint.MultilineText)] public string Description { get; set; } = "";
+    [Export] public bool IsEquipped { get; set; } = false;
 }

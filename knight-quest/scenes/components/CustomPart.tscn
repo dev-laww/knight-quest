@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4tm07tk50mo3"]
+[gd_scene load_steps=5 format=3 uid="uid://b4tm07tk50mo3"]
 
-[ext_resource type="Script" uid="uid://hgkbm4a0tn0v" path="res://scripts/components/CustomPartButton.cs" id="1_5x7l1"]
+[ext_resource type="PackedScene" uid="uid://dyt0u82bqv7so" path="res://scenes/components/Item.tscn" id="1_a11du"]
 [ext_resource type="Resource" uid="uid://bwx8uqadxigkd" path="res://resources/partItem/hair3.tres" id="2_cugj8"]
+[ext_resource type="Resource" uid="uid://bki7ukhcvtavc" path="res://resources/partItem/cloth3.tres" id="3_a11du"]
+[ext_resource type="Resource" uid="uid://48d0w57wyacb" path="res://resources/partItem/head3.tres" id="4_ts4dq"]
 
-[node name="Control" type="Control"]
+[node name="CustomPart" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,17 +18,16 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Hair3" type="TextureButton" parent="GridContainer"]
+[node name="Item" parent="GridContainer" instance=ExtResource("1_a11du")]
+visible = false
 layout_mode = 2
-script = ExtResource("1_5x7l1")
+PartData = ExtResource("3_a11du")
+
+[node name="Item2" parent="GridContainer" instance=ExtResource("1_a11du")]
+layout_mode = 2
 PartData = ExtResource("2_cugj8")
 
-[node name="GridContainer2" type="GridContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Hair3" type="TextureButton" parent="GridContainer2"]
+[node name="Item3" parent="GridContainer" instance=ExtResource("1_a11du")]
+visible = false
 layout_mode = 2
-script = ExtResource("1_5x7l1")
-PartData = ExtResource("2_cugj8")
+PartData = ExtResource("4_ts4dq")

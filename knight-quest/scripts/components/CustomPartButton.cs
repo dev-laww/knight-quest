@@ -1,30 +1,44 @@
 using Game.Entities;
 using Game.Utils;
 using Godot;
-
+using GodotUtilities;
 
 namespace Game.Components;
+
 public partial class CustomPartButton : TextureButton
 {
-   
     [Export] public PartItem PartData;
+    private bool isEquipped = false;
+    [Node]private Button equipButton;
+    
 
     public override void _Ready()
     {
         TextureNormal = PartData.Icon;
-        Pressed += OnPressed;
+        equipButton = GetNode<Button>("EquipButton");
+        equipButton.Pressed += ToggleEquipState;
+        UpdateEquipButtonText();
     }
 
-    private void OnPressed()
+    private void ToggleEquipState()
     {
-        Player player = this.GetPlayer();
-        if (player != null)
+        var player = this.GetPlayer();
+        if (player == null) return;
+
+        if (player.IsPartEquipped(PartData))
         {
-            player.ApplyPart(PartData);
+            player.UnequipPart(PartData);
         }
         else
         {
-            GD.PrintErr("CustomPartButton: Player not found in scene tree.");
+            player.ApplyPart(PartData);
         }
+        UpdateEquipButtonText();
+    }
+
+    private void UpdateEquipButtonText()
+    {
+        var player = this.GetPlayer();
+        equipButton.Text = player != null && player.IsPartEquipped(PartData) ? "Unequip" : "Equip";
     }
 }
