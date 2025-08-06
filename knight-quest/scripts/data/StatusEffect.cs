@@ -3,6 +3,7 @@ using Godot;
 
 namespace Game.Data;
 
+[GlobalClass]
 public abstract partial class StatusEffect : Resource
 {
     [Export] public string Id;

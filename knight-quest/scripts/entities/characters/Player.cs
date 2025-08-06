@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 using System.Collections.Generic;
+using Game.Data;
 using GodotUtilities;
 
 namespace Game.Entities;
@@ -21,9 +22,9 @@ public partial class Player : Entity
 
     private AnimationNodeStateMachinePlayback playback;
 
-    private Dictionary<PartItem.PartType, PartItem> equippedParts = new();
-    private Dictionary<PartItem.PartType, AnimatedSprite2D> partSprites;
-    private Dictionary<PartItem.PartType, SpriteFrames> defaultFrames;
+    private Dictionary<Cosmetic.CosmeticType, Cosmetic> equippedParts = new();
+    private Dictionary<Cosmetic.CosmeticType, AnimatedSprite2D> partSprites;
+    private Dictionary<Cosmetic.CosmeticType, SpriteFrames> defaultFrames;
 
     public override void _Notification(int what)
     {
@@ -37,14 +38,14 @@ public partial class Player : Entity
 
         playback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
 
-        partSprites = new Dictionary<PartItem.PartType, AnimatedSprite2D>
+        partSprites = new Dictionary<Cosmetic.CosmeticType, AnimatedSprite2D>
         {
-            { PartItem.PartType.Hair, hairSprite },
-            { PartItem.PartType.Clothes, clothesSprite },
-            { PartItem.PartType.Head, headSprite }
+            { Cosmetic.CosmeticType.Hair, hairSprite },
+            { Cosmetic.CosmeticType.Clothes, clothesSprite },
+            { Cosmetic.CosmeticType.Head, headSprite }
         };
 
-        defaultFrames = new Dictionary<PartItem.PartType, SpriteFrames>();
+        defaultFrames = new Dictionary<Cosmetic.CosmeticType, SpriteFrames>();
         foreach (var kvp in partSprites)
         {
             defaultFrames[kvp.Key] = kvp.Value.SpriteFrames.Duplicate() as SpriteFrames;
@@ -60,12 +61,12 @@ public partial class Player : Entity
         await ToSignal(animationTree, "animation_finished");
     }
 
-    public void ApplyPart(PartItem part)
+    public void EquipCosmetic(Cosmetic part)
     {
-        UnequipPart(part.Type);
+        UnequipCosmetic(part.Type);
 
         equippedParts[part.Type] = part;
-        part.IsEquipped = true;
+        part.Equipped = true;
 
         if (partSprites.TryGetValue(part.Type, out var sprite))
         {
@@ -75,16 +76,13 @@ public partial class Player : Entity
         RefreshSprites();
     }
 
-    public void UnequipPart(PartItem part)
-    {
-        UnequipPart(part.Type);
-    }
+    public void UnequipCosmetic(Cosmetic part) => UnequipCosmetic(part.Type);
 
-    public void UnequipPart(PartItem.PartType type)
+    public void UnequipCosmetic(Cosmetic.CosmeticType type)
     {
         if (equippedParts.TryGetValue(type, out var part))
         {
-            part.IsEquipped = false;
+            part.Equipped = false;
             equippedParts.Remove(type);
 
             if (partSprites.TryGetValue(type, out var sprite))
@@ -96,8 +94,12 @@ public partial class Player : Entity
         RefreshSprites();
     }
 
-    public bool IsPartEquipped(PartItem part) =>
-        equippedParts.TryGetValue(part.Type, out var equipped) && equipped == part;
+    public bool IsCosmeticEquipped(Cosmetic part)
+    {
+        var exists = equippedParts.TryGetValue(part.Type, out var equipped);
+
+        return part.ResourcePath == equipped?.ResourcePath && exists;
+    }
 
     private void RefreshSprites()
     {
@@ -107,7 +109,9 @@ public partial class Player : Entity
             sprite.Play("default");
         }
 
-        baseSprite.Stop(); baseSprite.Play("default");
-        faceSprite.Stop(); faceSprite.Play("default");
+        baseSprite.Stop();
+        baseSprite.Play("default");
+        faceSprite.Stop();
+        faceSprite.Play("default");
     }
 }

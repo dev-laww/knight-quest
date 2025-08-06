@@ -2,7 +2,7 @@ using Game.Data;
 using Godot;
 
 
-namespace Game;
+namespace Game.Data;
 
 public partial class RunConfig : RefCounted
 {
