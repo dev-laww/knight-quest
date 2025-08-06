@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b4tm07tk50mo3"]
 
-[ext_resource type="PackedScene" uid="uid://dyt0u82bqv7so" path="res://scenes/components/item_.tscn" id="1_a11du"]
+[ext_resource type="PackedScene" uid="uid://dyt0u82bqv7so" path="res://scenes/components/item.tscn" id="1_a11du"]
 [ext_resource type="Resource" uid="uid://bwx8uqadxigkd" path="res://resources/partItem/hair3.tres" id="2_cugj8"]
 [ext_resource type="Resource" uid="uid://bki7ukhcvtavc" path="res://resources/partItem/cloth3.tres" id="3_a11du"]
 [ext_resource type="Resource" uid="uid://48d0w57wyacb" path="res://resources/partItem/head3.tres" id="4_ts4dq"]
