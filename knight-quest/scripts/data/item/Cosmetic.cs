@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace Game.Data;
 
@@ -24,7 +23,6 @@ public partial class Cosmetic : Item
 
     [Export] public CosmeticType Type;
     [Export] public CosmeticCharacter Character;
-    [Export] public Texture2D Icon;
     [Export] public SpriteFrames AnimationFrames;
     [Export] public bool Equipped;
 }
