@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Godot;
 using System.Collections.Generic;
 using Game.Data;
+using Game.Utils;
 using GodotUtilities;
 
 namespace Game.Entities;
@@ -93,6 +94,31 @@ public partial class Player : Entity
 
         RefreshSprites();
     }
+    public void PreviewCosmetic(Cosmetic part)
+    {
+        if (part == null) return;
+
+        // Check if that part type exists in the player
+        if (partSprites.TryGetValue(part.Type, out var sprite))
+        {
+            sprite.SpriteFrames = part.AnimationFrames;
+            RefreshSprites();
+            Logger.Info($"[DEBUG] Previewing cosmetic: {part.Name} ({part.Type})");
+        }
+    }
+    
+    public void ClearPreview(Cosmetic.CosmeticType type)
+    {
+        // Reset to default visuals (not equipped state)
+        if (partSprites.TryGetValue(type, out var sprite))
+        {
+            sprite.SpriteFrames = defaultFrames[type];
+            RefreshSprites();
+            Logger.Info($"[DEBUG] Cleared preview for {type}");
+        }
+    }
+
+
 
     public bool IsCosmeticEquipped(Cosmetic part)
     {
