@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Data;
+using Game.Utils;
 using Godot;
 
 namespace Game.Autoloads;
@@ -23,7 +24,16 @@ public partial class ShopManager : Autoload<ShopManager>
 
     public override void _Ready()
     {
-        // load shop items
+        shopItems[typeof(Consumable)] = ItemRegistry.GetItemsByType<Consumable>();
+        shopItems[typeof(Cosmetic)] = ItemRegistry.GetItemsByType<Cosmetic>();
+        GD.Print($"[DEBUG] Consumables loaded: {shopItems[typeof(Consumable)].Count}");
+        GD.Print($"[DEBUG] Cosmetics loaded: {shopItems[typeof(Cosmetic)].Count}");
+        foreach (var item in ShopManager.GetItemsByType<Cosmetic>())
+        {
+            GD.Print($"[DEBUG] UI processing cosmetic: {item.Name}, Icon: {item.Icon}");
+            // Assign item.Icon to TextureRect, item.Name to Label, etc.
+        }
+        AddCoins(100);
     }
 
     public static void AddCoins(int amount)
@@ -59,5 +69,6 @@ public partial class ShopManager : Autoload<ShopManager>
         }
 
         Instance.EmitSignalItemBought(item);
+        Logger.Info("Bought item");
     }
 }

@@ -1,0 +1,372 @@
+[gd_scene load_steps=6 format=3 uid="uid://dl0ra7swg3dqq"]
+
+[ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
+[ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
+[ext_resource type="PackedScene" uid="uid://w7jqwff50jq1" path="res://scenes/ui/common/Slot.tscn" id="2_ath4n"]
+[ext_resource type="PackedScene" uid="uid://dqpduk7nq4wmo" path="res://scenes/entities/characters/player.tscn" id="2_qwora"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ath4n"]
+texture = ExtResource("1_w276f")
+region_rect = Rect2(35.4453, 1124.05, 175.534, 271.838)
+
+[node name="Shop" type="CanvasLayer"]
+script = ExtResource("1_ath4n")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 639.0
+offset_bottom = 359.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_ath4n")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CloseButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 53
+text = "SHOP"
+
+[node name="CoinLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_w276f")
+region_rect = Rect2(41.6244, 1667.83, 240.717, 274.606)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(401, 0)
+layout_mode = 2
+
+[node name="SlotContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 8
+
+[node name="Slot" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot2" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot3" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot4" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot5" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot6" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot7" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot8" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot9" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot10" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot11" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot12" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot13" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot14" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot15" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot16" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot17" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot18" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot19" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot20" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot21" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot22" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot23" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot24" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot25" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot26" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot27" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot28" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot29" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot30" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot31" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot32" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot33" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot34" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot35" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot36" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot37" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot38" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot39" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Slot40" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_w276f")
+region_rect = Rect2(268.573, 1134.3, 159.119, 250.745)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="DummyContainer" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerDummy" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/DummyContainer" instance=ExtResource("2_qwora")]
+unique_name_in_owner = true
+position = Vector2(79, 89)
+
+[node name="ItemDetail" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectedItemName" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SelectedItemDescription" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BuyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
+unique_name_in_owner = true
+layout_mode = 2
