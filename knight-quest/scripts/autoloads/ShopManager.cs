@@ -25,15 +25,10 @@ public partial class ShopManager : Autoload<ShopManager>
     public override void _Ready()
     {
         shopItems[typeof(Consumable)] = ItemRegistry.GetItemsByType<Consumable>();
-        shopItems[typeof(Cosmetic)] = ItemRegistry.GetItemsByType<Cosmetic>();
-        GD.Print($"[DEBUG] Consumables loaded: {shopItems[typeof(Consumable)].Count}");
-        GD.Print($"[DEBUG] Cosmetics loaded: {shopItems[typeof(Cosmetic)].Count}");
-        foreach (var item in ShopManager.GetItemsByType<Cosmetic>())
+        foreach (var item in ShopManager.GetItemsByType<Consumable>())
         {
-            GD.Print($"[DEBUG] UI processing cosmetic: {item.Name}, Icon: {item.Icon}");
-            // Assign item.Icon to TextureRect, item.Name to Label, etc.
+           Logger.Info($"[DEBUG] UI processing cosmetic: {item.Name}, Icon: {item.Icon}");
         }
-        AddCoins(100);
     }
 
     public static void AddCoins(int amount)
@@ -50,25 +45,25 @@ public partial class ShopManager : Autoload<ShopManager>
         Instance.EmitSignalCoinsChanged(Coins);
     }
 
+
     public static List<Item> GetItemsByType<T>() where T : Item =>
         shopItems.TryGetValue(typeof(T), out var items) ? items : [];
-
-    public static void BuyItem(Item item)
+    public static void BuyItem(ItemGroup item)
     {
         var existingItem = shopItems[item.GetType()].Find(i => i.ResourcePath == item.ResourcePath);
 
         if (existingItem is null or Cosmetic { Owned: true }) return;
 
-        SpendCoins(item.Cost);
+        SpendCoins(item.Item.Cost);
 
         existingItem.Owned = true;
 
-        if (item is Consumable consumable)
+        if (item.Item is Consumable consumable)
         {
             consumable.Quantity++;
         }
 
-        Instance.EmitSignalItemBought(item);
-        Logger.Info("Bought item");
+        Instance.EmitSignalItemBought(item.Item);
+        Logger.Info($"Bought item {item.Item.Owned}");
     }
 }

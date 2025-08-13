@@ -20,12 +20,13 @@ public partial class Shop : CanvasLayer
     [Node] private RichTextLabel selectedItemDescription;
     [Node] private Button buyButton;
     [Node] private Player playerDummy;
+    
 
     [Signal]
     public delegate void ItemBoughtEventHandler();
 
     private List<Slot> slots;
-    private Item selectedItem;
+    private ItemGroup selectedItem;
 
     public override void _Notification(int what)
     {
@@ -37,7 +38,11 @@ public partial class Shop : CanvasLayer
     {
         coinLabel.Text = $"Coins: {ShopManager.Coins}";
 
-        slots = slotContainer.GetChildrenOfType<Slot>().ToList();
+        // Grab only the Slot nodes from slotContainer
+        slots = slotContainer.GetChildren()
+            .OfType<Slot>() // filters only Slot type
+            .ToList();
+
         slots.ForEach(slot => slot.Pressed += SelectSlot);
 
         buyButton.Pressed += OnBuyButtonPress;
@@ -47,38 +52,45 @@ public partial class Shop : CanvasLayer
         Reset();
     }
 
+
     private void PopulateSlots()
     {
-        var items = ShopManager.GetItemsByType<Cosmetic>();
+        var items = ShopManager.GetItemsByType<Consumable>();
+        slots.Where(slot => slot.Item != null).ToList().ForEach(slot => slot.Item = null);
 
-        for (int i = 0; i < slots.Count && i < items.Count; i++)
+        for (var i = 0; i < items.Count; i++)
         {
-            var slot = slots[i];
-            var item = items[i];
-
-            slot.Item = item;
-            slot.icon.Texture = item.Icon;
+            slots[i].Item.Item = items[i];
+            
         }
+        SelectSlot(slots.First());;
+      UpdateSelectedItem(slots.First().Item);
+
     }
 
     private void SelectSlot(Slot slot)
     {
         var selectedSlot = slots.FirstOrDefault(s => s.Selected);
-        if (selectedSlot != null)
-            selectedSlot.Selected = false;
+
+        if (selectedSlot is null)
+        {
+            slot.Selected = true;
+            return;
+        }
+
+        if (selectedSlot == slot) return;
 
         slot.Selected = true;
+        selectedSlot.Selected = false;
         UpdateSelectedItem(slot.Item);
-
-        if (slot.Item is Cosmetic cosmetic)
-            playerDummy.PreviewCosmetic(cosmetic);
     }
 
-    private void UpdateSelectedItem(Item item)
+    private void UpdateSelectedItem(ItemGroup item)
     {
         selectedItem = item;
-        selectedItemName.Text = item?.Name;
-        selectedItemDescription.Text = item?.Description ?? string.Empty;
+        selectedItemName.Text = item?.Item.Name;
+        selectedItemDescription.Text = item?.Item.Description ?? string.Empty;
+        
         UpdateButtonState();
     }
 
@@ -106,8 +118,9 @@ public partial class Shop : CanvasLayer
 
     private bool CanBuy()
     {
-        return selectedItem != null && ShopManager.Coins >= selectedItem.Cost;
+        return selectedItem != null && ShopManager.Coins >= selectedItem.Item.Cost;
     }
+
 
     private void Buy()
     {
