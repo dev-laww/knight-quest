@@ -16,7 +16,7 @@ public abstract partial class Registry<T, TRegistry> : RefCounted
 
     protected abstract string ResourcePath { get; }
 
-    protected static readonly Dictionary<string, T> Resources = [];
+    public static readonly Dictionary<string, T> Resources = [];
 
     static Registry()
     {

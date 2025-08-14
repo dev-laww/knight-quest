@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 QuestionManager="*res://scenes/autoloads/question_manager.tscn"
 shopManager="*res://scripts/autoloads/ShopManager.cs"
+inventoryManager="*res://scripts/autoloads/InventoryManager.cs"
 
 [display]
 
