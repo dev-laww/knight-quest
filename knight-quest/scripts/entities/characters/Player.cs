@@ -41,10 +41,12 @@ public partial class Player : Entity
         playback.Travel(HURT);
     }
 
+    // NOTE: always put the turn-taking logic after the animation playback to avoid animation race conditions
+    //       (e.g. if the player attacks and the enemy dies, the player will still play the attack animation)
     public override async Task TakeTurn(Entity target)
     {
-        await base.TakeTurn(target);
         playback.Travel(ATTACK);
         await ToSignal(animationTree, "animation_finished");
+        await base.TakeTurn(target);
     }
 }

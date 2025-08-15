@@ -80,6 +80,7 @@ public partial class RunManager : Node
         var enemy = aliveEnemies.PickRandom();
 
         await enemy.TakeTurn(player);
+        await ToSignal(GetTree().CreateTimer(2f), "timeout");
 
         stateMachine.ChangeState(Execute);
     }
