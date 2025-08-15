@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_vfvld"]
 [ext_resource type="PackedScene" uid="uid://mqdvfqgo4wwf" path="res://scenes/ui/common/nine_patch_rect.tscn" id="2_6jlxp"]
 [ext_resource type="Script" uid="uid://dpt83vd4yrvna" path="res://scripts/ui/overlays/HeadsUpDisplay.cs" id="2_r0aol"]
-[ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot-temp.tscn" id="4_qqe2g"]
+[ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot.tscn" id="4_qqe2g"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_r0aol"]
 resource_name = "answer_button_group"
