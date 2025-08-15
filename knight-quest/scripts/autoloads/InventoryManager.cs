@@ -10,88 +10,66 @@ namespace Game.Autoloads;
 [GlobalClass]
 public partial class InventoryManager : Autoload<InventoryManager>
 {
-    [Signal] public delegate void UpdatedEventHandler(Item item, int quantity);
+    [Signal] public delegate void ItemAddedEventHandler(ItemGroup group);
+    [Signal] public delegate void UpdatedEventHandler(ItemGroup group);
+    [Signal] public delegate void ItemRemovedEventHandler(ItemGroup group);
+    [Signal] public delegate void InventoryUpdatedEventHandler();
 
-    private readonly Dictionary<Item, int> inventory = new();
+    private readonly Dictionary<Item, ItemGroup> items = new();
+    public IReadOnlyDictionary<Item, ItemGroup> Items => items;
 
-    public override void _Ready()
+    public void AddItem(Item item)
     {
-        var consumables = ItemRegistry.GetItemsByType<Consumable>();
+        ArgumentNullException.ThrowIfNull(item);
 
-        foreach (var consumable in consumables.Where(consumable => consumable.Quantity > 0))
+        if (items.TryGetValue(item, out var itemGroup))
         {
-            AddItem(consumable, consumable.Quantity);
-            Logger.Info($"Initialized inventory with {consumable.Quantity}x {consumable.Name}.");
+            itemGroup.Quantity++;
+            items[item] = itemGroup;
+        }
+        else
+        {
+            itemGroup = new ItemGroup { Item = item, Quantity = 1 };
+            items[item] = itemGroup;
+        }
+
+        EmitSignalItemAdded(itemGroup);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        ArgumentNullException.ThrowIfNull(item);
+
+        if (!items.TryGetValue(item, out var itemGroup)) return;
+
+        if (itemGroup.Quantity > 1)
+        {
+            itemGroup.Quantity--;
+            items[item] = itemGroup;
+            EmitSignalUpdated(itemGroup);
+        }
+        else
+        {
+            items.Remove(item);
+            EmitSignalItemRemoved(itemGroup);
         }
     }
 
-    public void AddItem(Item item, int quantity = 1)
+    public void UseItem(Item item, Entity target)
     {
-        if (item == null)
-        {
-            Logger.Error("Tried to add a null item to inventory.");
-            return;
-        }
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(target);
 
-        if (!inventory.TryAdd(item, quantity))
-            inventory[item] += quantity;
-
-        // Sync Consumable quantity
-        if (item is Consumable consumable)
-            consumable.Quantity = inventory[item];
-
-        EmitSignalUpdated(item, inventory[item]);
-        Logger.Info($"Added {quantity}x {item.Name} to the inventory.");
-    }
-
-    public void UseItem(Item item, Entity target, int amount = 1)
-    {
-        if (item == null)
-        {
-            Logger.Error("Tried to use a null item.");
-            return;
-        }
-
-        if (!inventory.TryGetValue(item, out int currentQuantity))
-        {
-            Logger.Warn($"Tried to use {item.Name} but it was not in the inventory.");
-            return;
-        }
-
-        if (currentQuantity < amount)
-        {
-            Logger.Warn($"Not enough {item.Name} in inventory. Have {currentQuantity}, need {amount}.");
-            return;
-        }
+        if (!items.TryGetValue(item, out var itemGroup)) return;
 
         if (item is Consumable consumable)
         {
-            for (var i = 0; i < amount; i++) consumable.Use(target);
+            consumable.Use(target);
+            RemoveItem(item);
         }
-
-        currentQuantity -= amount;
-        if (currentQuantity <= 0) inventory.Remove(item);
-        else inventory[item] = currentQuantity;
-
-        // Sync Consumable quantity
-        if (item is Consumable consumable2)
-            consumable2.Quantity = Math.Max(currentQuantity, 0);
-
-        EmitSignalUpdated(item, Math.Max(currentQuantity, 0));
-        Logger.Info($"Used {amount}x {item.Name}.");
-    }
-
-    public int GetQuantity(Item item) => inventory.GetValueOrDefault(item, 0);
-
-    public static List<Item> GetItemsByType<T>() where T : Item =>
-        Instance.inventory.Keys.OfType<T>().Cast<Item>().ToList();
-
-    public bool HasItem(Item item, int minQuantity = 1) =>
-        inventory.TryGetValue(item, out var quantity) && quantity >= minQuantity;
-
-    public void Clear()
-    {
-        inventory.Clear();
-        Logger.Info("Inventory cleared.");
+        else
+        {
+            Logger.Warn($"Item {item.Name} is not consumable and cannot be used.");
+        }
     }
 }

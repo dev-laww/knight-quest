@@ -13,17 +13,17 @@ public partial class Slot : Panel
 
     [Signal] public delegate void PressedEventHandler(Consumable consumable);
 
-    private Item item;
+    private ItemGroup itemGroup;
 
-    public Item Item
+    public ItemGroup ItemGroup
     {
-        get => item;
+        get => itemGroup;
         set
         {
-            item = value;
-            icon.Texture = item?.Icon;
-            if (item is Consumable consumable)
-                label.Text = consumable.Quantity.ToString();
+            itemGroup = value;
+            icon.Texture = itemGroup?.Item.Icon;
+            if (itemGroup is { Item: Consumable })
+                label.Text = itemGroup.Quantity.ToString();
             else
                 label.Text = string.Empty;
         }
@@ -45,6 +45,6 @@ public partial class Slot : Panel
         if (@event is not InputEventMouseButton mouseAction) return;
         if (!mouseAction.Pressed || mouseAction.ButtonIndex != MouseButton.Left) return;
 
-        EmitSignalPressed(Item as Consumable);
+        EmitSignalPressed(ItemGroup.Item as Consumable);
     }
 }

@@ -128,36 +128,38 @@ public partial class HeadsUpDisplay : MarginContainer
     private void PopulateSlots()
     {
         // TODO: Load from config
-        var items = InventoryManager.GetItemsByType<Consumable>();
+        var items = InventoryManager.Instance.Items.Values.ToList();
 
         Logger.Info($"Populating slots: {items.Count} items.");
 
-        foreach (var item in items)
+        foreach (var (item, quantity) in items)
         {
-            var slot = slots.FirstOrDefault(s => s.Item == item);
+            var slot = slots.FirstOrDefault(s => item.Equals(s.ItemGroup.Item));
             if (slot != null)
             {
-                // slot.Quantity = InventoryManager.Instance.GetQuantity(item);
+                slot.ItemGroup.Quantity = quantity;
+                Logger.Debug($"Updated slot for {item.Name} with quantity {quantity}.");
                 continue;
             }
 
-            // Find an empty slot
-            slot = slots.FirstOrDefault(s => s.Item == null);
+            slot = slots.FirstOrDefault(s => s.ItemGroup == null);
             if (slot != null)
             {
-                slot.Item = item;
-                // slot.Quantity = InventoryManager.Instance.GetQuantity(item);
+                slot.ItemGroup = new ItemGroup
+                {
+                    Item = item,
+                    Quantity = quantity
+                };
                 Logger.Debug($"Populated slot with {item.Name}.");
+                return;
             }
-            else
-            {
-                Logger.Warn("No empty slots available to populate.");
-            }
+
+            Logger.Warn("No empty slots available to populate.");
         }
     }
 
 
-    private void OnInventoryUpdate(Item item, int quantity)
+    private void OnInventoryUpdate(ItemGroup itemGroup)
     {
         PopulateSlots();
     }

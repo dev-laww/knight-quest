@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 namespace Game.Data;
 
@@ -10,4 +11,11 @@ public partial class Item : Resource
 
     [Export] public int Cost;
     [Export] public bool Owned;
+
+    public override bool Equals(object other)
+    {
+        return other != null && GetType() == other.GetType();
+    }
+
+    public override int GetHashCode() => GetType().GetHashCode();
 }
