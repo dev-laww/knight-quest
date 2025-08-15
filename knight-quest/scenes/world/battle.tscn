@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dw0w0v0uwrdqj" path="res://scripts/world/Battle.cs" id="1_5r7dh"]
 [ext_resource type="PackedScene" uid="uid://cf6rph7p0k8y7" path="res://scenes/ui/overlays/heads_up_display.tscn" id="1_hjx2g"]
 [ext_resource type="PackedScene" uid="uid://b2fshu4a5e41d" path="res://scenes/entities/enemies/star.tscn" id="3_fs26p"]
-[ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/Encounter.cs" id="3_t5uxl"]
-[ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/CombatSequence.cs" id="4_5r7dh"]
+[ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="3_t5uxl"]
+[ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="4_5r7dh"]
 [ext_resource type="PackedScene" uid="uid://dfdm55jit0843" path="res://scenes/components/managers/run_manager.tscn" id="4_t5uxl"]
-[ext_resource type="PackedScene" uid="uid://dqpduk7nq4wmo" path="res://scenes/entities/characters/player.tscn" id="6_t5uxl"]
+[ext_resource type="PackedScene" uid="uid://xiae7tfwbeew" path="res://scenes/entities/characters/player.tscn" id="6_t5uxl"]
 
 [sub_resource type="Resource" id="Resource_wfn15"]
 script = ExtResource("3_t5uxl")

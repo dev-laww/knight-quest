@@ -47,16 +47,16 @@ public partial class Shop : CanvasLayer
 
     private void PopulateSlots()
     {
-        var items = ShopManager.GetItemsByType<Cosmetic>();
-
-        for (int i = 0; i < slots.Count && i < items.Count; i++)
-        {
-            var slot = slots[i];
-            var item = items[i];
-
-            slot.Item = item;
-            slot.icon.Texture = item.Icon;
-        }
+        // var items = ShopManager.GetItemsByType<Cosmetic>();
+        //
+        // for (int i = 0; i < slots.Count && i < items.Count; i++)
+        // {
+        //     var slot = slots[i];
+        //     var item = items[i];
+        //
+        //     slot.Item = item;
+        //     slot.icon.Texture = item.Icon;
+        // }
     }
 
     private void SelectSlot(Slot slot)
