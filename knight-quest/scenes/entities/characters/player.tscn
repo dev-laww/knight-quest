@@ -343,7 +343,7 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_4rl2u")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {

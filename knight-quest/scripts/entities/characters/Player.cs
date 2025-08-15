@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 using System.Collections.Generic;
+using Game.Components;
 using Game.Data;
 using Game.Utils;
 using GodotUtilities;
@@ -29,6 +30,15 @@ public partial class Player : Entity
         this.AddToGroup();
 
         playback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
+
+        StatsManager.StatDecreased += OnStatDecreased;
+    }
+
+    private void OnStatDecreased(int amount, StatsManager.Stat stat)
+    {
+        if (stat != StatsManager.Stat.Health) return;
+
+        playback.Travel(HURT);
     }
 
     public override async Task TakeTurn(Entity target)
