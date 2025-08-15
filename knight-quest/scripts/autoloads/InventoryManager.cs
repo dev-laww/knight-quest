@@ -10,10 +10,20 @@ namespace Game.Autoloads;
 [GlobalClass]
 public partial class InventoryManager : Autoload<InventoryManager>
 {
-    [Signal]
-    public delegate void UpdatedEventHandler(Item item, int quantity);
+    [Signal] public delegate void UpdatedEventHandler(Item item, int quantity);
 
     private readonly Dictionary<Item, int> inventory = new();
+
+    public override void _Ready()
+    {
+        var consumables = ItemRegistry.GetItemsByType<Consumable>();
+
+        foreach (var consumable in consumables.Where(consumable => consumable.Quantity > 0))
+        {
+            AddItem(consumable, consumable.Quantity);
+            Logger.Info($"Initialized inventory with {consumable.Quantity}x {consumable.Name}.");
+        }
+    }
 
     public void AddItem(Item item, int quantity = 1)
     {
@@ -25,7 +35,7 @@ public partial class InventoryManager : Autoload<InventoryManager>
 
         if (!inventory.TryAdd(item, quantity))
             inventory[item] += quantity;
-        
+
         // Sync Consumable quantity
         if (item is Consumable consumable)
             consumable.Quantity = inventory[item];
@@ -56,7 +66,7 @@ public partial class InventoryManager : Autoload<InventoryManager>
 
         if (item is Consumable consumable)
         {
-            for (int i = 0; i < amount; i++) consumable.Use(target);
+            for (var i = 0; i < amount; i++) consumable.Use(target);
         }
 
         currentQuantity -= amount;
@@ -72,8 +82,9 @@ public partial class InventoryManager : Autoload<InventoryManager>
     }
 
     public int GetQuantity(Item item) => inventory.GetValueOrDefault(item, 0);
-public static List<Item> GetItemsByType<T>() where T : Item =>
-    Instance.inventory.Keys.OfType<T>().Cast<Item>().ToList();
+
+    public static List<Item> GetItemsByType<T>() where T : Item =>
+        Instance.inventory.Keys.OfType<T>().Cast<Item>().ToList();
 
     public bool HasItem(Item item, int minQuantity = 1) =>
         inventory.TryGetValue(item, out var quantity) && quantity >= minQuantity;

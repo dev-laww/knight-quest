@@ -19,8 +19,7 @@ public partial class HeadsUpDisplay : MarginContainer
 
     private List<Slot> slots;
 
-    [Signal]
-    public delegate void AnswerSelectedEventHandler(int index);
+    [Signal] public delegate void AnswerSelectedEventHandler(int index);
 
     public Vector2 PlayerGlobalPosition => playerPosition.GetGlobalPosition();
     public Vector2 EnemyGlobalPosition => enemyPosition.GetGlobalPosition();
@@ -35,9 +34,10 @@ public partial class HeadsUpDisplay : MarginContainer
     {
         slots = itemContainer.GetChildrenOfType<Slot>().ToList();
         foreach (var slot in slots)
-        {   
-            slot.Pressed += SelectSlot;
+        {
+            slot.Pressed += UseConsumable;
         }
+
         PopulateSlots();
 
         InventoryManager.Instance.Updated += OnInventoryUpdate;
@@ -45,8 +45,6 @@ public partial class HeadsUpDisplay : MarginContainer
         var answerButtonGroup = firstAnswerButton.ButtonGroup;
         answerButtonGroup.Pressed += OnAnswerButtonPressed;
         QuestionManager.Instance.QuestionRequested += OnQuestionRequested;
-        
-        
     }
 
     public override void _ExitTree()
@@ -118,49 +116,43 @@ public partial class HeadsUpDisplay : MarginContainer
         }
     }
 
-    // ===============================
-    // INVENTORY QUICK-USE
-    // ===============================
-    private void SelectSlot(Slot slot)
+    private void UseConsumable(Consumable consumable)
     {
-        var selectedSlot = slots.FirstOrDefault(s => s.Selected);
-        if (selectedSlot != null)
-            selectedSlot.Selected = false;
+        if (consumable == null || this.GetPlayer() is null) return;
 
-        slot.Selected = true;
-        UpdateSelectedItem(slot.Item);
+        Logger.Info($"Used consumable: {consumable.Name}");
 
-        if (slot.Item is Consumable consumable)
-            Logger.Info($"clicked {consumable.Name}");
-    }
-
-    private void UpdateSelectedItem(Item item)
-    {
-        if (item == null)
-        {
-            Logger.Debug("No item selected.");
-            return;
-        }
-
-        Logger.Debug($"Selected item: {item.Name} x");
+        InventoryManager.Instance.UseItem(consumable, this.GetPlayer());
     }
 
     private void PopulateSlots()
     {
-        var items = ItemRegistry.Resources.Values
-            .OfType<Consumable>()
-            .Where(c => c.Owned)
-            .Cast<Item>()
-            .ToList();
+        // TODO: Load from config
+        var items = InventoryManager.GetItemsByType<Consumable>();
 
         Logger.Info($"Populating slots: {items.Count} items.");
-        for (int i = 0; i < slots.Count && i < items.Count; i++)
+
+        foreach (var item in items)
         {
-            var slot = slots[i];
-            var item = items[i];
-            Logger.Debug($"Slot {i}: Item={item.Name}, Owned={item is Consumable c && c.Owned}, Icon={(item.Icon != null ? "Yes" : "No")}");
-            slot.Item = item;
-            slot.icon.Texture = item.Icon;
+            var slot = slots.FirstOrDefault(s => s.Item == item);
+            if (slot != null)
+            {
+                // slot.Quantity = InventoryManager.Instance.GetQuantity(item);
+                continue;
+            }
+
+            // Find an empty slot
+            slot = slots.FirstOrDefault(s => s.Item == null);
+            if (slot != null)
+            {
+                slot.Item = item;
+                // slot.Quantity = InventoryManager.Instance.GetQuantity(item);
+                Logger.Debug($"Populated slot with {item.Name}.");
+            }
+            else
+            {
+                Logger.Warn("No empty slots available to populate.");
+            }
         }
     }
 

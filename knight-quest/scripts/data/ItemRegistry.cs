@@ -15,10 +15,10 @@ public partial class ItemRegistry : Registry<Item, ItemRegistry>
         .Where(item => item.Cost <= maxCost)
         .ToList();
 
-    public static List<Item> GetItemsByType<T>() where T : Item
+    public static List<T> GetItemsByType<T>() where T : Item
     {
         return Resources.Values
-            .Where(item => item is T)
+            .OfType<T>()
             .ToList();
     }
 

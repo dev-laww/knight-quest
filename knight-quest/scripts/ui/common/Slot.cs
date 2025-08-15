@@ -1,33 +1,20 @@
 using Game.Data;
-using Game.Utils;
 using Godot;
 using GodotUtilities;
-    
+
 namespace Game.UI;
-    
+
 [Scene]
 public partial class Slot : Panel
 {
     [Node] public TextureRect icon;
     [Node] private AnimationPlayer animationPlayer;
     [Node] private Label label;
-    
-    [Signal]
-    public delegate void PressedEventHandler(Slot slot);
-    
-    private bool selected;
+
+    [Signal] public delegate void PressedEventHandler(Consumable consumable);
+
     private Item item;
-    
-    public bool Selected
-    {
-        get => selected;
-        set
-        {
-            selected = value;
-            // animationPlayer.Play(selected ? "select" : "RESET");
-        }
-    }
-    
+
     public Item Item
     {
         get => item;
@@ -41,25 +28,23 @@ public partial class Slot : Panel
                 label.Text = string.Empty;
         }
     }
-    
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
         WireNodes();
     }
-    
+
     public override void _Ready()
     {
         GuiInput += OnGuiInput;
     }
-    
+
     private void OnGuiInput(InputEvent @event)
     {
         if (@event is not InputEventMouseButton mouseAction) return;
-        if (!mouseAction.Pressed) return;
-    
-        // animationPlayer.Play(selected ? "select" : "RESET");
-        Logger.Info($"[DEBUG] Slot clicked: {item?.Name}");
-        EmitSignalPressed(this);
+        if (!mouseAction.Pressed || mouseAction.ButtonIndex != MouseButton.Left) return;
+
+        EmitSignalPressed(Item as Consumable);
     }
 }

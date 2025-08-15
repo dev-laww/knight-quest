@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_vfvld"]
 [ext_resource type="PackedScene" uid="uid://mqdvfqgo4wwf" path="res://scenes/ui/common/nine_patch_rect.tscn" id="2_6jlxp"]
 [ext_resource type="Script" uid="uid://dpt83vd4yrvna" path="res://scripts/ui/overlays/HeadsUpDisplay.cs" id="2_r0aol"]
-[ext_resource type="PackedScene" uid="uid://w7jqwff50jq1" path="res://scenes/ui/common/Slot.tscn" id="4_qqe2g"]
+[ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot.tscn" id="4_qqe2g"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_r0aol"]
 resource_name = "answer_button_group"
@@ -83,39 +83,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemContainer" type="GridContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemContainer" type="GridContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 3
 
-[node name="Slot" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="Slot" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot2" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="Slot2" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot3" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="Slot3" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot4" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="Slot4" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot5" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="Slot5" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot6" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="Slot6" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+layout_mode = 2
+
+[node name="Slot7" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+layout_mode = 2
+
+[node name="Slot8" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+layout_mode = 2
+
+[node name="Slot9" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
 [node name="QuestionsContainer" parent="VBoxContainer/Bottom" instance=ExtResource("2_6jlxp")]

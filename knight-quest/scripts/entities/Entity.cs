@@ -35,7 +35,10 @@ public partial class Entity : Node2D
         var attack = StatsManager.CreateAttack();
 
         targetStatsManager.ReceiveAttack(attack);
-        Logger.Debug($"{Name} attacks {target.Name} for {StatsManager.Damage} damage!");
+        Logger.Debug(
+            $"{Name} attacks {target.Name} for {StatsManager.Damage} damage!" +
+            $" Target has {targetStatsManager.Health} health remaining."
+        );
 
         return Task.CompletedTask;
     }

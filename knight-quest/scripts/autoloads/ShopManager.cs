@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Data;
 using Game.Utils;
 using Godot;
@@ -27,8 +28,8 @@ public partial class ShopManager : Autoload<ShopManager>
 
     public override void _Ready()
     {
-        shopItems[typeof(Consumable)] = ItemRegistry.GetItemsByType<Consumable>();
-        shopItems[typeof(Cosmetic)] = ItemRegistry.GetItemsByType<Cosmetic>();
+        shopItems[typeof(Consumable)] = ItemRegistry.GetItemsByType<Consumable>().Select(Item (item) => item).ToList();
+        shopItems[typeof(Cosmetic)] = ItemRegistry.GetItemsByType<Cosmetic>().Select(Item (item) => item).ToList();
         GD.Print($"[DEBUG] Consumables loaded: {shopItems[typeof(Consumable)].Count}");
         GD.Print($"[DEBUG] Cosmetics loaded: {shopItems[typeof(Cosmetic)].Count}");
         foreach (var item in ShopManager.GetItemsByType<Cosmetic>())

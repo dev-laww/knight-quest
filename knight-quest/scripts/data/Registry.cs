@@ -52,7 +52,7 @@ public abstract partial class Registry<T, TRegistry> : RefCounted
         foreach (var path in files)
         {
             if (!path.EndsWith(".tres") && !path.EndsWith(".tres.remap")) continue;
-            
+
 
             var resource = ResourceLoader.Load<T>(path);
 

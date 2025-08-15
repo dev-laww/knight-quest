@@ -36,7 +36,7 @@ public partial class Shop : CanvasLayer
         coinLabel.Text = $"Coins: {ShopManager.Coins}";
 
         slots = slotContainer.GetChildrenOfType<Slot>().ToList();
-        slots.ForEach(slot => slot.Pressed += SelectSlot);
+        // slots.ForEach(slot => slot.Pressed += SelectSlot);
 
         buyButton.Pressed += OnBuyButtonPress;
         closeButton.Pressed += Close;
@@ -61,15 +61,15 @@ public partial class Shop : CanvasLayer
 
     private void SelectSlot(Slot slot)
     {
-        var selectedSlot = slots.FirstOrDefault(s => s.Selected);
-        if (selectedSlot != null)
-            selectedSlot.Selected = false;
-
-        slot.Selected = true;
-        UpdateSelectedItem(slot.Item);
-
-        if (slot.Item is Cosmetic cosmetic)
-            playerDummy.PreviewCosmetic(cosmetic);
+        // var selectedSlot = slots.FirstOrDefault(s => s.Selected);
+        // if (selectedSlot != null)
+        //     selectedSlot.Selected = false;
+        //
+        // slot.Selected = true;
+        // UpdateSelectedItem(slot.Item);
+        //
+        // if (slot.Item is Cosmetic cosmetic)
+        //     playerDummy.PreviewCosmetic(cosmetic);
     }
 
     private void UpdateSelectedItem(Item item)

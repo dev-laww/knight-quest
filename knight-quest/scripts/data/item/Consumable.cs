@@ -8,5 +8,9 @@ public abstract partial class Consumable : Item
     [Export] public int Quantity;
     [Export] public StatusEffect[] StatusEffects = [];
 
-    public abstract void Use(Entity target);
+    public virtual void Use(Entity target)
+    {
+        foreach (var statusEffect in StatusEffects)
+            target.StatusEffectManager.ApplyStatusEffect(statusEffect);
+    }
 }
