@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dja2yklimotg1"]
+
+[ext_resource type="Script" uid="uid://cvo7luymu5vw5" path="res://scripts/ui/common/GradeLevelPanel.cs" id="1_of1fo"]
+
+[node name="GradeLevelPanel" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+script = ExtResource("1_of1fo")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -45,6 +45,6 @@ public partial class CharacterSelect : CanvasLayer
         if (!pressed) return;
 
         GameManager.SetCharacter(character);
-        GetTree().ChangeSceneToFile("res://scenes/ui/screens/level_select.tscn");
+        GetTree().ChangeSceneToFile("res://scenes/ui/screens/grade_level_select.tscn");
     }
 }
