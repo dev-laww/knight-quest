@@ -6,8 +6,20 @@ namespace Game.Data;
 
 public partial class RunConfig : RefCounted
 {
-    public enum GradeLevel { }
-    public enum SubjectArea { }
+    public enum GradeLevel
+    {
+        Second,
+        Third,
+        Fourth,
+        Fifth,
+        Sixth,
+    }
+
+    public enum SubjectArea
+    {
+        English,
+        Math,
+    }
 
     public GradeLevel Grade;
     public SubjectArea Subject;
