@@ -35,8 +35,14 @@ public partial class CharacterSelect : CanvasLayer
 
     private void OnCharacterPanelGuiInput(InputEvent @event, Character character)
     {
-        if (@event is not InputEventMouseButton mouseAction) return;
-        if (!mouseAction.Pressed || mouseAction.ButtonIndex != MouseButton.Left) return;
+        var pressed = @event switch
+        {
+            InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left } => true,
+            InputEventScreenTouch { Pressed: true } => true,
+            _ => false
+        };
+
+        if (!pressed) return;
 
         GameManager.SetCharacter(character);
         GetTree().ChangeSceneToFile("res://scenes/ui/screens/level_select.tscn");
