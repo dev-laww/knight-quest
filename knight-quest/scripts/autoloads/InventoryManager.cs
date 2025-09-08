@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.Data;
 using Game.Utils;
 using Godot;
 
 namespace Game.Autoloads;
 
-[GlobalClass]
 public partial class InventoryManager : Autoload<InventoryManager>
 {
     [Signal] public delegate void ItemAddedEventHandler(ItemGroup group);

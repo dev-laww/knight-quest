@@ -8,7 +8,6 @@ using Godot;
 namespace Game.Autoloads;
 
 // TODO: Separate shop management and inventory management
-[GlobalClass]
 public partial class ShopManager : Autoload<ShopManager>
 {
     [Signal] public delegate void CoinsChangedEventHandler(int coins);
