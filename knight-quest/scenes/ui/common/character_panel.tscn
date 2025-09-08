@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8hls0r6t6o16"]
+
+[ext_resource type="Script" uid="uid://dfarsentydagf" path="res://scripts/ui/common/CharacterPanel.cs" id="1_amky4"]
+
+[node name="CharacterPanel" type="Panel"]
+custom_minimum_size = Vector2(150, 200)
+size_flags_vertical = 3
+script = ExtResource("1_amky4")

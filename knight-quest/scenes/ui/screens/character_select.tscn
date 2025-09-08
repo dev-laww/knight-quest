@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck774w2cbwvby"]
+
+[ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_qfdx5"]
+[ext_resource type="Script" uid="uid://dxi58wrtbelmx" path="res://scripts/ui/screens/CharacterSelect.cs" id="1_v6gmn"]
+[ext_resource type="PackedScene" uid="uid://xiae7tfwbeew" path="res://scenes/entities/characters/player.tscn" id="2_1myg1"]
+[ext_resource type="PackedScene" uid="uid://b8hls0r6t6o16" path="res://scenes/ui/common/character_panel.tscn" id="2_f232k"]
+[ext_resource type="Script" uid="uid://dmoqfr4yqd5to" path="res://scripts/data/Character.cs" id="3_tcaym"]
+
+[sub_resource type="Resource" id="Resource_kyw2v"]
+script = ExtResource("3_tcaym")
+Name = "Test"
+Description = ""
+Scene = ExtResource("2_1myg1")
+metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
+
+[node name="CharacterSelect" type="CanvasLayer"]
+script = ExtResource("1_v6gmn")
+characters = [SubResource("Resource_kyw2v")]
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("CharacterPanel"), [ExtResource("2_f232k")]]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qfdx5")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+
+[node name="PanelContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

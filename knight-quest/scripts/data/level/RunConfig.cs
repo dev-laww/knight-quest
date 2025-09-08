@@ -18,10 +18,11 @@ public partial class RunConfig : RefCounted
     public enum SubjectArea
     {
         English,
-        Math,
+        Mathematics,
     }
 
     public GradeLevel Grade;
     public SubjectArea Subject;
+    public Character Character;
     public CombatSequence CombatSequence;
 }
