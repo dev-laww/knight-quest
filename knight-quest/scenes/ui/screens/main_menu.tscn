@@ -14,7 +14,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_38o7l")
 
-[node name="StartButton" type="Button" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start"
+
+[node name="ShopButton" type="Button" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Shop"

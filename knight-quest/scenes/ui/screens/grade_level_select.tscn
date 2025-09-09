@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4i8jvfmat2yw"]
+[gd_scene load_steps=4 format=3 uid="uid://ddxh75x5o8jbt"]
 
 [ext_resource type="Script" uid="uid://vlpb0thsek2b" path="res://scripts/ui/screens/GradeLevelSelect.cs" id="1_30hrc"]
-[ext_resource type="PackedScene" uid="uid://dja2yklimotg1" path="res://scenes/ui/common/grade_level_panel.tscn" id="2_uskm2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/common/grade_level_panel.tscn" id="2_uskm2"]
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="3_b0q0d"]
 
 [node name="GradeLevelSelect" type="CanvasLayer"]
@@ -20,6 +20,23 @@ theme = ExtResource("3_b0q0d")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/Panel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 8.0
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

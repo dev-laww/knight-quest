@@ -20,7 +20,7 @@ public partial class Shop : CanvasLayer
     [Node] private RichTextLabel selectedItemDescription;
     [Node] private Button buyButton;
     [Node] private TextureRect itemIcon;
-    [Node] private Button closeButton;
+    [Node] private Button backButton;
 
     [Signal]
     public delegate void ItemBoughtEventHandler();
@@ -39,7 +39,7 @@ public partial class Shop : CanvasLayer
         slots = slotContainer.GetChildrenOfType<Slot>().ToList();
         ConnectSlotSignals();
         buyButton.Pressed += OnBuyButtonPress;
-        closeButton.Pressed += Close;
+        backButton.Pressed += () => Navigator.Back();
         
         ShopManager.Instance.CoinsChanged += OnCoinsChanged;
         
@@ -184,12 +184,7 @@ public partial class Shop : CanvasLayer
     {
         return selectedItem != null && ShopManager.stars >= selectedItem.Cost;
     }
-    
-    private void Close()
-    {
-        GetTree().ChangeSceneToPacked(scene);
-    }
-    
+
     public override void _ExitTree()
     {
         if (ShopManager.Instance != null)

@@ -10,6 +10,7 @@ public partial class SubjectSelect : CanvasLayer
 {
     [Node] private Panel math;
     [Node] private Panel english;
+    [Node] private Button backButton;
 
     public override void _Notification(int what)
     {
@@ -22,6 +23,7 @@ public partial class SubjectSelect : CanvasLayer
     {
         math.GuiInput += e => OnSubjectGuiInput(e, RunConfig.SubjectArea.Mathematics);
         english.GuiInput += e => OnSubjectGuiInput(e, RunConfig.SubjectArea.English);
+        backButton.Pressed += () => Navigator.Back();
     }
 
     private void OnSubjectGuiInput(InputEvent @event, RunConfig.SubjectArea subject)
@@ -36,6 +38,6 @@ public partial class SubjectSelect : CanvasLayer
         if (!pressed) return;
 
         GameManager.SetSubjectArea(subject);
-        GetTree().ChangeSceneToFile("res://scenes/ui/screens/character_select.tscn");
+        Navigator.Push("res://scenes/ui/screens/character_select.tscn");
     }
 }

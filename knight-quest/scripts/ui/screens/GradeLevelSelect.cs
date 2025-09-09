@@ -11,6 +11,7 @@ public partial class GradeLevelSelect : CanvasLayer
 {
     [Node] private HBoxContainer gradeLevelsContainer;
     [Node] private ResourcePreloader resourcePreloader;
+    [Node] private Button backButton;
 
     public override void _Notification(int what)
     {
@@ -21,6 +22,7 @@ public partial class GradeLevelSelect : CanvasLayer
 
     public override void _Ready()
     {
+        backButton.Pressed += () => Navigator.Back();
         foreach (var gradeLevel in Enum.GetValues<RunConfig.GradeLevel>())
         {
             var panel = resourcePreloader.InstanceSceneOrNull<GradeLevelPanel>("GradeLevelPanel");

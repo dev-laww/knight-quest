@@ -12,6 +12,7 @@ public partial class LevelSelect : CanvasLayer
 
     [Node] private ResourcePreloader resourcePreloader;
     [Node] private GridContainer levelsContainer;
+    [Node] private Button backButton;
 
     public override void _Notification(int what)
     {
@@ -22,6 +23,7 @@ public partial class LevelSelect : CanvasLayer
 
     public override void _Ready()
     {
+        backButton.Pressed += () => Navigator.Back();
         foreach (var levelInfo in levels)
         {
             var level = resourcePreloader.InstanceSceneOrNull<Level>();
