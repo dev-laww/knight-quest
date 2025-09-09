@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl0ra7swg3dqq"]
+[gd_scene load_steps=5 format=3 uid="uid://dl0ra7swg3dqq"]
 
 [ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
-[ext_resource type="PackedScene" uid="uid://w7jqwff50jq1" path="res://scenes/ui/common/Slot.tscn" id="2_ath4n"]
-[ext_resource type="PackedScene" uid="uid://dqpduk7nq4wmo" path="res://scenes/entities/characters/player.tscn" id="2_qwora"]
+[ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/Slot.tscn" id="2_ath4n"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ath4n"]
 texture = ExtResource("1_w276f")
@@ -39,7 +38,7 @@ custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="CloseButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="CloseButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -342,6 +341,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
@@ -351,9 +354,9 @@ custom_minimum_size = Vector2(0, 170)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerDummy" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/DummyContainer" instance=ExtResource("2_qwora")]
+[node name="ItemIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/DummyContainer"]
 unique_name_in_owner = true
-position = Vector2(79, 89)
+layout_mode = 2
 
 [node name="ItemDetail" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2

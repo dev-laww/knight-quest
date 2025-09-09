@@ -4,6 +4,7 @@ using System.Linq;
 using Game.Autoloads;
 using Game.Data;
 using Game.Entities;
+using Game.Utils;
 using GodotUtilities;
 
 namespace Game.UI;
@@ -11,13 +12,15 @@ namespace Game.UI;
 [Scene]
 public partial class Shop : CanvasLayer
 {
-    [Node] private TextureButton closeButton;
+    private PackedScene scene = GD.Load<PackedScene>("res://scenes/ui/screens/main_menu.tscn");
+    
     [Node] private GridContainer slotContainer;
     [Node] private Label coinLabel;
     [Node] private Label selectedItemName;
     [Node] private RichTextLabel selectedItemDescription;
     [Node] private Button buyButton;
-    [Node] private Player playerDummy;
+    [Node] private TextureRect itemIcon;
+    [Node] private Button closeButton;
 
     [Signal]
     public delegate void ItemBoughtEventHandler();
@@ -33,51 +36,110 @@ public partial class Shop : CanvasLayer
 
     public override void _Ready()
     {
-        coinLabel.Text = $"Coins: {ShopManager.Coins}";
-
         slots = slotContainer.GetChildrenOfType<Slot>().ToList();
-        // slots.ForEach(slot => slot.Pressed += SelectSlot);
-
+        ConnectSlotSignals();
         buyButton.Pressed += OnBuyButtonPress;
         closeButton.Pressed += Close;
-
+        
+        ShopManager.Instance.CoinsChanged += OnCoinsChanged;
+        
         PopulateSlots();
+        UpdateCoinLabel();
         Reset();
+    }
+
+    private void ConnectSlotSignals()
+    {
+        foreach (var slot in slots)
+        {
+            slot.Pressed += (consumable) => SelectSlot(slot);
+        }
     }
 
     private void PopulateSlots()
     {
-        // var items = ShopManager.GetItemsByType<Cosmetic>();
-        //
-        // for (int i = 0; i < slots.Count && i < items.Count; i++)
-        // {
-        //     var slot = slots[i];
-        //     var item = items[i];
-        //
-        //     slot.Item = item;
-        //     slot.icon.Texture = item.Icon;
-        // }
+        var items = ShopManager.GetItemsByType<Consumable>();
+        
+        Logger.Info($"[DEBUG] Populating {slots.Count} slots with {items.Count} items");
+        
+        foreach (var slot in slots)
+        {
+            ClearSlot(slot);
+        }
+        
+        for (int i = 0; i < slots.Count && i < items.Count; i++)
+        {
+            var slot = slots[i];
+            var item = items[i];
+            
+            SetupSlot(slot, item);
+            Logger.Info($"[DEBUG] Set slot {i} with item: {item.Name}");
+        }
+    }
+    
+    private void SetupSlot(Slot slot, Item item)
+    {
+        var itemGroup = new ItemGroup 
+        { 
+            Item = item, 
+            Quantity = 1 
+        };
+        
+        slot.ItemGroup = itemGroup;
+        
+        slot.Visible = true;
+        
+        Logger.Info($"[DEBUG] Setup slot with {item.Name}, Icon: {item.Icon != null}");
+    }
+    
+    private void ClearSlot(Slot slot)
+    {
+        slot.ItemGroup = null; 
+        slot.Modulate = Colors.White; 
+        slot.Visible = true; 
     }
 
     private void SelectSlot(Slot slot)
     {
-        // var selectedSlot = slots.FirstOrDefault(s => s.Selected);
-        // if (selectedSlot != null)
-        //     selectedSlot.Selected = false;
-        //
-        // slot.Selected = true;
-        // UpdateSelectedItem(slot.Item);
-        //
-        // if (slot.Item is Cosmetic cosmetic)
-        //     playerDummy.PreviewCosmetic(cosmetic);
+        if (slot.ItemGroup?.Item != null)
+        {
+            UpdateSelectedItem(slot.ItemGroup.Item);
+            Logger.Info($"[DEBUG] Selected item: {slot.ItemGroup.Item.Name}");
+            selectedItemName.Text = slot.ItemGroup.Item.Name;
+            selectedItemDescription.Text = slot.ItemGroup.Item.Description;
+            itemIcon.Texture = slot.ItemGroup.Item.Icon;
+
+            HighlightSlot(slot);
+        }
+    }
+    
+    private void HighlightSlot(Slot selectedSlot)
+    {
+        foreach (var slot in slots)
+        {
+            slot.Modulate = Colors.White;
+        }
+        
+        selectedSlot.Modulate = Colors.Yellow;
     }
 
     private void UpdateSelectedItem(Item item)
     {
         selectedItem = item;
-        selectedItemName.Text = item?.Name;
+        selectedItemName.Text = item?.Name ?? "No item selected";
         selectedItemDescription.Text = item?.Description ?? string.Empty;
         UpdateButtonState();
+    }
+    
+    private void OnCoinsChanged(int newCoins)
+    {
+        UpdateCoinLabel();
+        UpdateButtonState();
+    }
+    
+    private void UpdateCoinLabel()
+    {
+        coinLabel.Text = $"Coins: {ShopManager.stars}";
     }
 
     private void OnBuyButtonPress()
@@ -86,30 +148,53 @@ public partial class Shop : CanvasLayer
 
         ShopManager.BuyItem(selectedItem);
         EmitSignalItemBought();
-        Close();
+        
+        UpdateCoinLabel();
+        UpdateButtonState();
+
     }
 
     private void Reset()
     {
         if (!IsInstanceValid(this) || slots.Count == 0) return;
-        SelectSlot(slots.First());
+        
+        var firstSlotWithItem = slots.FirstOrDefault(s => s.ItemGroup?.Item != null);
+        if (firstSlotWithItem != null)
+        {
+            SelectSlot(firstSlotWithItem);
+        }
+        else
+        {
+            selectedItem = null;
+            UpdateSelectedItem(null);
+        }
     }
 
     private void UpdateButtonState()
     {
+        bool canBuy = CanBuy();
         buyButton.Visible = selectedItem != null;
-        buyButton.Disabled = !CanBuy();
-        buyButton.Text = CanBuy() ? "Buy" : "Not enough Coins";
+        buyButton.Disabled = !canBuy;
+        buyButton.Text = selectedItem == null ? "Select an item" :
+                        canBuy ? $"Buy ({selectedItem.Cost} coins)" : 
+                        "Not enough coins";
     }
 
     private bool CanBuy()
     {
-        return selectedItem != null && ShopManager.Coins >= selectedItem.Cost;
+        return selectedItem != null && ShopManager.stars >= selectedItem.Cost;
     }
     
     private void Close()
     {
-        Hide();
-        Reset();
+        GetTree().ChangeSceneToPacked(scene);
+    }
+    
+    public override void _ExitTree()
+    {
+        if (ShopManager.Instance != null)
+        {
+            ShopManager.Instance.CoinsChanged -= OnCoinsChanged;
+        }
     }
 }
