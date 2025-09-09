@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Game.Data;
+using GodotUtilities.Util;
 
 namespace Game.Autoloads;
 
@@ -24,8 +25,9 @@ public partial class QuestionManager : Autoload<QuestionManager>
             ],
             CorrectAnswerIndex = 2
         };
-
-        Instance.EmitSignalQuestionRequested(CurrentQuestion);
+        
+        Instance.EmitSignal(SignalName.QuestionRequested, CurrentQuestion);
+        Logger.Debug($"Question requested. {CurrentQuestion.Answers}");
 
         return CurrentQuestion;
     }

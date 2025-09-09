@@ -9,6 +9,6 @@ public partial class Hint : Consumable
         var hud = target.GetHeadsUpDisplay();
         Logger.Debug($"[Hint::Use] HUD is {(hud == null ? "null" : "not null")}");
         // TODO: fix 
-        // hud?.RevealCorrectAnswer();
+        hud?.RevealCorrectAnswer();
     }
 }

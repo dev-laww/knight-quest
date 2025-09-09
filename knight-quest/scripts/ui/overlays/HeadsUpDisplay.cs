@@ -39,7 +39,6 @@ public partial class HeadsUpDisplay : MarginContainer
         {
             slot.Pressed += UseConsumable;
         }
-        this.AddToGroup();
         PopulateSlots();
 
         InventoryManager.Instance.Updated += OnInventoryUpdate;
@@ -117,6 +116,28 @@ public partial class HeadsUpDisplay : MarginContainer
             }
         }
     }
+public async void RevealCorrectAnswer()
+{
+    var question = QuestionManager.CurrentQuestion;
+    if (question == null) return;
+
+    var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
+    var correctIndex = question.CorrectAnswerIndex;
+
+    Logger.Debug($"highlighted answer:{correctIndex}");
+
+    if (correctIndex >= 0 && correctIndex < answerButtons.Count)
+    {
+        if (answerButtons[correctIndex] is Button correctButton)
+        {
+            correctButton.Modulate = Colors.Yellow;
+            for (var i = 0; i < 80; i++)
+                await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+            correctButton.Modulate = Colors.White;
+        }
+    }
+}
+    
 
     private void UseConsumable(Consumable consumable)
     {
@@ -130,13 +151,20 @@ public partial class HeadsUpDisplay : MarginContainer
     private void PopulateSlots()
     {
         // TODO: Load from config
-        var items = InventoryManager.Instance.Items.Values.ToList();
+        var items = InventoryManager.Instance.Items.Values
+            .Where(ig => ig.Quantity > 0)
+            .ToList();
 
         Logger.Info($"Populating slots: {items.Count} items.");
+        foreach (var slot in slots)
+        {
+            slot.ItemGroup = null;
+        }
+
 
         foreach (var (item, quantity) in items)
         {
-            var slot = slots.FirstOrDefault(s => item.Equals(s.ItemGroup.Item));
+            var slot = slots.FirstOrDefault(s => s.ItemGroup != null && item.Equals(s.ItemGroup.Item));
             if (slot != null)
             {
                 slot.ItemGroup.Quantity = quantity;
@@ -163,6 +191,7 @@ public partial class HeadsUpDisplay : MarginContainer
 
     private void OnInventoryUpdate(ItemGroup itemGroup)
     {
+        Logger.Info("InventoryUpdated");
         PopulateSlots();
     }
 }
