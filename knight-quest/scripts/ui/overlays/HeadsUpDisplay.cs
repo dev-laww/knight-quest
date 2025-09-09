@@ -39,7 +39,7 @@ public partial class HeadsUpDisplay : MarginContainer
         {
             slot.Pressed += UseConsumable;
         }
-
+        this.AddToGroup();
         PopulateSlots();
 
         InventoryManager.Instance.Updated += OnInventoryUpdate;
@@ -153,7 +153,7 @@ public partial class HeadsUpDisplay : MarginContainer
                     Quantity = quantity
                 };
                 Logger.Debug($"Populated slot with {item.Name}.");
-                return;
+                continue;
             }
 
             Logger.Warn("No empty slots available to populate.");
