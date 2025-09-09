@@ -8,10 +8,9 @@ size = Vector2(20, 20)
 
 [resource]
 script = ExtResource("1_lccra")
-Quantity = 20
 StatusEffects = [ExtResource("1_s6nt5")]
 Name = "Potion"
 Description = ""
 Icon = SubResource("PlaceholderTexture2D_s6nt5")
-Cost = 0
+Cost = 5
 Owned = false
