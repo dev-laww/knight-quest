@@ -2,13 +2,13 @@
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_qfdx5"]
 [ext_resource type="Script" uid="uid://dxi58wrtbelmx" path="res://scripts/ui/screens/CharacterSelect.cs" id="1_v6gmn"]
-[ext_resource type="PackedScene" uid="uid://xiae7tfwbeew" path="res://scenes/entities/characters/player.tscn" id="2_1myg1"]
+[ext_resource type="PackedScene" uid="uid://crbs2e2ij4nel" path="res://scenes/entities/characters/samurai.tscn" id="2_1myg1"]
 [ext_resource type="PackedScene" uid="uid://b8hls0r6t6o16" path="res://scenes/ui/common/character_panel.tscn" id="2_f232k"]
 [ext_resource type="Script" uid="uid://dmoqfr4yqd5to" path="res://scripts/data/Character.cs" id="3_tcaym"]
 
 [sub_resource type="Resource" id="Resource_kyw2v"]
 script = ExtResource("3_tcaym")
-Name = "Test"
+Name = "Samurai"
 Description = ""
 Scene = ExtResource("2_1myg1")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"

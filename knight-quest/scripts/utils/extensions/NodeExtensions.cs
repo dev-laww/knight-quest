@@ -12,6 +12,15 @@ public static class NodeExtensions
     {
         var player = node.GetTree().GetNodesInGroup("Player").FirstOrDefault();
 
+        if (player is not null) return player as Player;
+
+        // manually search for Player in case it's not yet in the group
+        player = node.GetTree().Root.FindChildOfType<Player>();
+
+        if (player is null) return null;
+
+        player?.AddToGroup("Player");
+
         return player as Player;
     }
 
@@ -20,5 +29,29 @@ public static class NodeExtensions
         var runManager = node.GetTree().GetNodesInGroup("RunManager").FirstOrDefault();
 
         return runManager as RunManager;
+    }
+
+    /// <summary>
+    /// Recursively finds the first child node of the given type.
+    /// </summary>
+    public static T? FindChildOfType<T>(this Node node) where T : Node
+    {
+        foreach (var child in node.GetChildren())
+        {
+            switch (child)
+            {
+                case T tChild:
+                    return tChild;
+                case { } childNode:
+                {
+                    var result = childNode.FindChildOfType<T>();
+                    if (result is not null)
+                        return result;
+                    break;
+                }
+            }
+        }
+
+        return null;
     }
 }

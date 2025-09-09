@@ -1,19 +1,16 @@
 using System.Threading.Tasks;
-using Godot;
-using System.Collections.Generic;
 using Game.Components;
-using Game.Data;
-using Game.Utils;
+using Godot;
 using GodotUtilities;
 
 namespace Game.Entities;
 
-// TODO: make use of a state machine for the player
 [Scene]
-public partial class Player : Entity
+public abstract partial class Player : Entity
 {
-    private const string ATTACK = "attack";
-    private const string HURT = "hurt";
+    protected const string ATTACK = "attack";
+    protected const string HURT = "hurt";
+    protected const string DIE = "die";
 
     [Node] private AnimationTree animationTree;
 
@@ -22,6 +19,7 @@ public partial class Player : Entity
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
+
         WireNodes();
     }
 
@@ -31,14 +29,8 @@ public partial class Player : Entity
 
         playback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
 
+        StatsManager.StatDepleted += OnStatDepleted;
         StatsManager.StatDecreased += OnStatDecreased;
-    }
-
-    private void OnStatDecreased(int amount, StatsManager.Stat stat)
-    {
-        if (stat != StatsManager.Stat.Health) return;
-
-        playback.Travel(HURT);
     }
 
     // NOTE: always put the turn-taking logic after the animation playback to avoid animation race conditions
@@ -48,5 +40,19 @@ public partial class Player : Entity
         playback.Travel(ATTACK);
         await ToSignal(animationTree, "animation_finished");
         await base.TakeTurn(target);
+    }
+
+    private void OnStatDepleted(StatsManager.Stat stat)
+    {
+        if (stat != StatsManager.Stat.Health) return;
+
+        playback.Travel(DIE);
+    }
+
+    private void OnStatDecreased(int _, StatsManager.Stat stat)
+    {
+        if (stat != StatsManager.Stat.Health) return;
+
+        playback.Travel(HURT);
     }
 }
