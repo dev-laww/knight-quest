@@ -23,7 +23,7 @@ public partial class RunManager : Node
     [Signal] public delegate void PlayerTurnTimeoutEventHandler();
     [Signal] public delegate void PlayerAnsweredEventHandler(bool correct);
     [Signal] public delegate void EncounterStartedEventHandler(Entity[] enemies);
-
+    private PackedScene resultScene = GD.Load<PackedScene>("res://scenes/ui/overlays/result_screen.tscn");
     private ImmediateDelegateStateMachine stateMachine = new();
     private Player player => this.GetPlayer();
 
@@ -140,11 +140,24 @@ public partial class RunManager : Node
     private void Victory()
     {
         Logger.Debug("Victory state reached, handling victory logic.");
+        var screen = resultScene.Instantiate();
+        GetTree().Root.AddChild(screen);
+        //TODO: ADD rewards
+        if (screen is ResultScreen resultScreen)
+        {
+            resultScreen.ShowResult(true);
+        }
     }
 
     private void Defeat()
     {
         Logger.Debug("Defeat state reached, handling defeat logic.");
+        var screen = resultScene.Instantiate();
+        GetTree().Root.AddChild(screen);
+        if (screen is ResultScreen resultScreen)
+        {
+            resultScreen.ShowResult(false);
+        }
     }
 
     private void OnTurnTimerTimeout()
