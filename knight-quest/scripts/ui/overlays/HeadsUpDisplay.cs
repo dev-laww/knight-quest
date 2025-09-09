@@ -39,6 +39,7 @@ public partial class HeadsUpDisplay : MarginContainer
         {
             slot.Pressed += UseConsumable;
         }
+
         PopulateSlots();
 
         InventoryManager.Instance.Updated += OnInventoryUpdate;
@@ -116,28 +117,24 @@ public partial class HeadsUpDisplay : MarginContainer
             }
         }
     }
-public async void RevealCorrectAnswer()
-{
-    var question = QuestionManager.CurrentQuestion;
-    if (question == null) return;
 
-    var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
-    var correctIndex = question.CorrectAnswerIndex;
-
-    Logger.Debug($"highlighted answer:{correctIndex}");
-
-    if (correctIndex >= 0 && correctIndex < answerButtons.Count)
+    public void RevealCorrectAnswer()
     {
-        if (answerButtons[correctIndex] is Button correctButton)
-        {
-            correctButton.Modulate = Colors.Yellow;
-            for (var i = 0; i < 80; i++)
-                await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-            correctButton.Modulate = Colors.White;
-        }
+        var question = QuestionManager.CurrentQuestion;
+        if (question == null) return;
+
+        var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
+        var correctIndex = question.CorrectAnswerIndex;
+
+        Logger.Debug($"highlighted answer:{correctIndex}");
+
+        if (correctIndex < 0 || correctIndex >= answerButtons.Count) return;
+        if (answerButtons[correctIndex] is not Button correctButton) return;
+
+        correctButton.Modulate = Colors.Yellow;
+
+        GetTree().CreateTimer(1f).Timeout += () => { correctButton.Modulate = Colors.White; };
     }
-}
-    
 
     private void UseConsumable(Consumable consumable)
     {
