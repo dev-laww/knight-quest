@@ -7,7 +7,9 @@ namespace Game.UI;
 [Scene]
 public partial class Level : Button
 {
-    [Export] public LevelInfo LevelInfo;
+    [Export] private LevelInfo levelInfo;
+
+    [Node] private Label label;
 
     private bool hovered;
 
@@ -24,6 +26,12 @@ public partial class Level : Button
         MouseExited += OnMouseExited;
         ButtonUp += OnButtonUp;
         ButtonDown += OnButtonDown;
+    }
+
+    public void Setup(LevelInfo level)
+    {
+        levelInfo = level;
+        label.Text = levelInfo.LevelName;
     }
 
     private void OnMouseEntered()

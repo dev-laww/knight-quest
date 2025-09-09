@@ -5,6 +5,7 @@ namespace Game.Autoloads;
 public partial class GameManager : Autoload<GameManager>
 {
     private RunConfig config = new();
+    public static RunConfig Config => Instance.config;
 
     public static void SetGradeLevel(RunConfig.GradeLevel level)
     {
@@ -21,8 +22,8 @@ public partial class GameManager : Autoload<GameManager>
         Instance.config.Character = character;
     }
 
-    public static void SetCombatSequence(CombatSequence sequence)
+    public static void SetLevel(LevelInfo level)
     {
-        Instance.config.CombatSequence = sequence;
+        Instance.config.Level = level;
     }
 }

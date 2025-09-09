@@ -24,5 +24,5 @@ public partial class RunConfig : RefCounted
     public GradeLevel Grade;
     public SubjectArea Subject;
     public Character Character;
-    public CombatSequence CombatSequence;
+    public LevelInfo Level;
 }

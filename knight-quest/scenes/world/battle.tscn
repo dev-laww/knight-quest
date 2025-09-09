@@ -1,35 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://0ioux0qjw16k"]
+[gd_scene load_steps=4 format=3 uid="uid://0ioux0qjw16k"]
 
 [ext_resource type="Script" uid="uid://dw0w0v0uwrdqj" path="res://scripts/world/Battle.cs" id="1_5r7dh"]
 [ext_resource type="PackedScene" uid="uid://cf6rph7p0k8y7" path="res://scenes/ui/overlays/heads_up_display.tscn" id="1_hjx2g"]
-[ext_resource type="PackedScene" uid="uid://b2fshu4a5e41d" path="res://scenes/entities/enemies/star.tscn" id="3_fs26p"]
-[ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="3_t5uxl"]
-[ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="4_5r7dh"]
 [ext_resource type="PackedScene" uid="uid://dfdm55jit0843" path="res://scenes/components/managers/run_manager.tscn" id="4_t5uxl"]
-[ext_resource type="PackedScene" uid="uid://xiae7tfwbeew" path="res://scenes/entities/characters/player.tscn" id="6_t5uxl"]
-
-[sub_resource type="Resource" id="Resource_wfn15"]
-script = ExtResource("3_t5uxl")
-Enemies = [ExtResource("3_fs26p")]
-metadata/_custom_type_script = "uid://cb136e6c67ahm"
-
-[sub_resource type="Resource" id="Resource_4543l"]
-script = ExtResource("3_t5uxl")
-Enemies = [ExtResource("3_fs26p")]
-metadata/_custom_type_script = "uid://cb136e6c67ahm"
-
-[sub_resource type="Resource" id="Resource_82pbm"]
-script = ExtResource("4_5r7dh")
-Encounters = [SubResource("Resource_wfn15"), SubResource("Resource_4543l")]
-TurnDuration = 30
-metadata/_custom_type_script = "uid://cqe31o4yik31k"
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_5r7dh")
 
 [node name="RunManager" parent="." node_paths=PackedStringArray("hud") instance=ExtResource("4_t5uxl")]
 hud = NodePath("../UI/HeadsUpDisplay")
-configuration = SubResource("Resource_82pbm")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -37,5 +16,3 @@ configuration = SubResource("Resource_82pbm")
 unique_name_in_owner = true
 
 [node name="Entities" type="Node" parent="."]
-
-[node name="Player" parent="Entities" instance=ExtResource("6_t5uxl")]

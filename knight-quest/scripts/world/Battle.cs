@@ -1,6 +1,7 @@
+using Game.Autoloads;
 using Game.Components;
+using Game.Entities;
 using Game.UI;
-using Game.Utils;
 using Godot;
 using GodotUtilities;
 
@@ -22,12 +23,20 @@ public partial class Battle : Node2D
 
     public override async void _Ready()
     {
+        // Setup RunManager
         runManager.EncounterStarted += OnEncounterStarted;
+        runManager.SetConfiguration(GameManager.Config.Level.CombatSequence);
 
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        var player = this.GetPlayer();
 
-        player!.GlobalPosition = headsUpDisplay.PlayerGlobalPosition;
+        // Spawn selected character
+        // TODO: Create a proper character factory
+        var player = GameManager.Config.Character.Scene.InstantiateOrNull<Player>();
+
+        if (player == null) return;
+
+        entities.AddChild(player);
+        player.GlobalPosition = headsUpDisplay.PlayerGlobalPosition;
     }
 
     private void OnEncounterStarted(Entity[] enemies)

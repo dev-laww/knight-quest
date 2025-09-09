@@ -15,7 +15,7 @@ namespace Game.Components;
 public partial class RunManager : Node
 {
     [Export] private HeadsUpDisplay hud;
-    [Export] private CombatSequence configuration;
+    [Export] public CombatSequence Configuration { get; private set; }
 
     [Node] private Timer turnTimer;
 
@@ -70,7 +70,7 @@ public partial class RunManager : Node
     {
         QuestionManager.GetQuestion();
         turnHandled = false;
-        turnTimer.Start(configuration.TurnDuration);
+        turnTimer.Start(Configuration.TurnDuration);
         Logger.Debug("Player's turn started, waiting for answer.");
     }
 
@@ -115,7 +115,7 @@ public partial class RunManager : Node
 
     private void EncounterTransition()
     {
-        if (currentEncounterIndex >= configuration.Encounters.Length - 1)
+        if (currentEncounterIndex >= Configuration.Encounters.Length - 1)
         {
             Logger.Debug("All encounters completed, switching to victory state.");
             stateMachine.ChangeState(Victory);
@@ -123,7 +123,7 @@ public partial class RunManager : Node
         }
 
         currentEncounterIndex++;
-        currentEncounter = configuration.Encounters[currentEncounterIndex];
+        currentEncounter = Configuration.Encounters[currentEncounterIndex];
         currentEnemies.Clear();
 
         foreach (var enemy in currentEncounter.Enemies)
@@ -182,5 +182,10 @@ public partial class RunManager : Node
         }
 
         stateMachine.ChangeStateDeferred(EnemyTurn);
+    }
+
+    public void SetConfiguration(CombatSequence config)
+    {
+        Configuration = config;
     }
 }

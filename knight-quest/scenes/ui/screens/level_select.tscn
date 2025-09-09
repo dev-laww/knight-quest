@@ -1,14 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw8b1bu84r8nr"]
+[gd_scene load_steps=13 format=3 uid="uid://dw8b1bu84r8nr"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_3xfb3"]
 [ext_resource type="Script" uid="uid://i0f55jageun5" path="res://scripts/ui/screens/LevelSelect.cs" id="1_ai07f"]
 [ext_resource type="PackedScene" uid="uid://dc8s677y6qtgv" path="res://scenes/ui/common/level.tscn" id="2_gqp32"]
+[ext_resource type="PackedScene" uid="uid://b2fshu4a5e41d" path="res://scenes/entities/enemies/star.tscn" id="2_t8ixd"]
+[ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="3_55e5n"]
+[ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="4_g1yyd"]
+[ext_resource type="Script" uid="uid://bacok55bipbse" path="res://scripts/data/level/LevelInfo.cs" id="5_eh1g1"]
+
+[sub_resource type="Resource" id="Resource_wfn15"]
+script = ExtResource("3_55e5n")
+Enemies = [ExtResource("2_t8ixd")]
+metadata/_custom_type_script = "uid://cb136e6c67ahm"
+
+[sub_resource type="Resource" id="Resource_4543l"]
+script = ExtResource("3_55e5n")
+Enemies = [ExtResource("2_t8ixd")]
+metadata/_custom_type_script = "uid://cb136e6c67ahm"
+
+[sub_resource type="Resource" id="Resource_tj4p3"]
+script = ExtResource("4_g1yyd")
+Encounters = [SubResource("Resource_wfn15"), SubResource("Resource_4543l")]
+TurnDuration = 30
+metadata/_custom_type_script = "uid://cqe31o4yik31k"
+
+[sub_resource type="Resource" id="Resource_8eq1m"]
+script = ExtResource("5_eh1g1")
+LevelName = "Test"
+LevelDescription = "Test Level"
+CombatSequence = SubResource("Resource_tj4p3")
+metadata/_custom_type_script = "uid://bacok55bipbse"
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xfb3"]
 font_size = 32
 
-[node name="Level" type="CanvasLayer"]
+[node name="LevelSelect" type="CanvasLayer"]
 script = ExtResource("1_ai07f")
+levels = [SubResource("Resource_8eq1m")]
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 resources = [PackedStringArray("Level"), [ExtResource("2_gqp32")]]

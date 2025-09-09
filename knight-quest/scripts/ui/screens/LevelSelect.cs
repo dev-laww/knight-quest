@@ -1,3 +1,4 @@
+using Game.Autoloads;
 using Game.Data;
 using Godot;
 using GodotUtilities;
@@ -27,8 +28,15 @@ public partial class LevelSelect : CanvasLayer
 
             if (level == null) return;
 
-            level.LevelInfo = levelInfo;
+            level.Setup(levelInfo);
             levelsContainer.AddChild(level);
+            level.Pressed += () => OnLevelPressed(levelInfo);
         }
+    }
+
+    private void OnLevelPressed(LevelInfo level)
+    {
+        GameManager.SetLevel(level);
+        GetTree().ChangeSceneToFile("res://scenes/world/battle.tscn");
     }
 }
