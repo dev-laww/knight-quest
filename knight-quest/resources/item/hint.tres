@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://g8ova51sdrk2"]
+
+[ext_resource type="Script" uid="uid://cjcdumaq3g16l" path="res://scripts/data/item/Hint.cs" id="1_r8hl3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_llw4u"]
+size = Vector2(4, 4)
+
+[resource]
+script = ExtResource("1_r8hl3")
+StatusEffects = []
+Name = "hint"
+Description = "reveal the correct answer for a short time"
+Icon = SubResource("PlaceholderTexture2D_llw4u")
+Cost = 2
+Owned = false

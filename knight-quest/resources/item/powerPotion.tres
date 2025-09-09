@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dcy8jmdj0k8gb"]
+
+[ext_resource type="Script" uid="uid://bnms824npgowi" path="res://scripts/data/item/PowerPotion.cs" id="1_08ct5"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r3wf0"]
+size = Vector2(5, 10)
+
+[resource]
+script = ExtResource("1_08ct5")
+StatusEffects = []
+Name = "Power Potion"
+Description = "+1 damage"
+Icon = SubResource("PlaceholderTexture2D_r3wf0")
+Cost = 2
+Owned = false

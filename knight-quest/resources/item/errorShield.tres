@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dsah6t66q6fm5"]
+
+[ext_resource type="Script" uid="uid://c067tfxtw2jr0" path="res://scripts/data/item/ErrorShieldPotion.cs" id="1_cqn7f"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xbqbp"]
+size = Vector2(4, 4)
+
+[resource]
+script = ExtResource("1_cqn7f")
+StatusEffects = []
+Name = "Error Shield Potion"
+Description = "Block enemy attacks"
+Icon = SubResource("PlaceholderTexture2D_xbqbp")
+Cost = 0
+Owned = false
