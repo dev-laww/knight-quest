@@ -45,6 +45,6 @@ public partial class GradeLevelSelect : CanvasLayer
         if (!pressed) return;
 
         GameManager.SetGradeLevel(gradeLevel);
-        GetTree().ChangeSceneToFile("res://scenes/ui/screens/level_select.tscn");
+        Navigator.Push("res://scenes/ui/screens/level_select.tscn");
     }
 }

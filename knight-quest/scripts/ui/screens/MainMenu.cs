@@ -1,3 +1,4 @@
+using Game.Autoloads;
 using Godot;
 using GodotUtilities;
 
@@ -7,21 +8,21 @@ namespace Game;
 public partial class MainMenu : CanvasLayer
 {
     [Node] private Button startButton;
-    
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
 
         WireNodes();
     }
-    
+
     public override void _Ready()
     {
         startButton.Pressed += OnStartButtonPressed;
     }
-    
+
     private void OnStartButtonPressed()
     {
-        GetTree().ChangeSceneToFile("res://scenes/ui/screens/subject_select.tscn");
+        Navigator.Push("res://scenes/ui/screens/subject_select.tscn");
     }
 }

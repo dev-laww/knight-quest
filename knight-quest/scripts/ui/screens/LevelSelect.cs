@@ -37,6 +37,6 @@ public partial class LevelSelect : CanvasLayer
     private void OnLevelPressed(LevelInfo level)
     {
         GameManager.SetLevel(level);
-        GetTree().ChangeSceneToFile("res://scenes/world/battle.tscn");
+        Navigator.Push("res://scenes/world/battle.tscn");
     }
 }
