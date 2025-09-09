@@ -1,6 +1,3 @@
-using Game;
-using Game.Data;
-using Game.Entities;
 using GodotUtilities.Util;
 
 namespace Game.Data;
