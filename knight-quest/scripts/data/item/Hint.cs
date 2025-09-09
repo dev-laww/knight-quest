@@ -1,13 +1,14 @@
-using Game;
-using Game.Data;
 using Game.Utils;
+
+namespace Game.Data;
 
 public partial class Hint : Consumable
 {
     public override void Use(Entity target)
     {
-        var hud = target.GetHud();
+        var hud = target.GetHeadsUpDisplay();
         Logger.Debug($"[Hint::Use] HUD is {(hud == null ? "null" : "not null")}");
-        hud?.RevealCorrectAnswer();
+        // TODO: fix 
+        // hud?.RevealCorrectAnswer();
     }
 }

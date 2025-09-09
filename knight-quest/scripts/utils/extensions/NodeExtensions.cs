@@ -1,6 +1,7 @@
 using System.Linq;
 using Game.Components;
 using Game.Entities;
+using Game.UI;
 using Godot;
 
 namespace Game.Utils;
@@ -29,6 +30,20 @@ public static class NodeExtensions
         var runManager = node.GetTree().GetNodesInGroup("RunManager").FirstOrDefault();
 
         return runManager as RunManager;
+    }
+
+    public static HeadsUpDisplay? GetHeadsUpDisplay(this Node node)
+    {
+        var hud = node.GetTree().GetNodesInGroup("HeadsUpDisplay").FirstOrDefault();
+
+        if (hud is null)
+        {
+            // manually search for HUD in case it's not yet in the group
+            hud = node.GetTree().Root.FindChildOfType<HeadsUpDisplay>();
+            hud?.AddToGroup("HeadsUpDisplay");
+        }
+
+        return hud as HeadsUpDisplay;
     }
 
     /// <summary>

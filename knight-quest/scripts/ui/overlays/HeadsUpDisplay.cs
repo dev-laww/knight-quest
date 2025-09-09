@@ -32,6 +32,8 @@ public partial class HeadsUpDisplay : MarginContainer
 
     public override void _Ready()
     {
+        this.AddToGroup();
+
         slots = itemContainer.GetChildrenOfType<Slot>().ToList();
         foreach (var slot in slots)
         {
