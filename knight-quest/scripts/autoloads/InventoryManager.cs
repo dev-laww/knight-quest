@@ -39,7 +39,7 @@ public partial class InventoryManager : Autoload<InventoryManager>
         ArgumentNullException.ThrowIfNull(item);
 
         if (!items.TryGetValue(item, out var itemGroup)) return;
-
+    
         if (itemGroup.Quantity > 1)
         {
             itemGroup.Quantity--;
@@ -48,6 +48,9 @@ public partial class InventoryManager : Autoload<InventoryManager>
         }
         else
         {
+            itemGroup.Quantity--;
+            items[item] = itemGroup;
+            EmitSignalUpdated(itemGroup);
             items.Remove(item);
             EmitSignalItemRemoved(itemGroup);
         }
