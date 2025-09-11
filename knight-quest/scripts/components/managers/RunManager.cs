@@ -142,6 +142,7 @@ public partial class RunManager : Node
         Logger.Debug("Victory state reached, handling victory logic.");
         var screen = resultScene.Instantiate();
         GetTree().Root.AddChild(screen);
+        SaveManager.UnlockLevel("level1");
         //TODO: ADD rewards
         if (screen is ResultScreen resultScreen)
         {
