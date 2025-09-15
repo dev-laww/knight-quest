@@ -67,6 +67,7 @@ public partial class InventoryManager : Autoload<InventoryManager>
         {
             consumable.Use(target);
             RemoveItem(item);
+            SaveManager.SaveInventory();
         }
         else
         {
