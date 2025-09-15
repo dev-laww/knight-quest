@@ -22,6 +22,7 @@ ShopManager="*res://scripts/autoloads/ShopManager.cs"
 InventoryManager="*res://scripts/autoloads/InventoryManager.cs"
 GameManager="*res://scenes/autoloads/game_manager.tscn"
 Navigator="*res://scripts/autoloads/Navigator.cs"
+SaveManager="*res://scripts/autoloads/SaveManager.cs"
 
 [display]
 

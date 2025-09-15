@@ -11,11 +11,13 @@ namespace Game.Autoloads;
 [GlobalClass]
 public partial class ShopManager : Autoload<ShopManager>
 {
-    [Signal] public delegate void CoinsChangedEventHandler(int coins);
+    [Signal]
+    public delegate void CoinsChangedEventHandler(int coins);
 
-    [Signal] public delegate void ItemBoughtEventHandler(Item item);
+    [Signal]
+    public delegate void ItemBoughtEventHandler(Item item);
 
-    public static int stars { get; private set; } = 0;
+    public static int Stars { get; set; } = 0;
     // public static IReadOnlyList<Item> ShopItems => shopItems.AsReadOnly();
 
     private static Dictionary<Type, List<Item>> shopItems = new()
@@ -25,30 +27,49 @@ public partial class ShopManager : Autoload<ShopManager>
 
     public override void _Ready()
     {
+        LoadShopItems();
+        InitializeAccountData();
+    }
+
+    private void LoadShopItems()
+    {
         shopItems[typeof(Consumable)] = ItemRegistry.GetItemsByType<Consumable>().Select(Item (item) => item).ToList();
         GD.Print($"[DEBUG] Consumables loaded: {shopItems[typeof(Consumable)].Count}");
 
-        if (shopItems[typeof(Consumable)].Count > 0)
+
+        if (OS.IsDebugBuild() && shopItems[typeof(Consumable)].Count > 0)
         {
             var firstConsumable = shopItems[typeof(Consumable)][0];
             InventoryManager.Instance.AddItem(firstConsumable);
             GD.Print($"[DEBUG] Added {firstConsumable.Name} to inventory.");
-            AddCoins(100);// Testing money
         }
+    }
+
+    private void InitializeAccountData()
+    {
+        if (SaveManager.CurrentAccount == null)
+        {
+            Stars = 0;
+            Logger.Warn("ShopManager: No account logged in yet, defaulting stars to 0.");
+            return;
+        }
+
+        Stars = SaveManager.CurrentAccount.Stars;
+        GD.Print($"[DEBUG] Stars set to {Stars} from account {SaveManager.CurrentAccount.Username}");
     }
 
     public static void AddCoins(int amount)
     {
-        stars += amount;
-        Instance.EmitSignalCoinsChanged(stars);
+        Stars += amount;
+        Instance.EmitSignalCoinsChanged(Stars);
     }
 
     public static void SpendCoins(int amount)
     {
-        if (stars < amount) return;
+        if (Stars < amount) return;
 
-        stars -= amount;
-        Instance.EmitSignalCoinsChanged(stars);
+        Stars -= amount;
+        Instance.EmitSignalCoinsChanged(Stars);
     }
 
     public static List<Item> GetItemsByType<T>() where T : Item =>
@@ -57,7 +78,7 @@ public partial class ShopManager : Autoload<ShopManager>
     public static void BuyItem(Item item)
     {
         if (item is null) return;
-        if (stars < item.Cost) return;
+        if (Stars < item.Cost) return;
 
         var typeKey = typeof(Consumable);
 
@@ -66,22 +87,26 @@ public partial class ShopManager : Autoload<ShopManager>
 
         var existingItem = items.Find(i => i.ResourcePath == item.ResourcePath);
         if (existingItem is null) return;
-        
+
         SpendCoins(item.Cost);
-        
+        if (SaveManager.CurrentAccount != null)
+            SaveManager.CurrentAccount.Stars = Stars;
+
         InventoryManager.Instance.AddItem(item);
 
         Instance.EmitSignalItemBought(item);
-        
-        Logger.Info($"Bought {item.Name}");
-       if (InventoryManager.Instance.Items.TryGetValue(item, out var itemGroup))
-       {
-           Logger.Info($"{item.Name} Quantity: {itemGroup.Quantity}");
-       }
-       else
-       {
-           Logger.Info($"{item.Name} not found in inventory.");
-       }
-    }
 
+        Logger.Info($"Bought {item.Name}");
+        if (InventoryManager.Instance.Items.TryGetValue(item, out var itemGroup))
+        {
+            Logger.Info($"{item.Name} Quantity: {itemGroup.Quantity}");
+        }
+        else
+        {
+            Logger.Info($"{item.Name} not found in inventory.");
+        }
+
+        SaveManager.SaveInventory();
+        
+    }
 }

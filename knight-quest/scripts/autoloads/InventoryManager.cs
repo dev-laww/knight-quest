@@ -73,4 +73,10 @@ public partial class InventoryManager : Autoload<InventoryManager>
             Logger.Warn($"Item {item.Name} is not consumable and cannot be used.");
         }
     }
+    public void ClearInventory()
+    {
+        items.Clear();
+        EmitSignal(SignalName.InventoryUpdated); 
+    }
+
 }

@@ -139,7 +139,7 @@ public partial class Shop : CanvasLayer
     
     private void UpdateCoinLabel()
     {
-        coinLabel.Text = $"Coins: {ShopManager.stars}";
+        coinLabel.Text = $"Coins: {ShopManager.Stars}";
     }
 
     private void OnBuyButtonPress()
@@ -182,7 +182,7 @@ public partial class Shop : CanvasLayer
 
     private bool CanBuy()
     {
-        return selectedItem != null && ShopManager.stars >= selectedItem.Cost;
+        return selectedItem != null && ShopManager.Stars >= selectedItem.Cost;
     }
 
     public override void _ExitTree()
