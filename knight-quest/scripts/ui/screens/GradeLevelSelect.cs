@@ -13,6 +13,7 @@ public partial class GradeLevelSelect : CanvasLayer
     [Node] private ResourcePreloader resourcePreloader;
     [Node] private Button backButton;
 
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
@@ -26,12 +27,24 @@ public partial class GradeLevelSelect : CanvasLayer
         foreach (var gradeLevel in Enum.GetValues<RunConfig.GradeLevel>())
         {
             var panel = resourcePreloader.InstanceSceneOrNull<GradeLevelPanel>("GradeLevelPanel");
-
-            if (panel == null) continue;
+            if (panel == null)
+                continue;
 
             panel.GradeLevel = gradeLevel;
             gradeLevelsContainer.AddChild(panel);
             panel.Panel.GuiInput += e => OnGradeLevelPanelGuiInput(e, gradeLevel);
+            var label = new Label
+            {
+                Text = gradeLevel.ToString(),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                AutowrapMode = TextServer.AutowrapMode.Off,
+                
+                SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+                SizeFlagsVertical = Control.SizeFlags.ExpandFill
+            };
+            label.SetAnchorsPreset(Control.LayoutPreset.Center);
+            panel.AddChild(label);
         }
     }
 

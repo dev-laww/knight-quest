@@ -23,16 +23,21 @@ public partial class LevelSelect : CanvasLayer
 
     public override void _Ready()
     {
+        var selectedSubject = GameManager.Config.Subject;
+        var selectedGrade = GameManager.Config.Grade;
         backButton.Pressed += () => Navigator.Back();
         foreach (var levelInfo in levels)
         {
-            var level = resourcePreloader.InstanceSceneOrNull<Level>();
+            if (levelInfo.Subject == selectedSubject && levelInfo.Grade == selectedGrade)
+            {
+                var level = resourcePreloader.InstanceSceneOrNull<Level>();
 
-            if (level == null) return;
+                if (level == null) return;
 
-            level.Setup(levelInfo);
-            levelsContainer.AddChild(level);
-            level.Pressed += () => OnLevelPressed(levelInfo);
+                level.Setup(levelInfo);
+                levelsContainer.AddChild(level);
+                level.Pressed += () => OnLevelPressed(levelInfo);
+            }
         }
     }
 
