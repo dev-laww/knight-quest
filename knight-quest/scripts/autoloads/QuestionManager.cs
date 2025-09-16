@@ -1,41 +1,52 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using Game.Data;
-using GodotUtilities.Util;
+using Game.Utils;
 
 namespace Game.Autoloads;
 
 public partial class QuestionManager : Autoload<QuestionManager>
 {
-    [Signal] public delegate void QuestionRequestedEventHandler(Question question);
+    [Signal] 
+    public delegate void QuestionRequestedEventHandler(Question question);
 
-    public static Question CurrentQuestion { get; private set; }
+    public Question CurrentQuestion { get; private set; }
+    private List<Question> questions = new();
+    private int currentIndex = -1;
+    private Random rng = new();
 
-    public static Question GetQuestion()
+    public void LoadQuestions(Question[] question)
     {
-        CurrentQuestion = new()
+        this.questions = new List<Question>(question);
+        for (int i = this.questions.Count - 1; i > 0; i--)
         {
-            QuestionText = "What is the capital of France?",
-            Answers =
-            [
-                "Berlin",
-                "Madrid",
-                "Paris",
-                "Rome"
-            ],
-            CorrectAnswerIndex = 2
-        };
-        
-        Instance.EmitSignal(SignalName.QuestionRequested, CurrentQuestion);
-        Logger.Debug($"Question requested. {CurrentQuestion.Answers}");
+            int j = rng.Next(i + 1);
+            (this.questions[i], this.questions[j]) = (this.questions[j], this.questions[i]);
+        }
+        currentIndex = -1;
+    }
 
+    public Question GetNextQuestion()
+    {
+        if (questions.Count == 0)
+        {
+            Logger.Error("No questions loaded!");
+            return null;
+        }
+
+        currentIndex++;
+        if (currentIndex >= questions.Count)
+        {
+            Logger.Error("No more questions available.");
+            return null;
+        }
+
+        CurrentQuestion = questions[currentIndex];
+        EmitSignal(SignalName.QuestionRequested, CurrentQuestion);
         return CurrentQuestion;
     }
 
-    public static bool IsAnswerCorrect(int answerIndex)
-    {
-        if (CurrentQuestion != null) return answerIndex == CurrentQuestion.CorrectAnswerIndex;
-
-        return false;
-    }
+    public bool IsAnswerCorrect(int answerIndex)
+        => CurrentQuestion != null && answerIndex == CurrentQuestion.CorrectAnswerIndex;
 }

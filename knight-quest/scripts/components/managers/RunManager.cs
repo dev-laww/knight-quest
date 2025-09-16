@@ -68,7 +68,13 @@ public partial class RunManager : Node
 
     private void PlayerTurn()
     {
-        QuestionManager.GetQuestion();
+        if (aliveEnemies.Count == 0)
+        {
+            stateMachine.ChangeState(EncounterTransition);
+            return;
+        }
+    
+        QuestionManager.Instance.GetNextQuestion();
         turnHandled = false;
         turnTimer.Start(Configuration.TurnDuration);
         Logger.Debug("Player's turn started, waiting for answer.");
@@ -179,7 +185,7 @@ public partial class RunManager : Node
         turnHandled = true;
         turnTimer.Stop();
 
-        var correct = QuestionManager.IsAnswerCorrect(answerIndex);
+        var correct = QuestionManager.Instance.IsAnswerCorrect(answerIndex);
 
         Logger.Debug($"Player answered  {(correct ? "correctly" : "incorrectly")}");
 
@@ -187,8 +193,11 @@ public partial class RunManager : Node
 
         if (correct)
         {
-            var enemy = aliveEnemies.PickRandom();
-            await player.TakeTurn(enemy);
+            if (aliveEnemies.Count > 0)
+            {
+                var enemy = aliveEnemies.PickRandom();
+                await player.TakeTurn(enemy);
+            }
 
             // TODO: make player take less damage or something else based on the answer
             stateMachine.ChangeState(Execute);

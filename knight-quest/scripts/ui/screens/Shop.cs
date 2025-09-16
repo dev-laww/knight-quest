@@ -36,6 +36,7 @@ public partial class Shop : CanvasLayer
 
     public override void _Ready()
     {
+       ShopManager.Stars += 100;
         slots = slotContainer.GetChildrenOfType<Slot>().ToList();
         ConnectSlotSignals();
         buyButton.Pressed += OnBuyButtonPress;

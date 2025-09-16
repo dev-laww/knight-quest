@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8xtgwhl6hyyp"]
+[gd_scene load_steps=24 format=3 uid="uid://c8xtgwhl6hyyp"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_3xfb3"]
 [ext_resource type="Script" uid="uid://i0f55jageun5" path="res://scripts/ui/screens/LevelSelect.cs" id="1_ai07f"]
@@ -8,6 +8,16 @@
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="3_55e5n"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="4_g1yyd"]
 [ext_resource type="Script" uid="uid://bacok55bipbse" path="res://scripts/data/level/LevelInfo.cs" id="5_eh1g1"]
+[ext_resource type="Resource" uid="uid://bw74k1nb5p0x0" path="res://resources/questions/math1/1.tres" id="6_ty22s"]
+[ext_resource type="Resource" uid="uid://1a3tlqbgveg8" path="res://resources/questions/math1/2.tres" id="7_qoy3g"]
+[ext_resource type="Resource" uid="uid://dbgfpefoe0cbg" path="res://resources/questions/math1/3.tres" id="8_ij4ag"]
+[ext_resource type="Resource" uid="uid://cgik77oarjbx7" path="res://resources/questions/math1/4.tres" id="9_pbtir"]
+[ext_resource type="Resource" uid="uid://b06g06ggv8qui" path="res://resources/questions/math1/5.tres" id="10_c8a7a"]
+[ext_resource type="Resource" uid="uid://cntkw1nes5t3f" path="res://resources/questions/math1/6.tres" id="11_bapmu"]
+[ext_resource type="Resource" uid="uid://oefu26nht414" path="res://resources/questions/math1/7.tres" id="12_nww68"]
+[ext_resource type="Resource" uid="uid://blfadfaqjodjv" path="res://resources/questions/math1/8.tres" id="13_aqb88"]
+[ext_resource type="Resource" uid="uid://dtsq6326eabcx" path="res://resources/questions/math1/9.tres" id="14_l5115"]
+[ext_resource type="Resource" uid="uid://dqkj1s6x8d0ak" path="res://resources/questions/math1/10.tres" id="15_nv6s6"]
 
 [sub_resource type="Resource" id="Resource_wfn15"]
 script = ExtResource("3_55e5n")
@@ -29,7 +39,11 @@ metadata/_custom_type_script = "uid://cqe31o4yik31k"
 script = ExtResource("5_eh1g1")
 LevelName = "Test"
 LevelDescription = "Test Level"
+Subject = 1
+Grade = 0
 CombatSequence = SubResource("Resource_tj4p3")
+StarCount = 20
+Questions = Array[Object]([ExtResource("6_ty22s"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("10_c8a7a"), ExtResource("11_bapmu"), ExtResource("12_nww68"), ExtResource("13_aqb88"), ExtResource("14_l5115"), ExtResource("15_nv6s6")])
 metadata/_custom_type_script = "uid://bacok55bipbse"
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xfb3"]

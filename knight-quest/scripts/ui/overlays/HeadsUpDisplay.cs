@@ -120,7 +120,7 @@ public partial class HeadsUpDisplay : MarginContainer
 
     public void RevealCorrectAnswer()
     {
-        var question = QuestionManager.CurrentQuestion;
+        var question = QuestionManager.Instance.CurrentQuestion;
         if (question == null) return;
 
         var answerButtons = firstAnswerButton.ButtonGroup.GetButtons();
