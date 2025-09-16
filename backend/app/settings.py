@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     google_client_id: str
     google_client_secret: str
     jwt_secret_key: str
+    database_url: str
     app_mode: AppMode = AppMode.DEVELOPMENT
 
     model_config = SettingsConfigDict(
@@ -21,4 +22,4 @@ class Settings(BaseSettings):
     )
 
 
-settings = Settings()
+settings = Settings() # type: ignore
