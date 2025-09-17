@@ -9,7 +9,7 @@ namespace Game.Autoloads;
 public partial class SaveManager : Autoload<SaveManager>
 {
     public static Save Data { get; private set; } = new();
-    private static readonly string dir = $"{(OS.IsDebugBuild() ? "res" : "user")}://data";
+    private static readonly string dir = "user://data";
     private static readonly string path = $"{dir}/save.json";
 
     private static Account currentAccount;
