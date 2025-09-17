@@ -43,7 +43,7 @@ Subject = 1
 Grade = 0
 CombatSequence = SubResource("Resource_tj4p3")
 StarCount = 20
-Questions = Array[Object]([ExtResource("6_ty22s"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("10_c8a7a"), ExtResource("11_bapmu"), ExtResource("12_nww68"), ExtResource("13_aqb88"), ExtResource("14_l5115"), ExtResource("15_nv6s6")])
+Questions = Array[Object]([ExtResource("6_ty22s"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("10_c8a7a"), ExtResource("11_bapmu"), ExtResource("12_nww68"), ExtResource("13_aqb88"), ExtResource("14_l5115"), ExtResource("15_nv6s6"), ExtResource("7_qoy3g"), ExtResource("6_ty22s"), ExtResource("9_pbtir"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("10_c8a7a"), ExtResource("8_ij4ag"), ExtResource("10_c8a7a"), ExtResource("15_nv6s6"), ExtResource("11_bapmu"), ExtResource("10_c8a7a"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("9_pbtir"), ExtResource("12_nww68"), ExtResource("7_qoy3g"), ExtResource("13_aqb88")])
 metadata/_custom_type_script = "uid://bacok55bipbse"
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xfb3"]

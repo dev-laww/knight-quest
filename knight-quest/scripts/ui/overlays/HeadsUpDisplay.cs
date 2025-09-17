@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Autoloads;
+using Game.Components;
 using Game.Data;
 using Godot;
 using GodotUtilities;
@@ -16,10 +17,15 @@ public partial class HeadsUpDisplay : MarginContainer
     [Node] private RichTextLabel questionLabel;
     [Node] private Button firstAnswerButton;
     [Node] private GridContainer itemContainer;
+    [Node] private Label PlayerHp;
+    [Node] private Label EnemyHp;
+
 
     private List<Slot> slots;
+    private Entity currentEnemy;
 
-    [Signal] public delegate void AnswerSelectedEventHandler(int index);
+    [Signal]
+    public delegate void AnswerSelectedEventHandler(int index);
 
     public Vector2 PlayerGlobalPosition => playerPosition.GetGlobalPosition();
     public Vector2 EnemyGlobalPosition => enemyPosition.GetGlobalPosition();
@@ -53,6 +59,38 @@ public partial class HeadsUpDisplay : MarginContainer
     {
         QuestionManager.Instance.QuestionRequested -= OnQuestionRequested;
         InventoryManager.Instance.Updated -= OnInventoryUpdate;
+    }
+
+    public void setPlayer(Entity player)
+    {
+        if (player?.StatsManager != null)
+        {
+            PlayerHp.Text = player.StatsManager.Health.ToString();
+            player.StatsManager.StatChanged += UpdatePlayerHp;
+        }
+    }
+
+    private void UpdatePlayerHp(int newValue, StatsManager.Stat stat)
+    {
+        if (stat == StatsManager.Stat.Health)
+            PlayerHp.Text = newValue.ToString();
+    }
+
+
+    public void SetEnemy(Entity enemy)
+    {
+        currentEnemy = enemy;
+        if (currentEnemy?.StatsManager != null)
+        {
+            EnemyHp.Text = currentEnemy.StatsManager.Health.ToString();
+            currentEnemy.StatsManager.StatChanged += UpdateEnemyHp;
+        }
+    }
+
+    private void UpdateEnemyHp(int newValue, StatsManager.Stat stat)
+    {
+        if (stat == StatsManager.Stat.Health)
+            EnemyHp.Text = newValue.ToString();
     }
 
     // ===============================

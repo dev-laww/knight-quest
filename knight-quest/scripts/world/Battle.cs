@@ -37,6 +37,7 @@ public partial class Battle : Node2D
 
         entities.AddChild(player);
         player.GlobalPosition = headsUpDisplay.PlayerGlobalPosition;
+        headsUpDisplay.setPlayer(player);
     }
 
     private void OnEncounterStarted(Entity[] enemies)
@@ -45,6 +46,7 @@ public partial class Battle : Node2D
         {
             entities.AddChild(enemy);
             enemy.GlobalPosition = headsUpDisplay.EnemyGlobalPosition;
+            headsUpDisplay.SetEnemy(enemy);
         }
     }
 }
