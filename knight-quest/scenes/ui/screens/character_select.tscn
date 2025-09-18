@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ck774w2cbwvby"]
+[gd_scene load_steps=13 format=3 uid="uid://ck774w2cbwvby"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_qfdx5"]
 [ext_resource type="Script" uid="uid://dxi58wrtbelmx" path="res://scripts/ui/screens/CharacterSelect.cs" id="1_v6gmn"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b8hls0r6t6o16" path="res://scenes/ui/common/character_panel.tscn" id="2_f232k"]
 [ext_resource type="Script" uid="uid://dmoqfr4yqd5to" path="res://scripts/data/Character.cs" id="3_tcaym"]
 [ext_resource type="PackedScene" uid="uid://dw6vdc6chryiu" path="res://scenes/entities/characters/reaper.tscn" id="4_tcaym"]
+[ext_resource type="PackedScene" uid="uid://dobch6gvxe73h" path="res://scenes/entities/characters/mage.tscn" id="5_v270p"]
+[ext_resource type="PackedScene" uid="uid://c1csm6bllq6iv" path="res://scenes/entities/characters/rogue.tscn" id="6_8as7p"]
 
 [sub_resource type="Resource" id="Resource_kyw2v"]
 script = ExtResource("3_tcaym")
@@ -21,9 +23,23 @@ Description = ""
 Scene = ExtResource("4_tcaym")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
 
+[sub_resource type="Resource" id="Resource_k684n"]
+script = ExtResource("3_tcaym")
+Name = "Mage"
+Description = ""
+Scene = ExtResource("5_v270p")
+metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
+
+[sub_resource type="Resource" id="Resource_dy7lw"]
+script = ExtResource("3_tcaym")
+Name = "Rogue"
+Description = ""
+Scene = ExtResource("6_8as7p")
+metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
+
 [node name="CharacterSelect" type="CanvasLayer"]
 script = ExtResource("1_v6gmn")
-characters = [SubResource("Resource_kyw2v"), SubResource("Resource_v270p")]
+characters = [SubResource("Resource_kyw2v"), SubResource("Resource_v270p"), SubResource("Resource_k684n"), SubResource("Resource_dy7lw")]
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 resources = [PackedStringArray("CharacterPanel"), [ExtResource("2_f232k")]]
