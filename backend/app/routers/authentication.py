@@ -2,7 +2,7 @@
 from fastapi.params import Depends
 from fastapi_utils.cbv import cbv
 
-from ..models import User
+from ..models import User, password_context
 from ..repositories import Repository
 from ..schemas.auth import LoginSchema
 from ..schemas.response import LoginResponse
@@ -22,12 +22,12 @@ google_router = APIRouter(prefix='/google')
 class Auth:
     repository: Repository[User] = Depends(create_repository_dependency(User))
 
-    @router.post('/login', response_model=LoginResponse)
+    @router.post('/login')
     async def login(self, login_data: LoginSchema):
         user = await self.repository.all(email=login_data.email)
         user = user[0] if user else None
 
-        if not user or not user.verify_password(login_data.password):
+        if not user or not password_context.verify(login_data.password, user.password):
             return {'error': 'Invalid email or password'}
 
         token = encode({'user_id': user.id, 'email': user.email})

@@ -1,8 +1,12 @@
 from enum import Enum
 from typing import List, Optional
 
+from passlib.context import CryptContext
+from pydantic import field_validator, ConfigDict
 from sqlalchemy import Column, String
 from sqlmodel import SQLModel, Field, Relationship
+
+password_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 class UserRole(str, Enum):
@@ -27,10 +31,11 @@ class ParentStudentLink(SQLModel, table=True):
 
 class User(SQLModel, table=True):
     __tablename__ = 'users'
+    model_config = ConfigDict(validate_assignment=True)
 
     id: Optional[int] = Field(default=None, primary_key=True)
     email: str = Field(sa_column=Column(String, index=True, nullable=False, unique=True))
-    password_hash: str = Field(nullable=False)
+    password: str = Field(nullable=False)
     first_name: str = Field(nullable=False)
     last_name: str = Field(nullable=False)
 
@@ -77,4 +82,11 @@ class User(SQLModel, table=True):
     save: Optional['Save'] = Relationship(back_populates='user')
 
     def verify_password(self, password: str) -> bool:
-        return self.password_hash == password  # TODO: update password verification logic to use hash
+        return password_context.verify(password, self.password)
+
+    @field_validator('password', mode='before')
+    @classmethod
+    def hash_password(cls, value: str) -> str:
+        if value.startswith('$2b$') or value.startswith('$2a$') or value.startswith('$2y$'):
+            return value  # Already hashed
+        return password_context.hash(value)
