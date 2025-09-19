@@ -75,3 +75,6 @@ class User(SQLModel, table=True):
     )
 
     save: Optional['Save'] = Relationship(back_populates='user')
+
+    def verify_password(self, password: str) -> bool:
+        return self.password_hash == password  # TODO: update password verification logic to use hash

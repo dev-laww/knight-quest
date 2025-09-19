@@ -14,7 +14,5 @@ class Response(Base):
 
 
 class LoginResponse(BaseModel):
+    token: str
     user: dict
-    access_token: str
-    refresh_token: str
-    token_type: str
