@@ -14,18 +14,18 @@ google_router = APIRouter(prefix='/google')
 
 @cbv(router)
 class Auth:
-    pass
+
 
 
 @cbv(google_router)
 class GoogleAuth:
-    @google_router.get("/login")
+    @google_router.get('/login')
     async def login(self, request: Request):
         base_url = str(request.base_url).rstrip('/')
-        redirect_uri = f"{base_url}/auth/google/callback"
+        redirect_uri = f'{base_url}/auth/google/callback'
         return await oauth.google.authorize_redirect(request, redirect_uri)
 
-    @google_router.get("/callback", name="auth_callback")
+    @google_router.get('/callback', name='auth_callback')
     async def auth_callback(self, request: Request):
         token = await oauth.google.authorize_access_token(request)
 
