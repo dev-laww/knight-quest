@@ -6,27 +6,27 @@ from sqlmodel import SQLModel, Field, Relationship
 
 
 class UserRole(str, Enum):
-    teacher = "teacher"
-    parent = "parent"
-    student = "student"
+    teacher = 'teacher'
+    parent = 'parent'
+    student = 'student'
 
 
 class TeacherStudentLink(SQLModel, table=True):
-    __tablename__ = "teacher_student_link"
+    __tablename__ = 'teacher_student_link'
 
-    teacher_id: Optional[int] = Field(default=None, foreign_key="users.id", primary_key=True)
-    student_id: Optional[int] = Field(default=None, foreign_key="users.id", primary_key=True)
+    teacher_id: Optional[int] = Field(default=None, foreign_key='users.id', primary_key=True)
+    student_id: Optional[int] = Field(default=None, foreign_key='users.id', primary_key=True)
 
 
 class ParentStudentLink(SQLModel, table=True):
-    __tablename__ = "parent_student_link"
+    __tablename__ = 'parent_student_link'
 
-    parent_id: Optional[int] = Field(default=None, foreign_key="users.id", primary_key=True)
-    student_id: Optional[int] = Field(default=None, foreign_key="users.id", primary_key=True)
+    parent_id: Optional[int] = Field(default=None, foreign_key='users.id', primary_key=True)
+    student_id: Optional[int] = Field(default=None, foreign_key='users.id', primary_key=True)
 
 
 class User(SQLModel, table=True):
-    __tablename__ = "users"
+    __tablename__ = 'users'
 
     id: Optional[int] = Field(default=None, primary_key=True)
     email: str = Field(sa_column=Column(String, index=True, nullable=False, unique=True))
@@ -36,22 +36,42 @@ class User(SQLModel, table=True):
 
     role: UserRole = Field(sa_column=Column(String, nullable=False, default=UserRole.student))
 
-    students: List["User"] = Relationship(
-        back_populates="teachers",
-        link_model=TeacherStudentLink
+    # Teacher-Student relationships
+    students: List['User'] = Relationship(
+        back_populates='teachers',
+        link_model=TeacherStudentLink,
+        sa_relationship_kwargs={
+            'primaryjoin': 'User.id == TeacherStudentLink.teacher_id',
+            'secondaryjoin': 'User.id == TeacherStudentLink.student_id',
+        }
     )
 
-    teachers: List["User"] = Relationship(
-        back_populates="students",
-        link_model=TeacherStudentLink
+    teachers: List['User'] = Relationship(
+        back_populates='students',
+        link_model=TeacherStudentLink,
+        sa_relationship_kwargs={
+            'primaryjoin': 'User.id == TeacherStudentLink.student_id',
+            'secondaryjoin': 'User.id == TeacherStudentLink.teacher_id',
+        }
     )
 
-    children: List["User"] = Relationship(
-        back_populates="parents",
-        link_model=ParentStudentLink
+    # Parent-Student relationships
+    children: List['User'] = Relationship(
+        back_populates='parents',
+        link_model=ParentStudentLink,
+        sa_relationship_kwargs={
+            'primaryjoin': 'User.id == ParentStudentLink.parent_id',
+            'secondaryjoin': 'User.id == ParentStudentLink.student_id',
+        }
     )
 
-    parents: List["User"] = Relationship(
-        back_populates="children",
-        link_model=ParentStudentLink
+    parents: List['User'] = Relationship(
+        back_populates='children',
+        link_model=ParentStudentLink,
+        sa_relationship_kwargs={
+            'primaryjoin': 'User.id == ParentStudentLink.student_id',
+            'secondaryjoin': 'User.id == ParentStudentLink.parent_id',
+        }
     )
+
+    save: Optional['Save'] = Relationship(back_populates='user')
