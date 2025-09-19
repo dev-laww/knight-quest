@@ -52,12 +52,12 @@ def setup_app(app: FastAPI):
 
     @app.exception_handler(StarletteHTTPException)
     async def exception_handler(_request: Request, exc: HTTPException) -> Union[Response, Awaitable[Response]]:
-        return ResponseBuilder.exception(exc)  # type: ignore
+        return http.ResponseBuilder.exception(exc)
 
     @app.exception_handler(status.HTTP_404_NOT_FOUND)
     async def not_found(_request: Request, exc: HTTPException) -> Union[Response, Awaitable[Response]]:
         exc.detail = exc.detail or 'Resource Not found'
-        return http.ResponseBuilder.exception(exc)  # type: ignore
+        return http.ResponseBuilder.exception(exc)
 
     @app.exception_handler(status.HTTP_500_INTERNAL_SERVER_ERROR)
     async def internal_server_error(_request: Request, exc: RuntimeError) -> Union[Response, Awaitable[Response]]:
@@ -66,7 +66,7 @@ def setup_app(app: FastAPI):
             detail=str(exc),
         )
 
-        return http.ResponseBuilder.exception(e)  # type: ignore
+        return http.ResponseBuilder.exception(e)
 
     return app
 
