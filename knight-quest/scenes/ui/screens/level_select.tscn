@@ -1,10 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://c8xtgwhl6hyyp"]
+[gd_scene load_steps=55 format=3 uid="uid://c8xtgwhl6hyyp"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_3xfb3"]
 [ext_resource type="Script" uid="uid://i0f55jageun5" path="res://scripts/ui/screens/LevelSelect.cs" id="1_ai07f"]
 [ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/teeth.tscn" id="2_55e5n"]
 [ext_resource type="PackedScene" uid="uid://dc8s677y6qtgv" path="res://scenes/ui/common/level.tscn" id="2_gqp32"]
-[ext_resource type="PackedScene" uid="uid://b2fshu4a5e41d" path="res://scenes/entities/enemies/star.tscn" id="2_t8ixd"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="3_55e5n"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="4_g1yyd"]
 [ext_resource type="Script" uid="uid://bacok55bipbse" path="res://scripts/data/level/LevelInfo.cs" id="5_eh1g1"]
@@ -18,20 +17,45 @@
 [ext_resource type="Resource" uid="uid://blfadfaqjodjv" path="res://resources/questions/math1/8.tres" id="13_aqb88"]
 [ext_resource type="Resource" uid="uid://dtsq6326eabcx" path="res://resources/questions/math1/9.tres" id="14_l5115"]
 [ext_resource type="Resource" uid="uid://dqkj1s6x8d0ak" path="res://resources/questions/math1/10.tres" id="15_nv6s6"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question1.tres" id="16_lxw8k"]
+[ext_resource type="Texture2D" uid="uid://cbbde4iuxekn" path="res://assets/art/ui/battle background no ground (dark).png" id="17_qoy3g"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question2.tres" id="17_ric1t"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question3.tres" id="18_e45xs"]
+[ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="18_ty22s"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question4.tres" id="19_eyq3r"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question5.tres" id="20_bwdmr"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question6.tres" id="21_abh7h"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question8.tres" id="22_4k2j8"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question9.tres" id="23_pqiod"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question10.tres" id="24_cofbt"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question11.tres" id="25_bibf7"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question12.tres" id="26_nxtwq"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question13.tres" id="27_dk56m"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question14.tres" id="28_neg8b"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question15.tres" id="29_vwenb"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question16.tres" id="30_rbp5l"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question7.tres" id="31_cl0un"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question17.tres" id="32_0xhbi"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question18.tres" id="33_8nqhl"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question19.tres" id="34_mjr5f"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question20.tres" id="35_vwpdc"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question21.tres" id="36_kf4i7"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question22.tres" id="37_a5j2g"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question23.tres" id="38_t3ijw"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question24.tres" id="39_tmakg"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question25.tres" id="40_6llsf"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question26.tres" id="41_50w8t"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question27.tres" id="42_a2hou"]
+[ext_resource type="Resource" path="res://resources/questions/Grade1/Math/question28.tres" id="43_2baxa"]
 
 [sub_resource type="Resource" id="Resource_wfn15"]
 script = ExtResource("3_55e5n")
 Enemies = [ExtResource("2_55e5n")]
 metadata/_custom_type_script = "uid://cb136e6c67ahm"
 
-[sub_resource type="Resource" id="Resource_4543l"]
-script = ExtResource("3_55e5n")
-Enemies = [ExtResource("2_t8ixd")]
-metadata/_custom_type_script = "uid://cb136e6c67ahm"
-
 [sub_resource type="Resource" id="Resource_tj4p3"]
 script = ExtResource("4_g1yyd")
-Encounters = [SubResource("Resource_wfn15"), SubResource("Resource_4543l")]
+Encounters = [SubResource("Resource_wfn15")]
 TurnDuration = 30
 metadata/_custom_type_script = "uid://cqe31o4yik31k"
 
@@ -46,12 +70,41 @@ StarCount = 20
 Questions = Array[Object]([ExtResource("6_ty22s"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("10_c8a7a"), ExtResource("11_bapmu"), ExtResource("12_nww68"), ExtResource("13_aqb88"), ExtResource("14_l5115"), ExtResource("15_nv6s6"), ExtResource("7_qoy3g"), ExtResource("6_ty22s"), ExtResource("9_pbtir"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("10_c8a7a"), ExtResource("8_ij4ag"), ExtResource("10_c8a7a"), ExtResource("15_nv6s6"), ExtResource("11_bapmu"), ExtResource("10_c8a7a"), ExtResource("7_qoy3g"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("8_ij4ag"), ExtResource("9_pbtir"), ExtResource("9_pbtir"), ExtResource("12_nww68"), ExtResource("7_qoy3g"), ExtResource("13_aqb88")])
 metadata/_custom_type_script = "uid://bacok55bipbse"
 
+[sub_resource type="Resource" id="Resource_uavfg"]
+script = ExtResource("3_55e5n")
+Enemies = [ExtResource("2_55e5n")]
+metadata/_custom_type_script = "uid://cb136e6c67ahm"
+
+[sub_resource type="Resource" id="Resource_y4avn"]
+script = ExtResource("4_g1yyd")
+Encounters = [SubResource("Resource_uavfg")]
+TurnDuration = 30
+metadata/_custom_type_script = "uid://cqe31o4yik31k"
+
+[sub_resource type="Resource" id="Resource_ti8e5"]
+script = ExtResource("5_eh1g1")
+LevelName = "MATH1"
+LevelDescription = ""
+Subject = 1
+Grade = 1
+CombatSequence = SubResource("Resource_y4avn")
+StarCount = 20
+Questions = Array[Object]([ExtResource("16_lxw8k"), ExtResource("17_ric1t"), ExtResource("18_e45xs"), ExtResource("19_eyq3r"), ExtResource("20_bwdmr"), ExtResource("21_abh7h"), ExtResource("22_4k2j8"), ExtResource("23_pqiod"), ExtResource("24_cofbt"), ExtResource("25_bibf7"), ExtResource("26_nxtwq"), ExtResource("27_dk56m"), ExtResource("28_neg8b"), ExtResource("29_vwenb"), ExtResource("30_rbp5l"), ExtResource("31_cl0un"), ExtResource("32_0xhbi"), ExtResource("33_8nqhl"), ExtResource("34_mjr5f"), ExtResource("35_vwpdc"), ExtResource("36_kf4i7"), ExtResource("37_a5j2g"), ExtResource("38_t3ijw"), ExtResource("39_tmakg"), ExtResource("40_6llsf"), ExtResource("41_50w8t"), ExtResource("42_a2hou"), ExtResource("43_2baxa")])
+metadata/_custom_type_script = "uid://bacok55bipbse"
+
 [sub_resource type="LabelSettings" id="LabelSettings_3xfb3"]
 font_size = 32
 
 [node name="LevelSelect" type="CanvasLayer"]
 script = ExtResource("1_ai07f")
-levels = [SubResource("Resource_8eq1m")]
+levels = [SubResource("Resource_8eq1m"), SubResource("Resource_ti8e5")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(644, 361)
+offset_right = 644.0
+offset_bottom = 361.0
+texture = ExtResource("17_qoy3g")
+expand_mode = 1
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 resources = [PackedStringArray("Level"), [ExtResource("2_gqp32")]]
@@ -72,16 +125,14 @@ self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/Panel"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="BackButton" parent="MarginContainer/VBoxContainer/Panel" instance=ExtResource("18_ty22s")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -8.0
-offset_right = 16.0
-offset_bottom = 8.0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]

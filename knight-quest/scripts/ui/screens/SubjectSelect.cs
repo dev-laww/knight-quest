@@ -10,7 +10,7 @@ public partial class SubjectSelect : CanvasLayer
 {
     [Node] private Panel math;
     [Node] private Panel english;
-    [Node] private Button backButton;
+
 
     public override void _Notification(int what)
     {
@@ -23,7 +23,6 @@ public partial class SubjectSelect : CanvasLayer
     {
         math.GuiInput += e => OnSubjectGuiInput(e, RunConfig.SubjectArea.Mathematics);
         english.GuiInput += e => OnSubjectGuiInput(e, RunConfig.SubjectArea.English);
-        backButton.Pressed += () => Navigator.Back();
     }
 
     private void OnSubjectGuiInput(InputEvent @event, RunConfig.SubjectArea subject)

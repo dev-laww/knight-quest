@@ -374,10 +374,11 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 script = ExtResource("2_xx47m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
-position = Vector2(0, -31)
+position = Vector2(0, -46)
+scale = Vector2(1.523, 1.523)
 sprite_frames = SubResource("SpriteFrames_t810p")
 animation = &"idle"
-frame = 3
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {

@@ -389,10 +389,11 @@ scale = Vector2(2.5, 2.5)
 script = ExtResource("2_s4cqc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
-position = Vector2(0, -16)
+position = Vector2(10.8, -22.4)
+scale = Vector2(1.5, 1.40833)
 sprite_frames = SubResource("SpriteFrames_h5r7x")
 animation = &"idle"
-frame = 4
+frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {

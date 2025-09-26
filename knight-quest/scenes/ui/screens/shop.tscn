@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
-[ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/Slot.tscn" id="2_ath4n"]
-[ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="3_ath4n"]
+[ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot.tscn" id="2_ath4n"]
+[ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="3_ath4n"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ath4n"]
 texture = ExtResource("1_w276f")
@@ -39,11 +39,9 @@ custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="BackButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/Header"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="BackButton" parent="Panel/MarginContainer/VBoxContainer/Header" instance=ExtResource("3_ath4n")]
 layout_mode = 2
-theme = ExtResource("3_ath4n")
+size_flags_horizontal = 0
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
 layout_mode = 2

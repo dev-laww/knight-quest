@@ -314,6 +314,7 @@ states/idle/position = Vector2(391, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_s1vdo"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_8x0tx"), "die", "End", SubResource("AnimationNodeStateMachineTransition_tx3l2"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_nc1sa"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_yv40v"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_45huj"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_tsnlk")]
 
 [node name="Reaper" instance=ExtResource("1_f13mr")]
+scale = Vector2(1.523, 1.523)
 script = ExtResource("2_34ynr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
@@ -321,7 +322,6 @@ position = Vector2(0, -31)
 sprite_frames = SubResource("SpriteFrames_s1vdo")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {

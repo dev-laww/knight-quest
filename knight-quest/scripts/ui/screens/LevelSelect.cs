@@ -12,7 +12,6 @@ public partial class LevelSelect : CanvasLayer
 
     [Node] private ResourcePreloader resourcePreloader;
     [Node] private GridContainer levelsContainer;
-    [Node] private Button backButton;
 
     public override void _Notification(int what)
     {
@@ -25,7 +24,6 @@ public partial class LevelSelect : CanvasLayer
     {
         var selectedSubject = GameManager.Config.Subject;
         var selectedGrade = GameManager.Config.Grade;
-        backButton.Pressed += () => Navigator.Back();
         foreach (var levelInfo in levels)
         {
             if (levelInfo.Subject == selectedSubject && levelInfo.Grade == selectedGrade)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ck774w2cbwvby"]
+[gd_scene load_steps=15 format=3 uid="uid://ck774w2cbwvby"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_qfdx5"]
 [ext_resource type="Script" uid="uid://dxi58wrtbelmx" path="res://scripts/ui/screens/CharacterSelect.cs" id="1_v6gmn"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dw6vdc6chryiu" path="res://scenes/entities/characters/reaper.tscn" id="4_tcaym"]
 [ext_resource type="PackedScene" uid="uid://dobch6gvxe73h" path="res://scenes/entities/characters/mage.tscn" id="5_v270p"]
 [ext_resource type="PackedScene" uid="uid://c1csm6bllq6iv" path="res://scenes/entities/characters/rogue.tscn" id="6_8as7p"]
+[ext_resource type="Texture2D" uid="uid://cbbde4iuxekn" path="res://assets/art/ui/battle background no ground (dark).png" id="8_k684n"]
+[ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="9_8as7p"]
 
 [sub_resource type="Resource" id="Resource_kyw2v"]
 script = ExtResource("3_tcaym")
@@ -44,6 +46,13 @@ characters = [SubResource("Resource_kyw2v"), SubResource("Resource_v270p"), SubR
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 resources = [PackedStringArray("CharacterPanel"), [ExtResource("2_f232k")]]
 
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(644, 361)
+offset_right = 644.0
+offset_bottom = 361.0
+texture = ExtResource("8_k684n")
+expand_mode = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,22 +75,14 @@ theme_override_constants/margin_right = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 
+[node name="BackButton" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("9_8as7p")]
+layout_mode = 2
+size_flags_horizontal = 0
+
 [node name="Panel" type="Panel" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-
-[node name="BackButton" type="Button" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Panel"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -8.0
-offset_right = 16.0
-offset_bottom = 8.0
-grow_vertical = 2
 
 [node name="PanelContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

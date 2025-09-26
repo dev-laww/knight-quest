@@ -76,7 +76,7 @@ grow_vertical = 2
 
 [node name="PlayerPosition" type="Marker2D" parent="VBoxContainer/Separator/PlayerAnchor"]
 unique_name_in_owner = true
-position = Vector2(85, 40)
+position = Vector2(81, 75)
 
 [node name="EnemyAnchor" type="Control" parent="VBoxContainer/Separator"]
 layout_mode = 1
@@ -90,7 +90,7 @@ grow_vertical = 2
 
 [node name="EnemyPosition" type="Marker2D" parent="VBoxContainer/Separator/EnemyAnchor"]
 unique_name_in_owner = true
-position = Vector2(-85, 40)
+position = Vector2(-97, 75)
 
 [node name="Bottom" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)

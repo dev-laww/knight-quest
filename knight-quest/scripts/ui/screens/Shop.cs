@@ -20,7 +20,7 @@ public partial class Shop : CanvasLayer
     [Node] private RichTextLabel selectedItemDescription;
     [Node] private Button buyButton;
     [Node] private TextureRect itemIcon;
-    [Node] private Button backButton;
+
 
     [Signal]
     public delegate void ItemBoughtEventHandler();
@@ -40,7 +40,7 @@ public partial class Shop : CanvasLayer
         slots = slotContainer.GetChildrenOfType<Slot>().ToList();
         ConnectSlotSignals();
         buyButton.Pressed += OnBuyButtonPress;
-        backButton.Pressed += () => Navigator.Back();
+ 
         
         ShopManager.Instance.CoinsChanged += OnCoinsChanged;
         

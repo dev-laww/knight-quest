@@ -215,10 +215,12 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 script = ExtResource("2_ajgby")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
-position = Vector2(0, -31)
+position = Vector2(-1, -49)
+scale = Vector2(1.523, 1.523)
 sprite_frames = SubResource("SpriteFrames_hv62p")
-animation = &"attack"
-frame_progress = 0.508859
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.0636928
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 

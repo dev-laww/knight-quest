@@ -12,7 +12,6 @@ public partial class CharacterSelect : CanvasLayer
 
     [Node] private ResourcePreloader resourcePreloader;
     [Node] private HBoxContainer panelContainer;
-    [Node] private Button backButton;
 
     public override void _Notification(int what)
     {
@@ -23,7 +22,6 @@ public partial class CharacterSelect : CanvasLayer
 
     public override void _Ready()
     {
-        backButton.Pressed += () => Navigator.Back();
         foreach (var character in characters)
         {
             var panel = resourcePreloader.InstanceSceneOrNull<CharacterPanel>();

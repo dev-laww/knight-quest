@@ -1,10 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cp44mlxd34kfk"]
 
 [ext_resource type="Script" uid="uid://bgrhjvvblvsxi" path="res://scripts/ui/overlays/ResultScreen.cs" id="1_yqk8p"]
+[ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="2_2hhwa"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="2_s8mfa"]
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="3_2hhwa"]
-
-[sub_resource type="Theme" id="Theme_dkvee"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a62do"]
 texture = ExtResource("2_s8mfa")
@@ -14,11 +13,18 @@ region_rect = Rect2(32.9753, 1120.55, 181.945, 280.083)
 script = ExtResource("1_yqk8p")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 600.0
-offset_bottom = 320.0
-theme = SubResource("Theme_dkvee")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -140.0
+offset_right = 280.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2hhwa")
 
 [node name="Panel" type="Panel" parent="CenterContainer"]
 custom_minimum_size = Vector2(300, 250)
@@ -44,12 +50,13 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_2hhwa")
 
 [node name="RetryButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("3_2hhwa")
 text = "TRY AGAIN"
 
 [node name="MenuButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]

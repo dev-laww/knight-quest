@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhj1ar25m14m2"]
+[gd_scene load_steps=5 format=3 uid="uid://dhj1ar25m14m2"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_adsgf"]
 [ext_resource type="Script" uid="uid://brtbmo5l4dbbg" path="res://scripts/ui/screens/SubjectSelect.cs" id="1_yv5e2"]
+[ext_resource type="Texture2D" uid="uid://cbbde4iuxekn" path="res://assets/art/ui/battle background no ground (dark).png" id="2_2qdiu"]
+[ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="3_7v4wm"]
 
 [node name="SubjectSelect" type="CanvasLayer"]
 script = ExtResource("1_yv5e2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(644, 361)
+offset_right = 644.0
+offset_bottom = 361.0
+texture = ExtResource("2_2qdiu")
+expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -22,16 +31,14 @@ self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/Panel"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+[node name="BackButton" parent="MarginContainer/VBoxContainer/Panel" instance=ExtResource("3_7v4wm")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -8.0
-offset_right = 16.0
-offset_bottom = 8.0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

@@ -360,9 +360,11 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 script = ExtResource("2_qcukw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
-position = Vector2(0, -31)
+position = Vector2(-1, -43)
+scale = Vector2(1.52344, 1.375)
 sprite_frames = SubResource("SpriteFrames_mybmo")
 animation = &"idle"
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
