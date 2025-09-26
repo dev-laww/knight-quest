@@ -7,6 +7,16 @@
 [node name="Login" type="CanvasLayer"]
 script = ExtResource("1_ew7pq")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(644, 361)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_8d2ni")
+expand_mode = 1
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,12 +24,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_8d2ni")
-
-[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
-custom_minimum_size = Vector2(644, 361)
-layout_mode = 2
-texture = ExtResource("3_8d2ni")
-expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(200, 0)

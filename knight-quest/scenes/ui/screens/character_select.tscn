@@ -48,8 +48,11 @@ resources = [PackedStringArray("CharacterPanel"), [ExtResource("2_f232k")]]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(644, 361)
-offset_right = 644.0
-offset_bottom = 361.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("8_k684n")
 expand_mode = 1
 
