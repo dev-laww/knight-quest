@@ -7,8 +7,8 @@ var scene: PackedScene = preload("res://scenes/ui/screens/main_menu.tscn")
 
 
 func _ready() -> void:
-    login_button.pressed.connect(_on_login_button_pressed)
+	login_button.pressed.connect(_on_login_button_pressed)
 
 
 func _on_login_button_pressed() -> void:
-    get_tree().change_scene_to_packed(scene)
+	get_tree().change_scene_to_packed(scene)

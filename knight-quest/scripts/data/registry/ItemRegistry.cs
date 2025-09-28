@@ -10,6 +10,8 @@ public partial class ItemRegistry : Registry<Item, ItemRegistry>
 {
     // Path in your Godot project where item .tres files are stored
     protected override string ResourcePath => "res://resources/item/";
+    public static ItemRegistry PublicInstance => Instance.Value;
+    public static Dictionary<string, Item> PublicResources => Resources;
 
     public static List<Item> GetItems(int maxCost) => Resources.Values
         .Where(item => item.Cost <= maxCost)

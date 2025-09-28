@@ -30,16 +30,29 @@ public partial class Login : CanvasLayer
     {
         var username = usernameField.Text;
         var password = passwordField.Text;
-
+        if (SaveManager.Login(username, password))
+        {
             GD.Print("Welcome " + username + "!");
             Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
-
+        }
+        else
+        {
+            GD.Print("Login failed!");
+        }
+        
     }
 
     private void OnRegisterPressed()
     {
         var username = usernameField.Text;
         var password = passwordField.Text;
-        
+        if (SaveManager.Register(username, password))
+        {
+            GD.Print("Account created!");
+        }
+        else
+        {
+            GD.Print("Account already exists!");
+        }
     }
 }

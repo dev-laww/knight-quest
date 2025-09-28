@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Game.Data;
 using Game.Utils;
 using Godot;
@@ -65,7 +66,13 @@ public partial class SaveManager : Autoload<SaveManager>
         var account = new Account
         {
             Username = username,
-            Password = password
+            Token = "", // Set as needed
+            FirstName = "",
+            LastName = "",
+            Role = "",
+            Progression = new Progression(),
+            Inventory = new List<SavedItem>(),
+            Shop = new Shop()
         };
 
         Data.AddAccount(account);
@@ -78,8 +85,7 @@ public partial class SaveManager : Autoload<SaveManager>
     {
         if (Data == null) Load();
 
-        var account = Data.Accounts.Find(a => 
-            a.Username == username && a.Password == password);
+        var account = Data.Accounts.Find(a => a.Username == username /* && a.Password == password */);
 
         if (account != null)
         {
@@ -91,46 +97,78 @@ public partial class SaveManager : Autoload<SaveManager>
         Logger.Warn("Invalid username or password!");
         return false;
     }
-    
-    
-    public static void SaveInventory()
-    {
-        if (CurrentAccount == null)
-        {
-            Logger.Warn("No account is currently logged in, cannot save inventory.");
-            return;
-        }
-
-        // Convert runtime inventory dictionary to list
-        var itemList = new List<ItemGroup>(InventoryManager.Instance.Items.Values);
-        CurrentAccount.Items = itemList;
-
-        Save();
-        Logger.Info($"Inventory saved for {CurrentAccount.Username}");
-    }
-    
-    public static void LoadInventory()
-    {
-        if (CurrentAccount == null)
-        {
-            Logger.Warn("No account is currently logged in, cannot load inventory.");
-            return;
-        }
-
-        InventoryManager.Instance.ClearInventory();
-
-        foreach (var group in CurrentAccount.Items)
-        {
-            for (int i = 0; i < group.Quantity; i++)
-                InventoryManager.Instance.AddItem(group.Item);
-        }
-
-        Logger.Info($"Inventory loaded for {CurrentAccount.Username}");
-    }
-    
-
-
-
 
     public static Account CurrentAccount => currentAccount;
+
+    // Inventory
+    public static void SaveInventory()
+    {
+        if (CurrentAccount == null) return;
+
+        var savedItems = InventoryManager.Instance.Items.Values
+            .Select(group => new SavedItem
+            {
+                Id = group.Item.Name,
+                Quantity = group.Quantity,
+                AcquiredAt = System.DateTime.UtcNow.ToString("s")
+            })
+            .ToList();
+
+        CurrentAccount.Inventory = savedItems;
+        Save();
+    }
+
+    public static void LoadInventory()
+    {
+        if (CurrentAccount == null) return;
+        InventoryManager.Instance.ClearInventory();
+        foreach (var saved in CurrentAccount.Inventory)
+        {
+            if (ItemRegistry.PublicResources.TryGetValue(saved.Id, out var item))
+            {
+                for (int i = 0; i < saved.Quantity; i++)
+                    InventoryManager.Instance.AddItem(item);
+            }
+        }
+    }
+
+    // Finished Levels
+    public static void SaveFinishedLevel(string levelId, int starsEarned, int duration)
+    {
+        if (CurrentAccount == null) return;
+        var finishedLevel = new FinishedLevel
+        {
+            Id = levelId,
+            StarsEarned = starsEarned,
+            Duration = duration,
+            CompletedAt = System.DateTime.UtcNow.ToString("s")
+        };
+        CurrentAccount.Progression.LevelsFinished.Add(finishedLevel);
+        Save();
+    }
+
+    public static List<FinishedLevel> LoadFinishedLevels()
+    {
+        return CurrentAccount?.Progression.LevelsFinished ?? new List<FinishedLevel>();
+    }
+
+    // Shop
+    public static void SaveShopPurchase(string itemId, int quantity, int cost)
+    {
+        if (CurrentAccount == null) return;
+        var purchase = new PurchaseHistory
+        {
+            Id = itemId,
+            Quantity = quantity,
+            Cost = cost,
+            PurchasedAt = System.DateTime.UtcNow.ToString("s")
+        };
+        CurrentAccount.Shop.PurchaseHistory.Add(purchase);
+        Save();
+    }
+
+    public static List<PurchaseHistory> LoadShopHistory()
+    {
+        return CurrentAccount?.Shop.PurchaseHistory ?? new List<PurchaseHistory>();
+    }
 }

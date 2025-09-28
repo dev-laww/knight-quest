@@ -20,9 +20,27 @@ public partial class MainMenu : CanvasLayer
 
     public override void _Ready()
     {
+        if (SaveManager.CurrentAccount != null)
+        {
+            SaveManager.LoadInventory();
+            ShopManager.Stars = SaveManager.CurrentAccount.Shop.Stars;
+            Logger.Info($"Loaded inventory and stars for {SaveManager.CurrentAccount.Username}");
+            foreach (var item in SaveManager.CurrentAccount.Inventory)
+            {
+                Logger.Info($"Loaded item: {item.Id} x{item.Quantity}");
+            }
+        }
+        else
+        {
+            InventoryManager.Instance.ClearInventory();
+            ShopManager.Stars = 0;
+            Logger.Error("No account logged in, inventory cleared and stars set to 0.");
+        }
+
         startButton.Pressed += OnStartButtonPressed;
         shopButton.Pressed += OnShopButtonPressed;
     }
+
     private void OnStartButtonPressed()
     {
         Navigator.Push("res://scenes/ui/screens/subject_select.tscn");

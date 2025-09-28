@@ -14,6 +14,12 @@
         <Compile Update="scripts\**\*.cs">
             <Namespace>Game</Namespace>
         </Compile>
+        <Compile Update="scripts\data\registry\Registry.cs">
+          <Namespace>Game</Namespace>
+        </Compile>
+        <Compile Update="scripts\data\registry\ItemRegistry.cs">
+          <Namespace>Game</Namespace>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Delaunator" Version="1.0.10" />

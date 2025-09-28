@@ -47,7 +47,15 @@ public partial class ShopManager : Autoload<ShopManager>
 
     private void InitializeAccountData()
     {
+        if (SaveManager.CurrentAccount == null)
+        {
+            Stars = 0;
+            Logger.Warn("ShopManager: No account logged in yet, defaulting stars to 0.");
+            return;
+        }
 
+        Stars = SaveManager.CurrentAccount.Shop.Stars;
+        GD.Print($"[DEBUG] Stars set to {Stars} from account {SaveManager.CurrentAccount.Username}");
     }
 
     public static void AddCoins(int amount)
@@ -81,6 +89,8 @@ public partial class ShopManager : Autoload<ShopManager>
         if (existingItem is null) return;
 
         SpendCoins(item.Cost);
+        if (SaveManager.CurrentAccount is { })
+            SaveManager.CurrentAccount.Shop.Stars = Stars;
 
         InventoryManager.Instance.AddItem(item);
 
@@ -95,7 +105,7 @@ public partial class ShopManager : Autoload<ShopManager>
         {
             Logger.Info($"{item.Name} not found in inventory.");
         }
-        
-        
+
+        SaveManager.SaveInventory();
     }
 }
