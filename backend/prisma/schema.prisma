@@ -17,16 +17,18 @@ model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
   password  String
+  firstName String
+  lastName  String
   role      Role     @default(Student)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations with distinct names
-  save              Save?
-  teachingRelations TeacherStudent[] @relation("TeacherStudents_teacher")
-  studentRelations  TeacherStudent[] @relation("TeacherStudents_student")
-  parentRelations   ParentChild[]    @relation("ParentChild_parent")
-  childRelations    ParentChild[]    @relation("ParentChild_child")
+  save      Save?
+  asTeacher TeacherStudent[] @relation("TeacherStudents_teacher")
+  asStudent TeacherStudent[] @relation("TeacherStudents_student")
+  asParent  ParentChild[]    @relation("ParentChild_parent")
+  asChild   ParentChild[]    @relation("ParentChild_child")
 
   @@map("users")
 }
@@ -61,7 +63,7 @@ model ParentChild {
 
 model Save {
   userId Int  @id
-  data   Json
+  data   Json @default("{\"account\":null,\"progression\":{\"totalStarsEarned\":0,\"levelsFinished\":[]},\"inventory\":[],\"shop\":{\"stars\":0,\"purchaseHistory\":[]}}")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
