@@ -66,7 +66,7 @@ public partial class SaveManager : Autoload<SaveManager>
         var account = new Account
         {
             Username = username,
-            Token = "", // Set as needed
+            Token = "",
             FirstName = "",
             LastName = "",
             Role = "",
@@ -106,28 +106,62 @@ public partial class SaveManager : Autoload<SaveManager>
         if (CurrentAccount == null) return;
 
         var savedItems = InventoryManager.Instance.Items.Values
-            .Select(group => new SavedItem
+            .Select(group =>
             {
-                Id = group.Item.Name,
-                Quantity = group.Quantity,
-                AcquiredAt = System.DateTime.UtcNow.ToString("s")
+                if (group.Item == null)
+                {
+                    GD.PrintErr("[SaveInventory] Tried to save null item, skipping...");
+                    return null;
+                }
+
+                var id = ItemRegistry.PublicResources
+                    .FirstOrDefault(x => x.Value == group.Item).Key;
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    GD.PrintErr(
+                        $"[SaveInventory] Could not find registry ID for item '{group.Item.Name}', skipping...");
+                    return null;
+                }
+
+                return new SavedItem
+                {
+                    Id = id,
+                    Quantity = group.Quantity,
+                    AcquiredAt = System.DateTime.UtcNow.ToString("s")
+                };
             })
+            .Where(si => si != null) // filter out invalid items
             .ToList();
 
         CurrentAccount.Inventory = savedItems;
         Save();
     }
 
+
     public static void LoadInventory()
     {
         if (CurrentAccount == null) return;
+
         InventoryManager.Instance.ClearInventory();
+
         foreach (var saved in CurrentAccount.Inventory)
         {
-            if (ItemRegistry.PublicResources.TryGetValue(saved.Id, out var item))
+            if (string.IsNullOrEmpty(saved.Id))
+            {
+                GD.PrintErr("[LoadInventory] Skipping item with null/empty Id");
+                continue;
+            }
+
+            var item = ItemRegistry.Get(saved.Id);
+            if (item != null)
             {
                 for (int i = 0; i < saved.Quantity; i++)
                     InventoryManager.Instance.AddItem(item);
+            }
+            else
+            {
+                GD.PrintErr($"[LoadInventory] Failed to load item with id: {saved.Id}");
             }
         }
     }
