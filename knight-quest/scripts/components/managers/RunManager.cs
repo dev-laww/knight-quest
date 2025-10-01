@@ -19,10 +19,18 @@ public partial class RunManager : Node
 
     [Node] private Timer turnTimer;
 
-    [Signal] public delegate void TurnEndedEventHandler();
-    [Signal] public delegate void PlayerTurnTimeoutEventHandler();
-    [Signal] public delegate void PlayerAnsweredEventHandler(bool correct);
-    [Signal] public delegate void EncounterStartedEventHandler(Entity[] enemies);
+    [Signal]
+    public delegate void TurnEndedEventHandler();
+
+    [Signal]
+    public delegate void PlayerTurnTimeoutEventHandler();
+
+    [Signal]
+    public delegate void PlayerAnsweredEventHandler(bool correct);
+
+    [Signal]
+    public delegate void EncounterStartedEventHandler(Entity[] enemies);
+
     private PackedScene resultScene = GD.Load<PackedScene>("res://scenes/ui/overlays/result_screen.tscn");
     private ImmediateDelegateStateMachine stateMachine = new();
     private Player player => this.GetPlayer();
@@ -64,7 +72,9 @@ public partial class RunManager : Node
         stateMachine.ChangeState(EncounterTransition);
     }
 
-    private void Idle() { }
+    private void Idle()
+    {
+    }
 
     private void PlayerTurn()
     {
@@ -73,7 +83,7 @@ public partial class RunManager : Node
             stateMachine.ChangeState(EncounterTransition);
             return;
         }
-    
+
         QuestionManager.Instance.GetNextQuestion();
         turnHandled = false;
         turnTimer.Start(Configuration.TurnDuration);
@@ -148,11 +158,34 @@ public partial class RunManager : Node
         Logger.Debug("Victory state reached, handling victory logic.");
         var screen = resultScene.Instantiate();
         GetTree().Root.AddChild(screen);
-        //TODO: ADD rewards
         if (screen is ResultScreen resultScreen)
         {
             resultScreen.ShowResult(true);
         }
+
+        var levelSelect = GetTree().Root.GetNodeOrNull<LevelSelect>("LevelSelect");
+        if (levelSelect != null)
+        {
+            foreach (var node in levelSelect.levelsContainer.GetChildren())
+            {
+                var levelButton = (Level)node;
+                if (levelButton.levelInfo.LevelName == GameManager.Config.Level.LevelName)
+                {
+                    levelButton.DisableLevel();
+                    break;
+                }
+            }
+        }
+
+        var currentLevelInfo = GameManager.Config.Level.LevelName;
+        var starsEarned = GameManager.Config.Level.StarCount;
+        SaveManager.SaveFinishedLevel(currentLevelInfo, starsEarned );
+        if (SaveManager.CurrentAccount != null)
+        {
+            SaveManager.CurrentAccount.Shop.Stars += starsEarned;
+            SaveManager.Save();
+        }
+        
     }
 
     private void Defeat()

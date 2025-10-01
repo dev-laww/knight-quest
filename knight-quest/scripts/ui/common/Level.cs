@@ -7,7 +7,7 @@ namespace Game.UI;
 [Scene]
 public partial class Level : Button
 {
-    [Export] private LevelInfo levelInfo;
+    [Export] public LevelInfo levelInfo;
 
     [Node] private Label label;
 
@@ -26,7 +26,6 @@ public partial class Level : Button
         MouseExited += OnMouseExited;
         ButtonUp += OnButtonUp;
         ButtonDown += OnButtonDown;
-        DisableLevel();
     }
 
     public void Setup(LevelInfo level)
@@ -76,10 +75,10 @@ public partial class Level : Button
             .SetEase(Tween.EaseType.In);
     }
 
-private void DisableLevel()
-{
-    Disabled = true;
-    Modulate = new Color(0.5f, 0.5f, 0.5f); // Set to grey
-    MouseFilter = MouseFilterEnum.Ignore; // Disable hover events
-}
+    public void DisableLevel()
+    {
+        Disabled = true;
+        Modulate = new Color(0.5f, 0.5f, 0.5f);
+        MouseFilter = MouseFilterEnum.Ignore;
+    }
 }

@@ -133,14 +133,13 @@ public partial class SaveManager : Autoload<SaveManager>
     }
 
     // Finished Levels
-    public static void SaveFinishedLevel(string levelId, int starsEarned, int duration)
+    public static void SaveFinishedLevel(string levelId, int starsEarned)
     {
         if (CurrentAccount == null) return;
         var finishedLevel = new FinishedLevel
         {
             Id = levelId,
             StarsEarned = starsEarned,
-            Duration = duration,
             CompletedAt = System.DateTime.UtcNow.ToString("s")
         };
         CurrentAccount.Progression.LevelsFinished.Add(finishedLevel);
