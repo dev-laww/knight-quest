@@ -26,6 +26,7 @@ public partial class Level : Button
         MouseExited += OnMouseExited;
         ButtonUp += OnButtonUp;
         ButtonDown += OnButtonDown;
+        DisableLevel();
     }
 
     public void Setup(LevelInfo level)
@@ -74,4 +75,11 @@ public partial class Level : Button
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.In);
     }
+
+private void DisableLevel()
+{
+    Disabled = true;
+    Modulate = new Color(0.5f, 0.5f, 0.5f); // Set to grey
+    MouseFilter = MouseFilterEnum.Ignore; // Disable hover events
+}
 }
