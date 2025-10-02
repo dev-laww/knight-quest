@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://dqws35x50l136" path="res://resources/levels/math_3.tres" id="7_c8a7a"]
 [ext_resource type="Resource" uid="uid://bg8dlpn5cg2td" path="res://resources/levels/english_4.tres" id="8_bapmu"]
 [ext_resource type="Resource" uid="uid://dn83qieswxa5w" path="res://resources/levels/math_4.tres" id="9_nww68"]
-[ext_resource type="Resource" uid="uid://da6hqt8p6vint" path="res://resources/levels/English_5.tres" id="10_aqb88"]
+[ext_resource type="Resource" uid="uid://da6hqt8p6vint" path="res://resources/levels/english_5.tres" id="10_23x04"]
 [ext_resource type="Resource" uid="uid://go3mgewx8jpc" path="res://resources/levels/math_5.tres" id="11_l5115"]
 [ext_resource type="Resource" uid="uid://djgqq3t52qb76" path="res://resources/levels/english_6.tres" id="12_nv6s6"]
 [ext_resource type="Resource" uid="uid://4cve3qgpklkv" path="res://resources/levels/math_6.tres" id="13_4fu1o"]
@@ -23,7 +23,7 @@ font_size = 32
 
 [node name="LevelSelect" type="CanvasLayer"]
 script = ExtResource("1_ai07f")
-levels = [ExtResource("2_23x04"), ExtResource("3_ty22s"), ExtResource("4_qoy3g"), ExtResource("5_ij4ag"), ExtResource("6_pbtir"), ExtResource("7_c8a7a"), ExtResource("8_bapmu"), ExtResource("9_nww68"), ExtResource("10_aqb88"), ExtResource("11_l5115"), ExtResource("12_nv6s6"), ExtResource("13_4fu1o")]
+levels = [ExtResource("2_23x04"), ExtResource("3_ty22s"), ExtResource("4_qoy3g"), ExtResource("5_ij4ag"), ExtResource("6_pbtir"), ExtResource("7_c8a7a"), ExtResource("8_bapmu"), ExtResource("9_nww68"), ExtResource("10_23x04"), ExtResource("11_l5115"), ExtResource("12_nv6s6"), ExtResource("13_4fu1o")]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(644, 361)

@@ -9,9 +9,7 @@ region = Rect2(32, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_08ct5")
-StatusEffects = []
 Name = "Power Potion"
 Description = "+1 damage"
 Icon = SubResource("AtlasTexture_4yjhj")
 Cost = 2
-Owned = false

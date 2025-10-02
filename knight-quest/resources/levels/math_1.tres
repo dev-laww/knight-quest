@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="LevelInfo" load_steps=35 format=3 uid="uid://cv5sy65nh5j85"]
 
+[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_eg42b"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_o2r0c"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_eg42b"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math/question1.tres" id="3_53l21"]
@@ -32,12 +33,9 @@
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math/question28.tres" id="30_bgcwf"]
 [ext_resource type="Script" uid="uid://bacok55bipbse" path="res://scripts/data/level/LevelInfo.cs" id="31_melkh"]
 
-[sub_resource type="Resource" id="Resource_dtyfk"]
-metadata/__load_path__ = "res://scenes/entities/enemies/teeth.tscn"
-
 [sub_resource type="Resource" id="Resource_uavfg"]
 script = ExtResource("1_o2r0c")
-Enemies = [SubResource("Resource_dtyfk")]
+Enemies = [ExtResource("1_eg42b")]
 metadata/_custom_type_script = "uid://cb136e6c67ahm"
 
 [sub_resource type="Resource" id="Resource_y4avn"]
