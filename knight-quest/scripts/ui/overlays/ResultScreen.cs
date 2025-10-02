@@ -48,21 +48,19 @@ public partial class ResultScreen : CanvasLayer
 
 
 
-    public void ShowResult(bool victory)
+public void ShowResult(bool victory, int starsEarned = 0)
+{
+    if (victory)
     {
-        if (victory)
-        {
-            resultLabel.Text = "Victory!";
-            resultLabel.AddThemeColorOverride("font_color", Colors.Green);
-            //TODO: add rewards to inventory && display
-            // int stars = GameSession.Instance.CurrentLevel.StarCount;
-            // rewardsLabel.Text = $"Stars earned: {stars}";
-        }
-        else
-        {
-            resultLabel.Text = "Defeat...";
-            resultLabel.AddThemeColorOverride("font_color", Colors.Red);
-            rewardsLabel.Text = "No stars earned.";
-        }
+        resultLabel.Text = "Victory!";
+        resultLabel.AddThemeColorOverride("font_color", Colors.Green);
+        rewardsLabel.Text = $"Stars earned: {starsEarned}";
+    }
+    else
+    {
+        resultLabel.Text = "Defeat...";
+        resultLabel.AddThemeColorOverride("font_color", Colors.Red);
+        rewardsLabel.Text = "No stars earned.";
     }
 }
+    }

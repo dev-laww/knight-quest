@@ -157,10 +157,13 @@ public partial class RunManager : Node
     {
         Logger.Debug("Victory state reached, handling victory logic.");
         var screen = resultScene.Instantiate();
+        var currentLevelInfo = GameManager.Config.Level.LevelName;
+        var starsEarned = GameManager.Config.Level.StarCount;
+        
         GetTree().Root.AddChild(screen);
         if (screen is ResultScreen resultScreen)
         {
-            resultScreen.ShowResult(true);
+            resultScreen.ShowResult(true,starsEarned);
         }
 
         var levelSelect = GetTree().Root.GetNodeOrNull<LevelSelect>("LevelSelect");
@@ -177,15 +180,12 @@ public partial class RunManager : Node
             }
         }
 
-        var currentLevelInfo = GameManager.Config.Level.LevelName;
-        var starsEarned = GameManager.Config.Level.StarCount;
-        SaveManager.SaveFinishedLevel(currentLevelInfo, starsEarned );
+        SaveManager.SaveFinishedLevel(currentLevelInfo, starsEarned);
         if (SaveManager.CurrentAccount != null)
         {
             SaveManager.CurrentAccount.Shop.Stars += starsEarned;
             SaveManager.Save();
         }
-        
     }
 
     private void Defeat()
