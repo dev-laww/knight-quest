@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Data;
-using Game.Utils;
 using Godot;
 using Newtonsoft.Json;
+
+using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
 

@@ -4,6 +4,8 @@ using Game.Data;
 using Game.Utils;
 using Godot;
 
+using Logger = Game.Utils.Logger;
+
 namespace Game.Autoloads;
 
 public partial class InventoryManager : Autoload<InventoryManager>

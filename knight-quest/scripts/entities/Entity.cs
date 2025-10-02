@@ -2,7 +2,8 @@ using System.Threading.Tasks;
 using Game.Components;
 using Godot;
 using GodotUtilities;
-using Game.Utils;
+
+using Logger = Game.Utils.Logger;
 
 namespace Game;
 

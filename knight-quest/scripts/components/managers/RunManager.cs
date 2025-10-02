@@ -9,6 +9,8 @@ using Godot;
 using Godot.Collections;
 using GodotUtilities;
 
+using Logger = Game.Utils.Logger;
+
 namespace Game.Components;
 
 [Scene]

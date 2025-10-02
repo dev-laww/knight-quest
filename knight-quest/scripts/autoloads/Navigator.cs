@@ -1,6 +1,8 @@
 ﻿using Godot;
 using System.Collections.Generic;
-using Game.Utils;
+
+using Logger = Game.Utils.Logger;
+
 
 namespace Game.Autoloads;
 #nullable enable

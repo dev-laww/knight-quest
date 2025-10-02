@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Data;
-using Game.Utils;
 using Godot;
+
+using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
 

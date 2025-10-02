@@ -1,7 +1,8 @@
 using Game.Autoloads;
 using Godot;
 using GodotUtilities;
-using GodotUtilities.Util;
+
+using Logger = Game.Utils.Logger;
 
 namespace Game;
 

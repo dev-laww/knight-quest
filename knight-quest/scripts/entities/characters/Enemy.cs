@@ -1,9 +1,9 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
 using Game.Components;
-using Game.Utils;
 using GodotUtilities;
+
+using Logger = Game.Utils.Logger;
 
 namespace Game.Entities;
 

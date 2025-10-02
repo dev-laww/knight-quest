@@ -3,6 +3,8 @@ using Game.Data;
 using Godot;
 using Game.Utils;
 
+using Logger = Game.Utils.Logger;
+
 namespace Game.Components;
 
 [GlobalClass]

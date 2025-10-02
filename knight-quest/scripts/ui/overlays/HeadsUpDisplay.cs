@@ -7,6 +7,8 @@ using Godot;
 using GodotUtilities;
 using Game.Utils;
 
+using Logger = Game.Utils.Logger;
+
 namespace Game.UI;
 
 [Scene]

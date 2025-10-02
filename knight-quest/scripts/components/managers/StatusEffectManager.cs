@@ -4,6 +4,8 @@ using Game.Data;
 using Game.Utils;
 using Godot;
 
+using Logger = Game.Utils.Logger;
+
 namespace Game.Components;
 
 public partial class StatusEffectManager : Node

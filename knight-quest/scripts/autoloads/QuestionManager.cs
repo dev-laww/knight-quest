@@ -2,7 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using Game.Data;
-using Game.Utils;
+
+using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
 

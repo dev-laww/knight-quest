@@ -3,6 +3,8 @@ using Game.Utils;
 using Godot;
 using GodotUtilities;
 
+using Logger = Game.Utils.Logger;
+
 namespace Game;
 
 [Scene]

@@ -1,7 +1,4 @@
-using System;
-using Game.Entities;
-using Godot;
-using GodotUtilities.Util;
+using Game.Utils;
 
 namespace Game.Data;
 
