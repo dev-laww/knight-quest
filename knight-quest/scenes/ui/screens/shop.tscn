@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl0ra7swg3dqq"]
+[gd_scene load_steps=8 format=3 uid="uid://dl0ra7swg3dqq"]
 
 [ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
 [ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot.tscn" id="2_ath4n"]
 [ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="3_ath4n"]
+[ext_resource type="Texture2D" uid="uid://b1tdr1mttpf8f" path="res://assets/art/icons/star icon.png" id="4_y50iv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ath4n"]
 texture = ExtResource("1_w276f")
 region_rect = Rect2(35.4453, 1124.05, 175.534, 271.838)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of6gl"]
+atlas = ExtResource("4_y50iv")
 
 [node name="Shop" type="CanvasLayer"]
 script = ExtResource("1_ath4n")
@@ -32,26 +36,35 @@ theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="Header" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(120, 40)
+custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 14
 
 [node name="BackButton" parent="Panel/MarginContainer/VBoxContainer/Header" instance=ExtResource("3_ath4n")]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="ShopLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 53
 text = "SHOP"
 
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Header"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("AtlasTexture_of6gl")
+
 [node name="CoinLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

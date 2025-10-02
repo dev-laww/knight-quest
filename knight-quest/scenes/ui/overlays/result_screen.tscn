@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp44mlxd34kfk"]
+[gd_scene load_steps=8 format=3 uid="uid://cp44mlxd34kfk"]
 
 [ext_resource type="Script" uid="uid://bgrhjvvblvsxi" path="res://scripts/ui/overlays/ResultScreen.cs" id="1_yqk8p"]
 [ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="2_2hhwa"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="2_s8mfa"]
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="3_2hhwa"]
+[ext_resource type="Texture2D" uid="uid://b1tdr1mttpf8f" path="res://assets/art/icons/star icon.png" id="5_2hhwa"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a62do"]
 texture = ExtResource("2_s8mfa")
 region_rect = Rect2(32.9753, 1120.55, 181.945, 280.083)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a62do"]
+atlas = ExtResource("5_2hhwa")
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_yqk8p")
@@ -44,9 +48,18 @@ theme_override_font_sizes/normal_font_size = 19
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RewardsLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("AtlasTexture_a62do")
+
+[node name="RewardsLabel" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
