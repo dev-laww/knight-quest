@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://fhpp2immpt73"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://fhpp2immpt73"]
 
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_d4nwg"]
+[ext_resource type="FontFile" uid="uid://0ta32sqcdfig" path="res://assets/art/fonts/m5x7.ttf" id="2_7ct1h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ct1h"]
 atlas = ExtResource("1_d4nwg")
@@ -27,6 +28,7 @@ texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 
 [resource]
+default_font = ExtResource("2_7ct1h")
 Button/colors/font_color = Color(0.105882, 0.133333, 0.211765, 1)
 Button/colors/font_focus_color = Color(0.105882, 0.133333, 0.211765, 1)
 Button/colors/font_hover_color = Color(0.105882, 0.133333, 0.211765, 1)

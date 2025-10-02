@@ -9,9 +9,7 @@ region = Rect2(66, 0, 30, 32)
 
 [resource]
 script = ExtResource("1_r8hl3")
-StatusEffects = []
 Name = "hint"
 Description = "reveal the correct answer for a short time"
 Icon = SubResource("AtlasTexture_khm2r")
 Cost = 2
-Owned = false
