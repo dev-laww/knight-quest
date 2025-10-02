@@ -2,7 +2,6 @@ using Godot;
 using System.Threading.Tasks;
 using Game.Components;
 using GodotUtilities;
-
 using Logger = Game.Utils.Logger;
 
 namespace Game.Entities;
@@ -33,14 +32,14 @@ public partial class Enemy : Entity
         statsManager.StatDepleted += OnStatDepleted;
     }
 
-private async void OnStatDepleted(StatsManager.Stat stat)
-{
-    if (stat != StatsManager.Stat.Health) return;
+    private async void OnStatDepleted(StatsManager.Stat stat)
+    {
+        if (stat != StatsManager.Stat.Health) return;
 
-    playback.Travel(DIE);
-    await ToSignal(animationTree, "animation_finished");
-    QueueFree();
-}
+        playback.Travel(DIE);
+        await ToSignal(animationTree, "animation_finished");
+        QueueFree();
+    }
 
     private void OnStatDecreased(int amount, StatsManager.Stat stat)
     {
@@ -65,5 +64,21 @@ private async void OnStatDepleted(StatsManager.Stat stat)
         await ToSignal(animationTree, "animation_finished");
         Logger.Info("Applying damage to player.");
         target.StatsManager.TakeDamage(1);
+    }
+
+    public override Utils.TurnAction GetTurnAction(Entity target)
+    {
+        return new Utils.TurnAction
+        {
+            Actor = this,
+            Targets = [target],
+            Steps = new System.Collections.Generic.List<Utils.ITurnStep>
+            {
+                new Utils.PlayAnimationTreeStateStep(animationTree, ATTACK),
+                new Utils.DamageStep(ctx => ctx.ActorStats.CreateAttack()),
+                new Utils.ResolveDeathsStep()
+            },
+            Name = "EnemyAttack"
+        };
     }
 }

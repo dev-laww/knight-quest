@@ -8,7 +8,6 @@ using Game.Utils;
 using Godot;
 using Godot.Collections;
 using GodotUtilities;
-
 using Logger = Game.Utils.Logger;
 
 namespace Game.Components;
@@ -21,20 +20,17 @@ public partial class RunManager : Node
 
     [Node] private Timer turnTimer;
 
-    [Signal]
-    public delegate void TurnEndedEventHandler();
+    [Signal] public delegate void TurnEndedEventHandler();
 
-    [Signal]
-    public delegate void PlayerTurnTimeoutEventHandler();
+    [Signal] public delegate void PlayerTurnTimeoutEventHandler();
 
-    [Signal]
-    public delegate void PlayerAnsweredEventHandler(bool correct);
+    [Signal] public delegate void PlayerAnsweredEventHandler(bool correct);
 
-    [Signal]
-    public delegate void EncounterStartedEventHandler(Entity[] enemies);
+    [Signal] public delegate void EncounterStartedEventHandler(Entity[] enemies);
 
     private PackedScene resultScene = GD.Load<PackedScene>("res://scenes/ui/overlays/result_screen.tscn");
     private ImmediateDelegateStateMachine stateMachine = new();
+    private TurnEngine turnEngine = new();
     private Player player => this.GetPlayer();
 
     private Encounter currentEncounter;
@@ -74,9 +70,7 @@ public partial class RunManager : Node
         stateMachine.ChangeState(EncounterTransition);
     }
 
-    private void Idle()
-    {
-    }
+    private void Idle() { }
 
     private void PlayerTurn()
     {
@@ -97,8 +91,11 @@ public partial class RunManager : Node
         Logger.Debug("Enemy's turn started, selecting an enemy to act.");
         var enemy = aliveEnemies.PickRandom();
 
-        await enemy.TakeTurn(player);
-        await ToSignal(GetTree().CreateTimer(2f), "timeout");
+        if (enemy != null && IsInstanceValid(enemy) && enemy.IsAlive && player != null && player.IsAlive)
+        {
+            var action = enemy.GetTurnAction(player);
+            await turnEngine.ExecuteAsync(this, action);
+        }
 
         stateMachine.ChangeState(Execute);
     }
@@ -161,11 +158,11 @@ public partial class RunManager : Node
         var screen = resultScene.Instantiate();
         var currentLevelInfo = GameManager.Config.Level.LevelName;
         var starsEarned = GameManager.Config.Level.StarCount;
-        
+
         GetTree().Root.AddChild(screen);
         if (screen is ResultScreen resultScreen)
         {
-            resultScreen.ShowResult(true,starsEarned);
+            resultScreen.ShowResult(true, starsEarned);
         }
 
         var levelSelect = GetTree().Root.GetNodeOrNull<LevelSelect>("LevelSelect");
@@ -183,11 +180,11 @@ public partial class RunManager : Node
         }
 
         SaveManager.SaveFinishedLevel(currentLevelInfo, starsEarned);
-        if (SaveManager.CurrentAccount != null)
-        {
-            SaveManager.CurrentAccount.Shop.Stars += starsEarned;
-            SaveManager.Save();
-        }
+
+        if (SaveManager.Data == null) return;
+
+        SaveManager.Data.Shop.Stars += starsEarned;
+        SaveManager.Save();
     }
 
     private void Defeat()
@@ -230,7 +227,15 @@ public partial class RunManager : Node
             if (aliveEnemies.Count > 0)
             {
                 var enemy = aliveEnemies.PickRandom();
-                await player.TakeTurn(enemy);
+                if (
+                    enemy != null && IsInstanceValid(enemy) &&
+                    enemy.IsAlive &&
+                    player is { IsAlive: true }
+                )
+                {
+                    var action = player.GetTurnAction(enemy);
+                    await turnEngine.ExecuteAsync(this, action);
+                }
             }
 
             // TODO: make player take less damage or something else based on the answer

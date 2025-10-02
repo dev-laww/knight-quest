@@ -44,6 +44,21 @@ public partial class Entity : Node2D
         return Task.CompletedTask;
     }
 
+    public virtual Utils.TurnAction GetTurnAction(Entity target)
+    {
+        return new Utils.TurnAction
+        {
+            Actor = this,
+            Targets = new Entity[] { target },
+            Steps = new System.Collections.Generic.List<Utils.ITurnStep>
+            {
+                new Utils.DamageStep(ctx => ctx.ActorStats.CreateAttack()),
+                new Utils.ResolveDeathsStep()
+            },
+            Name = "BasicAttack"
+        };
+    }
+
     private void OnStatDepleted(StatsManager.Stat stat)
     {
         if (stat != StatsManager.Stat.Health) return;
