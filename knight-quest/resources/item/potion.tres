@@ -12,7 +12,5 @@ region = Rect2(96, 0, 32, 32)
 script = ExtResource("1_lccra")
 StatusEffects = [ExtResource("1_s6nt5")]
 Name = "Potion"
-Description = ""
 Icon = SubResource("AtlasTexture_o5ng5")
 Cost = 5
-Owned = false

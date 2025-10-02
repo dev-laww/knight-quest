@@ -9,8 +9,6 @@ namespace Game.UI;
 [Scene]
 public partial class LevelSelect : CanvasLayer
 {
-    [Export] private LevelInfo[] levels = [];
-
     [Node] private ResourcePreloader resourcePreloader;
     [Node] public GridContainer levelsContainer;
 
@@ -26,6 +24,7 @@ public partial class LevelSelect : CanvasLayer
         var finishedLevels = SaveManager.LoadFinishedLevels().Select(l => l.Id).ToHashSet();
         var subject = GameManager.Config.Subject;
         var grade = GameManager.Config.Grade;
+        var levels = LevelRegistry.GetLevels();
 
         foreach (var info in levels)
         {
@@ -39,15 +38,14 @@ public partial class LevelSelect : CanvasLayer
                 level.Pressed += () => OnLevelPressed(info);
 
                 // Disable if finished
-                if (finishedLevels.Contains(info.LevelName))
-                {
-                    level.DisableLevel();
-                }
+                if (!finishedLevels.Contains(info.ResourcePath)) continue;
+
+                level.DisableLevel();
             }
         }
     }
 
-    private void OnLevelPressed(LevelInfo level)
+    private static void OnLevelPressed(LevelInfo level)
     {
         GameManager.SetLevel(level);
         QuestionManager.Instance.LoadQuestions(level.Questions);

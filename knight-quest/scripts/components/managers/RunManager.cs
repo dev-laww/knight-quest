@@ -156,7 +156,7 @@ public partial class RunManager : Node
     {
         Logger.Debug("Victory state reached, handling victory logic.");
         var screen = resultScene.Instantiate();
-        var currentLevelInfo = GameManager.Config.Level.LevelName;
+        var levelResourcePath = GameManager.Config.Level.ResourcePath;
         var starsEarned = GameManager.Config.Level.StarCount;
 
         GetTree().Root.AddChild(screen);
@@ -165,21 +165,7 @@ public partial class RunManager : Node
             resultScreen.ShowResult(true, starsEarned);
         }
 
-        var levelSelect = GetTree().Root.GetNodeOrNull<LevelSelect>("LevelSelect");
-        if (levelSelect != null)
-        {
-            foreach (var node in levelSelect.levelsContainer.GetChildren())
-            {
-                var levelButton = (Level)node;
-                if (levelButton.levelInfo.LevelName == GameManager.Config.Level.LevelName)
-                {
-                    levelButton.DisableLevel();
-                    break;
-                }
-            }
-        }
-
-        SaveManager.SaveFinishedLevel(currentLevelInfo, starsEarned);
+        SaveManager.SaveFinishedLevel(levelResourcePath, starsEarned);
 
         if (SaveManager.Data == null) return;
 

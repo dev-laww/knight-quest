@@ -53,10 +53,8 @@ public abstract partial class Registry<T, TRegistry> : RefCounted
         {
             if (!path.EndsWith(".tres") && !path.EndsWith(".tres.remap")) continue;
 
-
-            var resource = ResourceLoader.Load<T>(path);
-
-            if (resource == null) continue;
+            var loaded = ResourceLoader.Load(path);
+            if (loaded is not T resource || resource == null) continue;
 
             var fileName = path.GetFile();
             var id = fileName.GetBaseName();

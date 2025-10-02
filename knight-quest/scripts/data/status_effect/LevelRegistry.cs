@@ -10,8 +10,8 @@ namespace Game.Data;
 public partial class LevelRegistry : Registry<LevelInfo, LevelRegistry>
 {
     // Path in your Godot project where level .tres files are stored
-    protected override string ResourcePath => "res://resources/level/";
-    public static LevelRegistry PublicInstance => Instance.Value;
+    protected override string ResourcePath => "res://resources/levels";
+
     public static Dictionary<string, LevelInfo> PublicResources => Resources;
 
     public static List<LevelInfo> GetLevels() => Resources.Values.ToList();
@@ -30,8 +30,8 @@ public partial class LevelRegistry : Registry<LevelInfo, LevelRegistry>
         {
             if (!file.EndsWith(".tres") && !file.EndsWith(".tres.remap")) continue;
 
-            var resource = ResourceLoader.Load<LevelInfo>(file);
-            if (resource == null) continue;
+            var loaded = ResourceLoader.Load(file);
+            if (loaded is not LevelInfo resource || resource == null) continue;
 
             var id = file.GetFile().GetBaseName();
             Resources[id] = resource;
