@@ -5,14 +5,8 @@ namespace Game.Data;
 
 public class Save
 {
-    [JsonProperty("accounts")] public List<Account> Accounts { get; private set; } = new();
-
-    public void AddAccount(Account account)
-    {
-        if (account == null || string.IsNullOrWhiteSpace(account.Username))
-            return;
-
-        if (!Accounts.Exists(a => a.Username == account.Username))
-            Accounts.Add(account);
-    }
+    public Account Account = new();
+    public Progression Progression { get; set; } = new();
+    public List<SavedItem> Inventory { get; set; } = [];
+    public Shop Shop { get; set; } = new();
 }

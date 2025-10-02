@@ -3,7 +3,6 @@ using System.Linq;
 using Game.Data;
 using Godot;
 using Newtonsoft.Json;
-
 using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
@@ -13,8 +12,6 @@ public partial class SaveManager : Autoload<SaveManager>
     public static Save Data { get; private set; } = new();
     private static readonly string dir = "user://data";
     private static readonly string path = $"{dir}/save.json";
-
-    private static Account currentAccount;
 
     public override void _EnterTree()
     {
@@ -54,58 +51,9 @@ public partial class SaveManager : Autoload<SaveManager>
         file.Close();
     }
 
-    public static bool Register(string username, string password)
-    {
-        if (Data == null) Load();
-
-        if (Data.Accounts.Exists(a => a.Username == username))
-        {
-            Logger.Warn("Account already exists!");
-            return false;
-        }
-
-        var account = new Account
-        {
-            Username = username,
-            Token = "",
-            FirstName = "",
-            LastName = "",
-            Role = "",
-            Progression = new Progression(),
-            Inventory = new List<SavedItem>(),
-            Shop = new Shop()
-        };
-
-        Data.AddAccount(account);
-        Save();
-        Logger.Info($"Account '{username}' registered successfully!");
-        return true;
-    }
-
-    public static bool Login(string username, string password)
-    {
-        if (Data == null) Load();
-
-        var account = Data.Accounts.Find(a => a.Username == username /* && a.Password == password */);
-
-        if (account != null)
-        {
-            currentAccount = account;
-            Logger.Info($"Login successful! Welcome {account.Username}!");
-            return true;
-        }
-
-        Logger.Warn("Invalid username or password!");
-        return false;
-    }
-
-    public static Account CurrentAccount => currentAccount;
-
     // Inventory
     public static void SaveInventory()
     {
-        if (CurrentAccount == null) return;
-
         var savedItems = InventoryManager.Instance.Items.Values
             .Select(group =>
             {
@@ -135,18 +83,18 @@ public partial class SaveManager : Autoload<SaveManager>
             .Where(si => si != null) // filter out invalid items
             .ToList();
 
-        CurrentAccount.Inventory = savedItems;
+        Data.Inventory = savedItems;
         Save();
     }
 
 
     public static void LoadInventory()
     {
-        if (CurrentAccount == null) return;
+        if (Data == null) return;
 
         InventoryManager.Instance.ClearInventory();
 
-        foreach (var saved in CurrentAccount.Inventory)
+        foreach (var saved in Data.Inventory)
         {
             if (string.IsNullOrEmpty(saved.Id))
             {
@@ -170,26 +118,26 @@ public partial class SaveManager : Autoload<SaveManager>
     // Finished Levels
     public static void SaveFinishedLevel(string levelId, int starsEarned)
     {
-        if (CurrentAccount == null) return;
+        if (Data == null) return;
         var finishedLevel = new FinishedLevel
         {
             Id = levelId,
             StarsEarned = starsEarned,
             CompletedAt = System.DateTime.UtcNow.ToString("s")
         };
-        CurrentAccount.Progression.LevelsFinished.Add(finishedLevel);
+        Data.Progression.LevelsFinished.Add(finishedLevel);
         Save();
     }
 
     public static List<FinishedLevel> LoadFinishedLevels()
     {
-        return CurrentAccount?.Progression.LevelsFinished ?? new List<FinishedLevel>();
+        return Data?.Progression.LevelsFinished ?? new List<FinishedLevel>();
     }
 
     // Shop
     public static void SaveShopPurchase(string itemId, int quantity, int cost)
     {
-        if (CurrentAccount == null) return;
+        if (Data == null) return;
         var purchase = new PurchaseHistory
         {
             Id = itemId,
@@ -197,12 +145,12 @@ public partial class SaveManager : Autoload<SaveManager>
             Cost = cost,
             PurchasedAt = System.DateTime.UtcNow.ToString("s")
         };
-        CurrentAccount.Shop.PurchaseHistory.Add(purchase);
+        Data.Shop.PurchaseHistory.Add(purchase);
         Save();
     }
 
     public static List<PurchaseHistory> LoadShopHistory()
     {
-        return CurrentAccount?.Shop.PurchaseHistory ?? new List<PurchaseHistory>();
+        return Data?.Shop.PurchaseHistory ?? new List<PurchaseHistory>();
     }
 }

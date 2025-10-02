@@ -1,7 +1,6 @@
 using Game.Autoloads;
 using Godot;
 using GodotUtilities;
-
 using Logger = Game.Utils.Logger;
 
 namespace Game;
@@ -21,12 +20,12 @@ public partial class MainMenu : CanvasLayer
 
     public override void _Ready()
     {
-        if (SaveManager.CurrentAccount != null)
+        if (SaveManager.Data != null)
         {
             SaveManager.LoadInventory();
-            ShopManager.Stars = SaveManager.CurrentAccount.Shop.Stars;
-            Logger.Info($"Loaded inventory and stars for {SaveManager.CurrentAccount.Username}");
-            foreach (var item in SaveManager.CurrentAccount.Inventory)
+            ShopManager.Stars = SaveManager.Data.Shop.Stars;
+            Logger.Info($"Loaded inventory and stars for {SaveManager.Data.Account.Username}");
+            foreach (var item in SaveManager.Data.Inventory)
             {
                 Logger.Info($"Loaded item: {item.Id} x{item.Quantity}");
             }

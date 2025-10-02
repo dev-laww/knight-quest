@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Data;
 using Godot;
-
 using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
@@ -12,16 +11,13 @@ namespace Game.Autoloads;
 [GlobalClass]
 public partial class ShopManager : Autoload<ShopManager>
 {
-    [Signal]
-    public delegate void CoinsChangedEventHandler(int coins);
+    [Signal] public delegate void CoinsChangedEventHandler(int coins);
 
-    [Signal]
-    public delegate void ItemBoughtEventHandler(Item item);
+    [Signal] public delegate void ItemBoughtEventHandler(Item item);
 
-    public static int Stars { get; set; } = 0;
-    // public static IReadOnlyList<Item> ShopItems => shopItems.AsReadOnly();
+    public static int Stars { get; set; }
 
-    private static Dictionary<Type, List<Item>> shopItems = new()
+    private static readonly Dictionary<Type, List<Item>> shopItems = new()
     {
         { typeof(Consumable), [] },
     };
@@ -48,15 +44,15 @@ public partial class ShopManager : Autoload<ShopManager>
 
     private void InitializeAccountData()
     {
-        if (SaveManager.CurrentAccount == null)
+        if (SaveManager.Data == null)
         {
             Stars = 0;
             Logger.Warn("ShopManager: No account logged in yet, defaulting stars to 0.");
             return;
         }
 
-        Stars = SaveManager.CurrentAccount.Shop.Stars;
-        GD.Print($"[DEBUG] Stars set to {Stars} from account {SaveManager.CurrentAccount.Username}");
+        Stars = SaveManager.Data.Shop.Stars;
+        GD.Print($"[DEBUG] Stars set to {Stars} from account {SaveManager.Data.Account.Username}");
     }
 
     public static void AddCoins(int amount)
@@ -90,8 +86,9 @@ public partial class ShopManager : Autoload<ShopManager>
         if (existingItem is null) return;
 
         SpendCoins(item.Cost);
-        if (SaveManager.CurrentAccount is { })
-            SaveManager.CurrentAccount.Shop.Stars = Stars;
+
+        if (SaveManager.Data is not null)
+            SaveManager.Data.Shop.Stars = Stars;
 
         InventoryManager.Instance.AddItem(item);
 
