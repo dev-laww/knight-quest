@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_3xfb3"]
 [ext_resource type="Script" uid="uid://i0f55jageun5" path="res://scripts/ui/screens/LevelSelect.cs" id="1_ai07f"]
-[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/teeth.tscn" id="2_55e5n"]
+[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="2_55e5n"]
 [ext_resource type="PackedScene" uid="uid://dc8s677y6qtgv" path="res://scenes/ui/common/level.tscn" id="2_gqp32"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="3_55e5n"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="4_g1yyd"]
