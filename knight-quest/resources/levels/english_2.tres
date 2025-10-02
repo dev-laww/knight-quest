@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="LevelInfo" load_steps=38 format=3 uid="uid://dmq6tx13e60n0"]
+[gd_resource type="Resource" script_class="LevelInfo" load_steps=39 format=3 uid="uid://dmq6tx13e60n0"]
 
+[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_5eb22"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_8e8e2"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_081vw"]
 [ext_resource type="Resource" path="res://resources/questions/grade_2/eng/question1.tres" id="3_ly3fc"]
@@ -40,7 +41,7 @@ metadata/__load_path__ = "res://scenes/entities/enemies/teeth.tscn"
 
 [sub_resource type="Resource" id="Resource_1da8v"]
 script = ExtResource("1_8e8e2")
-Enemies = [SubResource("Resource_gt010")]
+Enemies = [SubResource("Resource_gt010"), ExtResource("1_5eb22")]
 metadata/_custom_type_script = "uid://cb136e6c67ahm"
 
 [sub_resource type="Resource" id="Resource_1byis"]

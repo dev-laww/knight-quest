@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="LevelInfo" load_steps=34 format=3 uid="uid://go3mgewx8jpc"]
+[gd_resource type="Resource" script_class="LevelInfo" load_steps=37 format=3 uid="uid://go3mgewx8jpc"]
 
+[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_gqtek"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="1_pxrbc"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/math/question1.tres" id="2_s2be5"]
+[ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="2_uypc1"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/math/question2.tres" id="3_7hkfr"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/math/question3.tres" id="4_crsa0"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/math/question4.tres" id="5_8vab2"]
@@ -33,9 +35,14 @@
 [ext_resource type="Resource" path="res://resources/questions/grade_5/math/question30.tres" id="31_acgpb"]
 [ext_resource type="Script" uid="uid://bacok55bipbse" path="res://scripts/data/level/LevelInfo.cs" id="32_jjhy7"]
 
+[sub_resource type="Resource" id="Resource_xq3v7"]
+script = ExtResource("2_uypc1")
+Enemies = [ExtResource("1_gqtek")]
+metadata/_custom_type_script = "uid://cb136e6c67ahm"
+
 [sub_resource type="Resource" id="Resource_3e82o"]
 script = ExtResource("1_pxrbc")
-Encounters = [null]
+Encounters = [SubResource("Resource_xq3v7")]
 metadata/_custom_type_script = "uid://cqe31o4yik31k"
 
 [resource]
