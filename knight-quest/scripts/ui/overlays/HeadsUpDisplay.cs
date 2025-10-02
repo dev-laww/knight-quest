@@ -17,9 +17,8 @@ public partial class HeadsUpDisplay : MarginContainer
     [Node] private RichTextLabel questionLabel;
     [Node] private Button firstAnswerButton;
     [Node] private GridContainer itemContainer;
-    [Node] private Label PlayerHp;
-    [Node] private Label EnemyHp;
-
+    [Node] private HealthBar enemyHealthBar;
+    [Node] private HealthBar playerHealthBar;
 
     private List<Slot> slots;
     private Entity currentEnemy;
@@ -65,7 +64,9 @@ public partial class HeadsUpDisplay : MarginContainer
     {
         if (player?.StatsManager != null)
         {
-            PlayerHp.Text = player.StatsManager.Health.ToString();
+            playerHealthBar.MaxHealth = player.StatsManager.MaxHealth;
+            playerHealthBar.CurrentHealth = player.StatsManager.Health;
+            playerHealthBar.UpdateHearts();
             player.StatsManager.StatChanged += UpdatePlayerHp;
         }
     }
@@ -73,7 +74,10 @@ public partial class HeadsUpDisplay : MarginContainer
     private void UpdatePlayerHp(int newValue, StatsManager.Stat stat)
     {
         if (stat == StatsManager.Stat.Health)
-            PlayerHp.Text = newValue.ToString();
+        {
+            playerHealthBar.CurrentHealth = newValue;
+            playerHealthBar.UpdateHearts();
+        }
     }
 
 
@@ -82,7 +86,9 @@ public partial class HeadsUpDisplay : MarginContainer
         currentEnemy = enemy;
         if (currentEnemy?.StatsManager != null)
         {
-            EnemyHp.Text = currentEnemy.StatsManager.Health.ToString();
+            enemyHealthBar.MaxHealth = currentEnemy.StatsManager.MaxHealth;
+            enemyHealthBar.CurrentHealth = currentEnemy.StatsManager.Health;
+            enemyHealthBar.UpdateHearts();
             currentEnemy.StatsManager.StatChanged += UpdateEnemyHp;
         }
     }
@@ -90,7 +96,10 @@ public partial class HeadsUpDisplay : MarginContainer
     private void UpdateEnemyHp(int newValue, StatsManager.Stat stat)
     {
         if (stat == StatsManager.Stat.Health)
-            EnemyHp.Text = newValue.ToString();
+        {
+            enemyHealthBar.CurrentHealth = newValue;
+            enemyHealthBar.UpdateHearts();
+        }
     }
 
     // ===============================

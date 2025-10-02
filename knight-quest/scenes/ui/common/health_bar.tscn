@@ -1,37 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://yyvuxydbepux"]
+[gd_scene load_steps=3 format=3 uid="uid://yyvuxydbepux"]
 
-[ext_resource type="Script" uid="uid://b504itep67xo1" path="res://scripts/ui/common/health_bar.gd" id="1_4pdy0"]
-[ext_resource type="Texture2D" uid="uid://b1nl8hw4jxm3s" path="res://assets/art/ui/heart_and_mana.png" id="1_522x7"]
+[ext_resource type="Script" uid="uid://ct226qkt2l4ja" path="res://scripts/ui/common/HealthBar.cs" id="1_522x7"]
+[ext_resource type="PackedScene" uid="uid://tfo0qptqixlf" path="res://scenes/ui/common/heart.tscn" id="2_4pdy0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4pdy0"]
-atlas = ExtResource("1_522x7")
-region = Rect2(32, 0, 13, 13)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_522x7"]
-atlas = ExtResource("1_522x7")
-region = Rect2(20, 0, 13, 13)
-
-[node name="HealtBar" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_4pdy0")
-
-[node name="EmptyHeartContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-offset_right = 13.0
-offset_bottom = 13.0
-theme_override_constants/separation = 0
-
-[node name="EmptyHeartTemplate" type="TextureRect" parent="EmptyHeartContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-texture = SubResource("AtlasTexture_4pdy0")
-
-[node name="FullHeartContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-theme_override_constants/separation = 0
-
-[node name="FullHeartTemplate" type="TextureRect" parent="FullHeartContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-texture = SubResource("AtlasTexture_522x7")
+[node name="HealthBar" type="GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 22.0
+offset_bottom = 22.0
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+columns = 10
+script = ExtResource("1_522x7")
+HeartScene = ExtResource("2_4pdy0")

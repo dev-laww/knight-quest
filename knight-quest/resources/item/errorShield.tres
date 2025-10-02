@@ -13,5 +13,5 @@ StatusEffects = []
 Name = "Error Shield Potion"
 Description = "Block enemy attacks"
 Icon = SubResource("AtlasTexture_pcyht")
-Cost = 3
+Cost = 0
 Owned = false
