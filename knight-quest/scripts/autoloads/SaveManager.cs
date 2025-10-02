@@ -10,7 +10,7 @@ namespace Game.Autoloads;
 public partial class SaveManager : Autoload<SaveManager>
 {
     public static Save Data { get; private set; } = new();
-    private static readonly string dir = "user://data";
+    private static readonly string dir = GetSaveDir();
     private static readonly string path = $"{dir}/save.json";
 
     public override void _EnterTree()
@@ -22,6 +22,19 @@ public partial class SaveManager : Autoload<SaveManager>
     }
 
     public override void _ExitTree() => Save();
+
+    private static string GetSaveDir()
+    {
+        var isMobile = OS.HasFeature("mobile") || OS.HasFeature("android") || OS.HasFeature("ios");
+        var isDesktop = OS.HasFeature("desktop") || OS.HasFeature("windows") || OS.HasFeature("linux") || OS.HasFeature("macos");
+
+        if (isDesktop && OS.IsDebugBuild())
+        {
+            return "res://data";
+        }
+
+        return "user://data";
+    }
 
     public static void Load()
     {
