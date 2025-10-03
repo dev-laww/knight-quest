@@ -14,7 +14,10 @@ public partial class Login : CanvasLayer
     [Node] private LineEdit passwordField;
     [Node] private Button loginButton;
     [Node] private Button registerButton;
+    [Node] private Button googleButton;
     [Node] private Node deeplink;
+
+    [Export] private string googleAuthUrl;
 
     public override void _Notification(int what)
     {
@@ -27,6 +30,7 @@ public partial class Login : CanvasLayer
     {
         loginButton.Pressed += OnLoginPressed;
         registerButton.Pressed += OnRegisterPressed;
+        googleButton.Pressed += OnGooglePressed;
 
         deeplink.Call("initialize");
     }
@@ -49,5 +53,10 @@ public partial class Login : CanvasLayer
     {
         // var username = usernameField.Text;
         // var password = passwordField.Text;
+    }
+    
+    private void OnGooglePressed()
+    {
+        OS.ShellOpen(googleAuthUrl);
     }
 }

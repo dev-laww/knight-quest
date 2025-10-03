@@ -7,6 +7,7 @@
 
 [node name="Login" type="CanvasLayer"]
 script = ExtResource("1_ew7pq")
+googleAuthUrl = "https://trula-calvous-amada.ngrok-free.app/auth/google/start"
 
 [node name="Deeplink" type="Node" parent="."]
 script = ExtResource("2_q1s7u")
@@ -52,15 +53,17 @@ placeholder_text = "password"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 text = "Login"
 
 [node name="RegisterButton" type="Button" parent="CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
-size_flags_horizontal = 4
 text = "Register"
+
+[node name="GoogleButton" type="Button" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Login using Google"
 
 [connection signal="deeplink_received" from="Deeplink" to="." method="OnDeepLinkReceived"]
