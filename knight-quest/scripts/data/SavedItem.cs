@@ -1,8 +1,10 @@
+using Newtonsoft.Json;
+
 namespace Game.Data;
 
 public class SavedItem
 {
-    public string Id { get; set; }
-    public int Quantity { get; set; }
-    public string AcquiredAt { get; set; }
+    [JsonProperty("id")] public string Id;
+    [JsonProperty("quantity")] public int Quantity;
+    [JsonProperty("acquiredAt")] public string AcquiredAt;
 }

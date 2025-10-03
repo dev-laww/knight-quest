@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Game.Data;
 
 public class Shop
 {
-    public int Stars { get; set; }
-    public List<PurchaseHistory> PurchaseHistory { get; set; } = new();
+    [JsonProperty("stars")] public int Stars;
+    [JsonProperty("purchaseHistory")] public List<PurchaseHistory> PurchaseHistory = [];
 }

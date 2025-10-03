@@ -1,9 +1,11 @@
+using Newtonsoft.Json;
+
 namespace Game.Data;
 
 public class PurchaseHistory
 {
-    public string Id { get; set; }
-    public int Quantity { get; set; }
-    public int Cost { get; set; }
-    public string PurchasedAt { get; set; }
+    [JsonProperty("id")] public string Id;
+    [JsonProperty("quantity")] public int Quantity;
+    [JsonProperty("cost")] public int Cost;
+    [JsonProperty("purchasedAt")] public string PurchasedAt;
 }
