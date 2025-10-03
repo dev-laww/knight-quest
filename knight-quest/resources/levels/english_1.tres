@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="LevelInfo" load_steps=37 format=3 uid="uid://stekywcctwn2"]
 
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_716bo"]
-[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_mhr2q"]
+[ext_resource type="PackedScene" path="res://scenes/entities/enemies/golem.tscn" id="1_mhr2q"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_mhr2q"]
-[ext_resource type="Resource" path="res://resources/questions/grade_1/eng/question1.tres" id="3_aeh2n"]
-[ext_resource type="Resource" path="res://resources/questions/grade_1/eng/question2.tres" id="4_63p8x"]
+[ext_resource type="Resource" uid="uid://dv4axbracg08e" path="res://resources/questions/grade_1/eng/question1.tres" id="3_aeh2n"]
+[ext_resource type="Resource" uid="uid://wf6ly1dr6pgr" path="res://resources/questions/grade_1/eng/question2.tres" id="4_63p8x"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/eng/question3.tres" id="5_54ujj"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/eng/question4.tres" id="6_4ubot"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/eng/question5.tres" id="7_2mg5l"]

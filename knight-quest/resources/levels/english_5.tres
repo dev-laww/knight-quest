@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelInfo" load_steps=28 format=3 uid="uid://bktqhksj7nq5o"]
 
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_wxn4u"]
-[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_xegwr"]
+[ext_resource type="PackedScene" path="res://scenes/entities/enemies/golem.tscn" id="1_xegwr"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_tr1jr"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng/question1.tres" id="3_5ebdk"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng/question2.tres" id="4_1b804"]
