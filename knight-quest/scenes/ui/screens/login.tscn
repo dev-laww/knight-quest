@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvkx1hf0fody4"]
+[gd_scene load_steps=5 format=3 uid="uid://dvkx1hf0fody4"]
 
 [ext_resource type="Script" uid="uid://bjcs6xpeg75bi" path="res://scripts/ui/screens/Login.cs" id="1_ew7pq"]
 [ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="2_8d2ni"]
+[ext_resource type="Script" uid="uid://c6evsd8sbso0a" path="res://addons/DeeplinkPlugin/Deeplink.gd" id="2_q1s7u"]
 [ext_resource type="Texture2D" uid="uid://cjdspj7cegx15" path="res://assets/art/ui/main_menu.png" id="3_8d2ni"]
 
 [node name="Login" type="CanvasLayer"]
 script = ExtResource("1_ew7pq")
+
+[node name="Deeplink" type="Node" parent="."]
+script = ExtResource("2_q1s7u")
+label = "Login"
+scheme = "knightquest"
+host = "login"
+path_prefix = "/"
+metadata/_custom_type_script = "uid://c6evsd8sbso0a"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(644, 361)
@@ -53,3 +62,5 @@ custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Register"
+
+[connection signal="deeplink_received" from="Deeplink" to="." method="OnDeepLinkReceived"]

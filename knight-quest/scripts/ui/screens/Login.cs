@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using Game.Autoloads;
+using Game.Utils;
 using GodotUtilities;
+using Logger = Game.Utils.Logger;
 
 namespace Game.UI;
 
@@ -12,6 +14,7 @@ public partial class Login : CanvasLayer
     [Node] private LineEdit passwordField;
     [Node] private Button loginButton;
     [Node] private Button registerButton;
+    [Node] private Node deeplink;
 
     public override void _Notification(int what)
     {
@@ -24,6 +27,14 @@ public partial class Login : CanvasLayer
     {
         loginButton.Pressed += OnLoginPressed;
         registerButton.Pressed += OnRegisterPressed;
+
+        deeplink.Call("initialize");
+    }
+
+    private void OnDeepLinkReceived(RefCounted variant)
+    {
+        var link = new DeepLinkUrl(variant);
+        Logger.Debug($"Deep link received: {link.GetData()}");
     }
 
     private void OnLoginPressed()
