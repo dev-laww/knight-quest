@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://c5ct36yck13hr"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://c5ct36yck13hr"]
 
 [ext_resource type="Texture2D" uid="uid://dr42d47a3xg60" path="res://assets/art/ui/buttons.png" id="1_iodi1"]
 [ext_resource type="Texture2D" uid="uid://boytvlouj3t24" path="res://assets/art/ui/scroller.png" id="2_avjmq"]
+[ext_resource type="FontFile" uid="uid://0ta32sqcdfig" path="res://assets/art/fonts/m5x7.ttf" id="3_t76x4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_avjmq"]
 texture = ExtResource("1_iodi1")
@@ -74,11 +75,15 @@ texture = ExtResource("2_avjmq")
 region_rect = Rect2(13, 35, 6, 26)
 
 [resource]
+default_font = ExtResource("3_t76x4")
 Button/styles/disabled = SubResource("StyleBoxTexture_avjmq")
 Button/styles/focus = SubResource("StyleBoxEmpty_iodi1")
 Button/styles/hover = SubResource("StyleBoxTexture_iodi1")
 Button/styles/normal = SubResource("StyleBoxTexture_t76x4")
 Button/styles/pressed = SubResource("StyleBoxTexture_1ls0k")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 0
 VScrollBar/styles/grabber = SubResource("StyleBoxTexture_wy8bg")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_r81r3")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_ecn1i")

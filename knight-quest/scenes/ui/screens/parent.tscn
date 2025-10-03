@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://u358etk6ro7y"]
+[gd_scene load_steps=5 format=3 uid="uid://bpoxmqf35fhga"]
 
 [ext_resource type="Script" uid="uid://bhpji7hwpbsve" path="res://scripts/ui/screens/MainMenu.cs" id="1_hajnv"]
 [ext_resource type="Texture2D" uid="uid://cjdspj7cegx15" path="res://assets/art/ui/main_menu.png" id="2_2y1ns"]
@@ -22,10 +22,6 @@ expand_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -60.0
-offset_right = 40.0
-offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_h17fy")

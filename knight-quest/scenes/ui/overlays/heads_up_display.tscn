@@ -89,40 +89,53 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ItemContainer" type="GridContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer"]
+[node name="Control2" type="Control" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemContainer" type="GridContainer" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 3
 
-[node name="Slot" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot2" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot2" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot3" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot3" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot4" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot4" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot5" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot5" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot6" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot6" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot7" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot7" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot8" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot8" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
 
-[node name="Slot9" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
+[node name="Slot9" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer/ScrollContainer/ItemContainer" instance=ExtResource("4_qqe2g")]
 layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/Bottom/ItemsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="QuestionsContainer" parent="VBoxContainer/Bottom" instance=ExtResource("2_6jlxp")]
 layout_mode = 2
