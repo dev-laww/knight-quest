@@ -42,10 +42,17 @@ public partial class Navigator : Autoload<Navigator>
 
     public override void _Ready()
     {
-        CurrentScene = GetTree().CurrentScene?.SceneFilePath;
-
+        // Wait for the scene tree to be ready before getting the current scene
+        CallDeferred(nameof(InitializeCurrentScene));
+        
         // Connect to tree changes to keep CurrentScene in sync
         GetTree().TreeChanged += OnTreeChanged;
+    }
+
+    private void InitializeCurrentScene()
+    {
+        CurrentScene = GetTree().CurrentScene?.SceneFilePath;
+        Logger.Info($"Navigator: Initialized with current scene: {(CurrentScene ?? "none")}");
     }
 
     public override void _ExitTree()
@@ -115,6 +122,12 @@ public partial class Navigator : Autoload<Navigator>
     /// </summary>
     /// <returns>Array of scene paths in forward history (next up first)</returns>
     public static string[] GetForwardHistory() => Instance.GetForwardHistoryImpl();
+
+    /// <summary>
+    /// Gets the previous scene path from the back history.
+    /// </summary>
+    /// <returns>The most recent scene in back history, or null if no history exists</returns>
+    public static string? GetPreviousScene() => Instance.GetPreviousSceneImpl();
 
     // --- Internal instance logic ---
 
@@ -189,18 +202,18 @@ public partial class Navigator : Autoload<Navigator>
 
     private bool ChangeScene(string path)
     {
+        var previousScene = CurrentScene ?? GetTree().CurrentScene?.SceneFilePath;
         var error = GetTree().ChangeSceneToFile(path);
 
         if (error == Error.Ok)
         {
-            var previousScene = CurrentScene;
             CurrentScene = path;
 
             // Trigger events
             SceneChanged?.Invoke(path);
             HistoryChanged?.Invoke();
 
-            Logger.Info($"Navigator: Changed scene from '{previousScene}' to '{path}'");
+            Logger.Info($"Navigator: Changed scene from '{previousScene ?? "none"}' to '{path}' (back history: {backHistory.Count}, forward history: {forwardHistory.Count})");
             return true;
         }
 
@@ -224,5 +237,10 @@ public partial class Navigator : Autoload<Navigator>
     private string[] GetForwardHistoryImpl()
     {
         return forwardHistory.ToArray();
+    }
+
+    private string? GetPreviousSceneImpl()
+    {
+        return backHistory.Count > 0 ? backHistory.Peek() : null;
     }
 }
