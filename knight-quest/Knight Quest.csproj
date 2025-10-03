@@ -14,15 +14,8 @@
         <Compile Update="scripts\**\*.cs">
             <Namespace>Game</Namespace>
         </Compile>
-        <Compile Update="scripts\data\registry\Registry.cs">
-          <Namespace>Game</Namespace>
-        </Compile>
-        <Compile Update="scripts\data\registry\ItemRegistry.cs">
-          <Namespace>Game</Namespace>
-        </Compile>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Delaunator" Version="1.0.10" />
         <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
         <PackageReference Include="FuzzySharp" Version="2.0.2" />
         <PackageReference Include="Newtonsoft.json" Version="13.0.3" />
