@@ -26,7 +26,8 @@ public partial class SaveManager : Autoload<SaveManager>
     private static string GetSaveDir()
     {
         var isMobile = OS.HasFeature("mobile") || OS.HasFeature("android") || OS.HasFeature("ios");
-        var isDesktop = OS.HasFeature("desktop") || OS.HasFeature("windows") || OS.HasFeature("linux") || OS.HasFeature("macos");
+        var isDesktop = OS.HasFeature("desktop") || OS.HasFeature("windows") || OS.HasFeature("linux") ||
+                        OS.HasFeature("macos");
 
         if (isDesktop && OS.IsDebugBuild())
         {
@@ -67,36 +68,47 @@ public partial class SaveManager : Autoload<SaveManager>
     // Inventory
     public static void SaveInventory()
     {
-        var savedItems = InventoryManager.Instance.Items.Values
-            .Select(group =>
+        if (InventoryManager.Instance == null || InventoryManager.Instance.Items == null)
+        {
+            GD.PrintErr("[SaveInventory] InventoryManager or Items not initialized.");
+            return;
+        }
+
+        GD.Print($"[SaveInventory] Saving {InventoryManager.Instance.Items.Count} items...");
+
+        foreach (var group in InventoryManager.Instance.Items.Values)
+        {
+            if (group.Item == null)
             {
-                if (group.Item == null)
-                {
-                    GD.PrintErr("[SaveInventory] Tried to save null item, skipping...");
-                    return null;
-                }
+                GD.PrintErr("[SaveInventory] Tried to save null item, skipping...");
+                continue;
+            }
 
-                var id = ItemRegistry.PublicResources
-                    .FirstOrDefault(x => x.Value == group.Item).Key;
+            var id = group.Item.Id;
 
-                if (string.IsNullOrEmpty(id))
-                {
-                    GD.PrintErr(
-                        $"[SaveInventory] Could not find registry ID for item '{group.Item.Name}', skipping...");
-                    return null;
-                }
+            if (string.IsNullOrEmpty(id))
+            {
+                GD.PrintErr($"[SaveInventory] Could not resolve ID for item '{group.Item.Name}', skipping...");
+                continue;
+            }
+        
 
-                return new SavedItem
+            var existing = Data.Inventory.FirstOrDefault(i => i.Id == id);
+            if (existing != null)
+            {
+                existing.Quantity = group.Quantity;
+            }
+            else
+            {
+                Data.Inventory.Add(new SavedItem
                 {
                     Id = id,
                     Quantity = group.Quantity,
                     AcquiredAt = System.DateTime.UtcNow.ToString("s")
-                };
-            })
-            .Where(si => si != null) // filter out invalid items
-            .ToList();
+                });
+            }
+        }
 
-        Data.Inventory = savedItems;
         Save();
     }
 

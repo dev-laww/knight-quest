@@ -5,6 +5,7 @@ namespace Game.Data;
 
 public partial class Item : Resource
 {
+    [Export] public string Id { get; set; } 
     [Export] public string Name;
     [Export(PropertyHint.MultilineText)] public string Description;
     [Export] public Texture2D Icon;

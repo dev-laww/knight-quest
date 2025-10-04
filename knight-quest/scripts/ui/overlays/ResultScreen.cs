@@ -52,12 +52,14 @@ public void ShowResult(bool victory, int starsEarned = 0)
 {
     if (victory)
     {
+        SaveManager.Save();
         resultLabel.Text = "Victory!";
         resultLabel.AddThemeColorOverride("font_color", Colors.Green);
         rewardsLabel.Text = $"Stars earned: {starsEarned}";
     }
     else
     {
+        SaveManager.Save();
         resultLabel.Text = "Defeat...";
         resultLabel.AddThemeColorOverride("font_color", Colors.Red);
         rewardsLabel.Text = "No stars earned.";

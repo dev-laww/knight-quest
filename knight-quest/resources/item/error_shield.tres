@@ -9,6 +9,7 @@ region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_cqn7f")
+Id = "Error Shield Potio"
 Name = "Error Shield Potion"
 Description = "Block enemy attacks"
 Icon = SubResource("AtlasTexture_pcyht")

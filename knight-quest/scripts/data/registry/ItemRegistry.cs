@@ -32,11 +32,16 @@ public partial class ItemRegistry : Registry<Item, ItemRegistry>
         {
             if (!file.EndsWith(".tres") && !file.EndsWith(".tres.remap")) continue;
 
-            var loaded = ResourceLoader.Load(file);
-            if (loaded is not Item resource || resource == null) continue;
+            var loaded = ResourceLoader.Load<Item>(file);
+            if (loaded == null) continue;
+            
+            loaded.ResourcePath = file;
 
             var id = file.GetFile().GetBaseName();
-            Resources[id] = resource;
+            loaded.Id = id; 
+            Resources[id] = loaded;
+
         }
     }
+
 }
