@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="LevelInfo" load_steps=37 format=3 uid="uid://ck67pcjgkjogm"]
 
-[ext_resource type="PackedScene" path="res://scenes/entities/enemies/golem.tscn" id="1_62ekb"]
+[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_62ekb"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_g00m3"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_rgrj8"]
 [ext_resource type="Resource" path="res://resources/questions/grade_2/math/question1.tres" id="3_l4kil"]
@@ -51,5 +51,6 @@ LevelName = "MATH 2"
 Subject = 1
 Grade = 1
 CombatSequence = SubResource("Resource_upfas")
+StarCount = 20
 Questions = Array[Object]([ExtResource("3_l4kil"), ExtResource("4_gr2q6"), ExtResource("5_urmxa"), ExtResource("6_rsxik"), ExtResource("7_y4iwu"), ExtResource("8_5g0py"), ExtResource("9_kqhow"), ExtResource("10_irbq1"), ExtResource("11_3h15r"), ExtResource("12_7lx1w"), ExtResource("13_8sd1i"), ExtResource("14_cvvv4"), ExtResource("15_voj1v"), ExtResource("16_s2c5q"), ExtResource("17_kfsfj"), ExtResource("18_vy0xd"), ExtResource("19_eg1lo"), ExtResource("20_ojaob"), ExtResource("21_khsad"), ExtResource("22_4rfwl"), ExtResource("23_58m7k"), ExtResource("24_yq4e2"), ExtResource("25_8kcke"), ExtResource("26_tdeky"), ExtResource("27_8ugw5"), ExtResource("28_5xn3p"), ExtResource("29_n1smt"), ExtResource("30_md6xg"), ExtResource("31_gamg0"), ExtResource("32_ys2oq")])
 metadata/_custom_type_script = "uid://bacok55bipbse"

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelInfo" load_steps=28 format=3 uid="uid://bktqhksj7nq5o"]
 
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_wxn4u"]
-[ext_resource type="PackedScene" path="res://scenes/entities/enemies/golem.tscn" id="1_xegwr"]
+[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_xegwr"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_tr1jr"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng/question1.tres" id="3_5ebdk"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng/question2.tres" id="4_1b804"]
@@ -41,5 +41,6 @@ script = ExtResource("24_okmhw")
 LevelName = "ENGLISH 5"
 Grade = 4
 CombatSequence = SubResource("Resource_djw1q")
+StarCount = 20
 Questions = Array[Object]([ExtResource("3_5ebdk"), ExtResource("4_1b804"), ExtResource("5_p184o"), ExtResource("6_ewcik"), ExtResource("7_i1njl"), ExtResource("8_ve42l"), ExtResource("9_r4inm"), ExtResource("10_no2om"), ExtResource("11_yy4pj"), ExtResource("12_jxrrq"), ExtResource("13_0uuyf"), ExtResource("14_l6bg2"), ExtResource("15_3jgt6"), ExtResource("16_rtr1n"), ExtResource("17_rafq3"), ExtResource("18_as6ma"), ExtResource("19_g6x44"), ExtResource("20_3d7b4"), ExtResource("21_lxkmk"), ExtResource("22_7tsvt"), ExtResource("23_qmtah")])
 metadata/_custom_type_script = "uid://bacok55bipbse"
