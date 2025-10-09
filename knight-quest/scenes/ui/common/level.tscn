@@ -3,27 +3,27 @@
 [ext_resource type="Script" uid="uid://bx1rnd5riutkm" path="res://scripts/ui/common/Level.cs" id="1_hr3dh"]
 [ext_resource type="PackedScene" uid="uid://mqdvfqgo4wwf" path="res://scenes/ui/common/nine_patch_rect.tscn" id="1_t84un"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t84un"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hr3dh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ocpf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osa2b"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7o511"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ahnr"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgh6q"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g6ebs"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bnjlr"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rav45"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tmny7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rav45"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bnjlr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g6ebs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgh6q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ahnr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7o511"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osa2b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ocpf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hr3dh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t84un"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hr3dh"]
 outline_size = 4
@@ -34,17 +34,17 @@ custom_minimum_size = Vector2(150, 100)
 offset_right = 16.0
 offset_bottom = 16.0
 pivot_offset = Vector2(75, 50)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t84un")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_hr3dh")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_8ocpf")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_osa2b")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7o511")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_5ahnr")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_qgh6q")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_g6ebs")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_bnjlr")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_tmny7")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rav45")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_tmny7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bnjlr")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_g6ebs")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qgh6q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_5ahnr")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7o511")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_osa2b")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8ocpf")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_hr3dh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t84un")
 script = ExtResource("1_hr3dh")
 
 [node name="NinePatchRect" parent="." instance=ExtResource("1_t84un")]
@@ -55,6 +55,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+region_rect = Rect2(49, 2, 46, 45)
+patch_margin_top = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
 layout_mode = 1

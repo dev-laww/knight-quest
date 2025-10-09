@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ck774w2cbwvby"]
+[gd_scene load_steps=16 format=3 uid="uid://ck774w2cbwvby"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_qfdx5"]
 [ext_resource type="Script" uid="uid://dxi58wrtbelmx" path="res://scripts/ui/screens/CharacterSelect.cs" id="1_v6gmn"]
@@ -10,32 +10,29 @@
 [ext_resource type="PackedScene" uid="uid://c1csm6bllq6iv" path="res://scenes/entities/characters/rogue.tscn" id="6_8as7p"]
 [ext_resource type="Texture2D" uid="uid://cbbde4iuxekn" path="res://assets/art/ui/battle background no ground (dark).png" id="8_k684n"]
 [ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="9_8as7p"]
+[ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="10_dy7lw"]
 
 [sub_resource type="Resource" id="Resource_kyw2v"]
 script = ExtResource("3_tcaym")
 Name = "Samurai"
-Description = ""
 Scene = ExtResource("2_1myg1")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
 
 [sub_resource type="Resource" id="Resource_v270p"]
 script = ExtResource("3_tcaym")
 Name = "Reaper"
-Description = ""
 Scene = ExtResource("4_tcaym")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
 
 [sub_resource type="Resource" id="Resource_k684n"]
 script = ExtResource("3_tcaym")
 Name = "Mage"
-Description = ""
 Scene = ExtResource("5_v270p")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
 
 [sub_resource type="Resource" id="Resource_dy7lw"]
 script = ExtResource("3_tcaym")
 Name = "Rogue"
-Description = ""
 Scene = ExtResource("6_8as7p")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
 
@@ -66,6 +63,7 @@ theme = ExtResource("1_qfdx5")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+theme = ExtResource("10_dy7lw")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer"]
 layout_mode = 2

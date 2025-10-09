@@ -1,14 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://dl0ra7swg3dqq"]
+[gd_scene load_steps=10 format=3 uid="uid://dl0ra7swg3dqq"]
 
 [ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
+[ext_resource type="Texture2D" uid="uid://b3u3w2c8h4jb2" path="res://assets/art/ui/nine patch.png" id="2_584fx"]
 [ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot.tscn" id="2_ath4n"]
+[ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="3_6we8e"]
 [ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="3_ath4n"]
 [ext_resource type="Texture2D" uid="uid://b1tdr1mttpf8f" path="res://assets/art/icons/star icon.png" id="4_y50iv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ath4n"]
-texture = ExtResource("1_w276f")
-region_rect = Rect2(35.4453, 1124.05, 175.534, 271.838)
+texture = ExtResource("2_584fx")
+region_rect = Rect2(47.999252, 0.71470565, 48.000748, 47.285294)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_of6gl"]
 atlas = ExtResource("4_y50iv")
@@ -33,9 +35,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
+theme = ExtResource("3_6we8e")
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
@@ -43,8 +46,10 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="Header" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(120, 32)
+clip_contents = true
+custom_minimum_size = Vector2(520, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 14
 
@@ -66,6 +71,7 @@ texture = SubResource("AtlasTexture_of6gl")
 [node name="CoinLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
@@ -75,8 +81,8 @@ size_flags_vertical = 3
 [node name="NinePatchRect" type="NinePatchRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("1_w276f")
-region_rect = Rect2(41.6244, 1667.83, 240.717, 274.606)
+texture = ExtResource("2_584fx")
+region_rect = Rect2(5.44987, 4.7337074, 38.19264, 39.9822)
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
 layout_mode = 1

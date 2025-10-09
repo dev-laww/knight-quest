@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Game.Entities;
 
-public partial class Teeth : Enemy
+public partial class Golem : Enemy
 {
     public override void _Ready()
     {

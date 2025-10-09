@@ -33,7 +33,7 @@ public partial class CharacterPanel : Panel
             if (instance == null) return;
 
             AddChild(instance);
-            instance.Position = PivotOffset;
+            instance.Position = PivotOffset+ new Vector2(0, 40);;
         }).CallDeferred();
     }
 }

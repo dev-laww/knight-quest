@@ -1,19 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://df6ouxjtq5fcc"]
+[gd_scene load_steps=3 format=3 uid="uid://df6ouxjtq5fcc"]
 
-[ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_5u32p"]
-[ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="2_o5mpp"]
+[ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="1_5u32p"]
 [ext_resource type="Script" uid="uid://b6os00ul6rlvg" path="res://scripts/ui/common/Slot.cs" id="3_3y3i6"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ljwdb"]
-texture = ExtResource("2_o5mpp")
-region_rect = Rect2(507.026, 1131.57, 24.3349, 19.7844)
 
 [node name="Slot" type="Panel"]
 custom_minimum_size = Vector2(40, 40)
 offset_right = 32.0
 offset_bottom = 32.0
 theme = ExtResource("1_5u32p")
-theme_override_styles/panel = SubResource("StyleBoxTexture_ljwdb")
 script = ExtResource("3_3y3i6")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]

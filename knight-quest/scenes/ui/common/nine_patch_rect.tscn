@@ -1,14 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://mqdvfqgo4wwf"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_6qlfp"]
-[ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_q2u4v"]
+[ext_resource type="Texture2D" uid="uid://b3u3w2c8h4jb2" path="res://assets/art/ui/nine patch.png" id="2_6qlfp"]
 
 [node name="NinePatchRect" type="NinePatchRect"]
 custom_minimum_size = Vector2(32, 32)
 theme = ExtResource("1_6qlfp")
-texture = ExtResource("1_q2u4v")
-region_rect = Rect2(240, 32, 81, 81)
-patch_margin_left = 5
-patch_margin_top = 6
-patch_margin_right = 5
-patch_margin_bottom = 6
+texture = ExtResource("2_6qlfp")
+region_rect = Rect2(47.704094, 0.26125336, 48.295906, 47.738747)
+patch_margin_top = 2

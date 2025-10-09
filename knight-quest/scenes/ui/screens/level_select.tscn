@@ -60,6 +60,7 @@ label_settings = SubResource("LabelSettings_3xfb3")
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("4_vqsd0")
 
 [node name="LevelsContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true

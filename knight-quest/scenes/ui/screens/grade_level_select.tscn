@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://vlpb0thsek2b" path="res://scripts/ui/screens/GradeLevelSelect.cs" id="1_30hrc"]
 [ext_resource type="PackedScene" uid="uid://dja2yklimotg1" path="res://scenes/ui/common/grade_level_panel.tscn" id="2_uskm2"]
 [ext_resource type="Texture2D" uid="uid://cbbde4iuxekn" path="res://assets/art/ui/battle background no ground (dark).png" id="3_00crt"]
-[ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="3_b0q0d"]
+[ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="4_b0q0d"]
 [ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="4_uskm2"]
 
 [node name="GradeLevelSelect" type="CanvasLayer"]
@@ -28,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_b0q0d")
+theme = ExtResource("4_b0q0d")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
