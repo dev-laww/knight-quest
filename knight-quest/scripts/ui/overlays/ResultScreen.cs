@@ -42,7 +42,7 @@ public partial class ResultScreen : CanvasLayer
 
     private void OnRetryButtonPress()
     {
-        Navigator.Push("res://scenes/ui/overlays/result_screen.tscn");
+        Navigator.Push("res://scenes/ui/screens/level_select.tscn");
         QueueFree();
     }
 

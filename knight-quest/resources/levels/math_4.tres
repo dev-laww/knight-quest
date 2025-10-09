@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="LevelInfo" load_steps=27 format=3 uid="uid://dn83qieswxa5w"]
 
-[ext_resource type="PackedScene" uid="uid://pgk7i76mo1f3" path="res://scenes/entities/enemies/golem.tscn" id="1_gr3g0"]
+[ext_resource type="PackedScene" uid="uid://8080s6xfdm22" path="res://scenes/entities/enemies/number_naga.tscn" id="1_gr3g0"]
 [ext_resource type="Script" uid="uid://cb136e6c67ahm" path="res://scripts/data/level/Encounter.cs" id="1_vkprp"]
 [ext_resource type="Script" uid="uid://cqe31o4yik31k" path="res://scripts/data/level/CombatSequence.cs" id="2_btq8d"]
 [ext_resource type="Resource" path="res://resources/questions/grade_4/math/question1.tres" id="3_5ipyk"]

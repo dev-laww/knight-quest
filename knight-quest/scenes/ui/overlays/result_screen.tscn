@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bgrhjvvblvsxi" path="res://scripts/ui/overlays/ResultScreen.cs" id="1_yqk8p"]
 [ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="2_2hhwa"]
-[ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="2_s8mfa"]
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="3_2hhwa"]
+[ext_resource type="Texture2D" uid="uid://b3u3w2c8h4jb2" path="res://assets/art/ui/nine patch.png" id="3_a62do"]
 [ext_resource type="Texture2D" uid="uid://b1tdr1mttpf8f" path="res://assets/art/icons/star icon.png" id="5_2hhwa"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a62do"]
-texture = ExtResource("2_s8mfa")
-region_rect = Rect2(32.9753, 1120.55, 181.945, 280.083)
+texture = ExtResource("3_a62do")
+region_rect = Rect2(49, 1, 46, 45)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a62do"]
 atlas = ExtResource("5_2hhwa")
