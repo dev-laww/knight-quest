@@ -42,7 +42,7 @@ public partial class ResultScreen : CanvasLayer
 
     private void OnRetryButtonPress()
     {
-        Navigator.Push("res://scenes/ui/screens/level_select.tscn");
+        GetTree().ReloadCurrentScene();
         QueueFree();
     }
 
