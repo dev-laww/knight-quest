@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ck774w2cbwvby"]
+[gd_scene load_steps=17 format=3 uid="uid://ck774w2cbwvby"]
 
 [ext_resource type="Theme" uid="uid://fhpp2immpt73" path="res://resources/theme.tres" id="1_qfdx5"]
 [ext_resource type="Script" uid="uid://dxi58wrtbelmx" path="res://scripts/ui/screens/CharacterSelect.cs" id="1_v6gmn"]
@@ -35,6 +35,9 @@ script = ExtResource("3_tcaym")
 Name = "Rogue"
 Scene = ExtResource("6_8as7p")
 metadata/_custom_type_script = "uid://dmoqfr4yqd5to"
+
+[sub_resource type="LabelSettings" id="LabelSettings_dy7lw"]
+font_size = 53
 
 [node name="CharacterSelect" type="CanvasLayer"]
 script = ExtResource("1_v6gmn")
@@ -76,9 +79,20 @@ theme_override_constants/margin_right = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="BackButton" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("9_8as7p")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("9_8as7p")]
 layout_mode = 2
 size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 53
+text = "CHARACTER SELECT"
+label_settings = SubResource("LabelSettings_dy7lw")
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)

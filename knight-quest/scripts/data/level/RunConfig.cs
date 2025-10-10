@@ -8,7 +8,7 @@ public partial class RunConfig : RefCounted
 {
     public enum GradeLevel
     {
-        One,
+        First,
         Second,
         Third,
         Fourth,

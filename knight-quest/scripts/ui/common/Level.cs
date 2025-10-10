@@ -10,11 +10,12 @@ public partial class Level : Button
     [Export] public LevelInfo levelInfo;
 
     [Node] private Label label;
+    [Node] private Label starLabel;
 
     private bool hovered;
 
     public override void _Notification(int what)
-    {
+    {;
         if (what != NotificationSceneInstantiated) return;
 
         WireNodes();
@@ -32,6 +33,7 @@ public partial class Level : Button
     {
         levelInfo = level;
         label.Text = levelInfo.LevelName;
+        starLabel.Text = $"Stars: {levelInfo.StarCount}";
     }
 
     private void OnMouseEntered()
