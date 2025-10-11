@@ -11,6 +11,7 @@ font_size = 53
 
 [node name="GradeLevelSelect" type="CanvasLayer"]
 script = ExtResource("1_30hrc")
+metadata/_edit_horizontal_guides_ = [385.0]
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 resources = [PackedStringArray("GradeLevelPanel"), [ExtResource("2_uskm2")]]
@@ -32,14 +33,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_b0q0d")
-theme_override_constants/margin_top = -20
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 280)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 2
+alignment = 1
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
@@ -66,11 +78,10 @@ text = "GRADE LEVEL"
 label_settings = SubResource("LabelSettings_b0q0d")
 horizontal_alignment = 1
 
-[node name="GradeLevelsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="GradeLevelsContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 3

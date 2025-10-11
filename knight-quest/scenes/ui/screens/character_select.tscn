@@ -94,14 +94,11 @@ text = "CHARACTER SELECT"
 label_settings = SubResource("LabelSettings_dy7lw")
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
 [node name="PanelContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 250)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/separation = 5
 alignment = 1

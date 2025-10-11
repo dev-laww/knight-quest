@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://ieh4y8n2j7ay"]
+[gd_scene load_steps=6 format=3 uid="uid://ieh4y8n2j7ay"]
 
 [ext_resource type="Texture2D" uid="uid://cjdspj7cegx15" path="res://assets/art/ui/main_menu.png" id="1_by6cc"]
+[ext_resource type="Script" uid="uid://43rkgq1e1beh" path="res://scripts/ui/screens/Register.cs" id="1_xh3xl"]
 [ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="2_m1em4"]
 [ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="3_xh3xl"]
+[ext_resource type="FontFile" uid="uid://0ta32sqcdfig" path="res://assets/art/fonts/m5x7.ttf" id="5_wmnhi"]
 
 [node name="Register" type="CanvasLayer"]
+script = ExtResource("1_xh3xl")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(644, 361)
@@ -23,6 +26,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_m1em4")
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -37,42 +44,56 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/CenterContainer"]
-custom_minimum_size = Vector2(300, 0)
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer2/CenterContainer"]
+custom_minimum_size = Vector2(350, 250)
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/CenterContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wmnhi")
+theme_override_font_sizes/font_size = 36
+text = "REGISTER"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="NameField" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "name"
 
-[node name="LineEdit2" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="AgeField" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "age"
 
 [node name="UsernameField" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "username"
 
-[node name="PasswordField" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "password"
-secret = true
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="PasswordField" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "password"
+secret = true
 
-[node name="LineEdit2" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="ConfirmPasswordField" type="LineEdit" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "confirm password"
 
 [node name="RegisterButton" type="Button" parent="MarginContainer/VBoxContainer2/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true

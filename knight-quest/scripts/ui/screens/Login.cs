@@ -50,8 +50,8 @@ public partial class Login : CanvasLayer
 
     private void OnRegisterPressed()
     {
-        // var username = usernameField.Text;
-        // var password = passwordField.Text;
+        Navigator.Push("res://scenes/ui/screens/register.tscn");
+
     }
     
     private void OnGooglePressed()

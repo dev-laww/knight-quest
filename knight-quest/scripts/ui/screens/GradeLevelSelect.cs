@@ -9,7 +9,7 @@ namespace Game;
 [Scene]
 public partial class GradeLevelSelect : CanvasLayer
 {
-    [Node] private HBoxContainer gradeLevelsContainer;
+    [Node] private GridContainer gradeLevelsContainer;
     [Node] private ResourcePreloader resourcePreloader;
 
 
