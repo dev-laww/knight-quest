@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl0ra7swg3dqq"]
+[gd_scene load_steps=9 format=3 uid="uid://dl0ra7swg3dqq"]
 
 [ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
@@ -8,27 +8,22 @@
 [ext_resource type="PackedScene" uid="uid://cxhclrwk5d6be" path="res://scenes/ui/common/back_button.tscn" id="3_ath4n"]
 [ext_resource type="Texture2D" uid="uid://b1tdr1mttpf8f" path="res://assets/art/icons/star icon.png" id="4_y50iv"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ath4n"]
-texture = ExtResource("2_584fx")
-region_rect = Rect2(47.999252, 0.71470565, 48.000748, 47.285294)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_of6gl"]
 atlas = ExtResource("4_y50iv")
 
 [node name="Shop" type="CanvasLayer"]
 script = ExtResource("1_ath4n")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_ath4n")
+texture = ExtResource("2_584fx")
+region_rect = Rect2(48, 0, 48, 48)
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,11 +36,11 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(520, 32)
 layout_mode = 2
@@ -53,38 +48,38 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 14
 
-[node name="BackButton" parent="Panel/MarginContainer/VBoxContainer/Header" instance=ExtResource("3_ath4n")]
+[node name="BackButton" parent="NinePatchRect/MarginContainer/VBoxContainer/Header" instance=ExtResource("3_ath4n")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ShopLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="ShopLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 53
 text = "SHOP"
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/MarginContainer/VBoxContainer/Header"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = SubResource("AtlasTexture_of6gl")
 
-[node name="CoinLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="CoinLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_584fx")
 region_rect = Rect2(5.44987, 4.7337074, 38.19264, 39.9822)
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,267 +91,267 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(401, 0)
 layout_mode = 2
 
-[node name="SlotContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer"]
+[node name="SlotContainer" type="GridContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 8
 
-[node name="Slot" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot2" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot2" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot3" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot3" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot4" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot4" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot5" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot5" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot6" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot6" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot7" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot7" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot8" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot8" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot9" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot9" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot10" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot10" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot11" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot11" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot12" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot12" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot13" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot13" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot14" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot14" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot15" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot15" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot16" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot16" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot17" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot17" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot18" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot18" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot19" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot19" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot20" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot20" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot21" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot21" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot22" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot22" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot23" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot23" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot24" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot24" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot25" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot25" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot26" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot26" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot27" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot27" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot28" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot28" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot29" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot29" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot30" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot30" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot31" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot31" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot32" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot32" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot33" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot33" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot34" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot34" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot35" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot35" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot36" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot36" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot37" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot37" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot38" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot38" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot39" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot39" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Slot40" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
+[node name="Slot40" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/ScrollContainer/SlotContainer" instance=ExtResource("2_ath4n")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_w276f")
 region_rect = Rect2(268.573, 1134.3, 159.119, 250.745)
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -368,30 +363,30 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 
-[node name="DummyContainer" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="DummyContainer" type="CenterContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 170)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/DummyContainer"]
+[node name="ItemIcon" type="TextureRect" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/DummyContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ItemDetail" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="ItemDetail" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SelectedItemName" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
+[node name="SelectedItemName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SelectedItemDescription" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
+[node name="SelectedItemDescription" type="RichTextLabel" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="BuyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
+[node name="BuyButton" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/MarginContainer/VBoxContainer/ItemDetail"]
 unique_name_in_owner = true
 layout_mode = 2
