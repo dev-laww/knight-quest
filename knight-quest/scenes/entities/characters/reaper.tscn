@@ -1,8 +1,11 @@
-[gd_scene load_steps=40 format=3 uid="uid://dw6vdc6chryiu"]
+[gd_scene load_steps=43 format=3 uid="uid://dw6vdc6chryiu"]
 
 [ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/entity.tscn" id="1_f13mr"]
 [ext_resource type="Script" uid="uid://7jtvosb2pttf" path="res://scripts/entities/characters/Reaper.cs" id="2_34ynr"]
 [ext_resource type="Texture2D" uid="uid://ceffrxkble3v2" path="res://assets/art/entities/characters/reaper/spritesheet.png" id="2_63lir"]
+[ext_resource type="AudioStream" uid="uid://dveascbwbjn3u" path="res://assets/audio/Characters/character 2 - Silas - male chain/chain attack.wav" id="4_s1vdo"]
+[ext_resource type="AudioStream" uid="uid://fr3eo341t5l5" path="res://assets/audio/Characters/character 2 - Silas - male chain/chain death.wav" id="5_8x0tx"]
+[ext_resource type="AudioStream" uid="uid://dh4wadpqivfsb" path="res://assets/audio/Characters/character 2 - Silas - male chain/chain damage.wav" id="6_tx3l2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63lir"]
 atlas = ExtResource("2_63lir")
@@ -322,6 +325,7 @@ position = Vector2(0, -31)
 sprite_frames = SubResource("SpriteFrames_s1vdo")
 animation = &"idle"
 autoplay = "idle"
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
@@ -332,3 +336,18 @@ autoplay = "idle"
 [node name="AnimationTree" type="AnimationTree" parent="." index="4"]
 tree_root = SubResource("AnimationNodeStateMachine_yp045")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="SFX" type="Node2D" parent="." index="6"]
+scale = Vector2(0.6565988, 0.6565988)
+
+[node name="Attack" type="AudioStreamPlayer2D" parent="SFX" index="0"]
+unique_name_in_owner = true
+stream = ExtResource("4_s1vdo")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SFX" index="1"]
+unique_name_in_owner = true
+stream = ExtResource("5_8x0tx")
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="SFX" index="2"]
+unique_name_in_owner = true
+stream = ExtResource("6_tx3l2")

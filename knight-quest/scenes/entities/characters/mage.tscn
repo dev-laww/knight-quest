@@ -1,8 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://dobch6gvxe73h"]
+[gd_scene load_steps=49 format=3 uid="uid://dobch6gvxe73h"]
 
 [ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/entity.tscn" id="1_awk2a"]
 [ext_resource type="Texture2D" uid="uid://nj6gscpsfn2p" path="res://assets/art/entities/characters/mage/mage.png" id="2_lfmna"]
 [ext_resource type="Script" uid="uid://cmfynpk1p4voa" path="res://scripts/entities/characters/Mage.cs" id="2_qcukw"]
+[ext_resource type="AudioStream" uid="uid://bqlae05783su7" path="res://assets/audio/Characters/character 3 - Vestus - female mage/mage attack.wav" id="4_d7ip8"]
+[ext_resource type="AudioStream" uid="uid://bbbdcc03ik7h5" path="res://assets/audio/Characters/character 3 - Vestus - female mage/mage death.wav" id="5_rw4ti"]
+[ext_resource type="AudioStream" uid="uid://c45xrpwqqiywa" path="res://assets/audio/Characters/character 3 - Vestus - female mage/mage damage.wav" id="6_aafow"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qcukw"]
 atlas = ExtResource("2_lfmna")
@@ -364,7 +367,7 @@ position = Vector2(-1, -43)
 scale = Vector2(1.52344, 1.375)
 sprite_frames = SubResource("SpriteFrames_mybmo")
 animation = &"idle"
-frame = 5
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
@@ -374,3 +377,17 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="4"]
 tree_root = SubResource("AnimationNodeStateMachine_xx47m")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="SFX" type="Node2D" parent="." index="5"]
+
+[node name="Attack" type="AudioStreamPlayer2D" parent="SFX" index="0"]
+unique_name_in_owner = true
+stream = ExtResource("4_d7ip8")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SFX" index="1"]
+unique_name_in_owner = true
+stream = ExtResource("5_rw4ti")
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="SFX" index="2"]
+unique_name_in_owner = true
+stream = ExtResource("6_aafow")
