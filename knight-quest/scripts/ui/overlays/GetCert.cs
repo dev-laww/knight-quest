@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Game.Autoloads;
 using GodotUtilities;
 
 namespace Game.UI;
@@ -20,6 +21,7 @@ public partial class GetCert : CanvasLayer
     }
     public void OnOpenLinkButtonPressed()
     {
+        AudioManager.Instance.PlayClick();
         string url = ""; 
         OpenLink(url);
     }

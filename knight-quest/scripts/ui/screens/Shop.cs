@@ -21,7 +21,6 @@ public partial class Shop : CanvasLayer
     [Node] private RichTextLabel selectedItemDescription;
     [Node] private Button buyButton;
     [Node] private TextureRect itemIcon;
-    [Node] private AudioStreamPlayer2D buttonClickedSound;
 
 
     [Signal]
@@ -146,7 +145,7 @@ public partial class Shop : CanvasLayer
 
     private void OnBuyButtonPress()
     {
-        buttonClickedSound.Play();
+       AudioManager.Instance.PlayClick();
 
         if (!CanBuy()) return;
 

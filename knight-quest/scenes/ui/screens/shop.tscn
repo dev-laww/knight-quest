@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl0ra7swg3dqq"]
+[gd_scene load_steps=9 format=3 uid="uid://dl0ra7swg3dqq"]
 
 [ext_resource type="Script" uid="uid://b6b410pge6hj" path="res://scripts/ui/screens/Shop.cs" id="1_ath4n"]
 [ext_resource type="Texture2D" uid="uid://c81lfglf7n5gb" path="res://assets/art/ui/ui.png" id="1_w276f"]
-[ext_resource type="AudioStream" uid="uid://cgj22kpv1277t" path="res://assets/audio/UI/UI button.ogg" id="2_6we8e"]
 [ext_resource type="Texture2D" uid="uid://b3u3w2c8h4jb2" path="res://assets/art/ui/nine patch.png" id="2_584fx"]
 [ext_resource type="PackedScene" uid="uid://df6ouxjtq5fcc" path="res://scenes/ui/common/slot.tscn" id="2_ath4n"]
 [ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="3_6we8e"]
@@ -14,12 +13,6 @@ atlas = ExtResource("4_y50iv")
 
 [node name="Shop" type="CanvasLayer"]
 script = ExtResource("1_ath4n")
-
-[node name="SFX" type="Node2D" parent="."]
-
-[node name="ButtonClickedSound" type="AudioStreamPlayer2D" parent="SFX"]
-unique_name_in_owner = true
-stream = ExtResource("2_6we8e")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchors_preset = 15
