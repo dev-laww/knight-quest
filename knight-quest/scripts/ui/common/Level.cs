@@ -9,7 +9,7 @@ public partial class Level : Button
 {
     [Export] public LevelInfo levelInfo;
 
-    [Node] private Label label;
+    [Node] private RichTextLabel levelLabel;
     [Node] private Label starLabel;
 
     private bool hovered;
@@ -32,7 +32,7 @@ public partial class Level : Button
     public void Setup(LevelInfo level)
     {
         levelInfo = level;
-        label.Text = levelInfo.LevelName;
+        levelLabel.Text = levelInfo.LevelName;
         starLabel.Text = $"Stars: {levelInfo.StarCount}";
     }
 
