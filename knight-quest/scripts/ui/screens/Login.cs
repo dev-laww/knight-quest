@@ -44,18 +44,19 @@ public partial class Login : CanvasLayer
     {
         // var username = usernameField.Text;
         // var password = passwordField.Text;
-
+        AudioManager.Instance.PlayClick();
         Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
     }
 
     private void OnRegisterPressed()
     {
+        AudioManager.Instance.PlayClick();
         Navigator.Push("res://scenes/ui/screens/register.tscn");
-
     }
-    
+
     private void OnGooglePressed()
     {
+        AudioManager.Instance.PlayClick();
         OS.ShellOpen(googleAuthUrl);
     }
 }

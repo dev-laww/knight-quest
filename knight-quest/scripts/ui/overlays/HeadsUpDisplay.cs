@@ -140,6 +140,7 @@ public partial class HeadsUpDisplay : MarginContainer
 
     private void OnAnswerButtonPressed(BaseButton button)
     {
+        AudioManager.Instance.PlayClick();
         var answerIndex = button.GetMeta("answer_index").As<int>();
         Logger.Debug($"Answer selected: {answerIndex}");
         EmitSignalAnswerSelected(answerIndex);

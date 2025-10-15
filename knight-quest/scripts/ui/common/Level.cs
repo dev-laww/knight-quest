@@ -1,3 +1,4 @@
+using Game.Autoloads;
 using Game.Data;
 using Godot;
 using GodotUtilities;
@@ -8,7 +9,7 @@ namespace Game.UI;
 public partial class Level : Button
 {
     [Export] public LevelInfo levelInfo;
-
+    
     [Node] private RichTextLabel levelLabel;
     [Node] private Label starLabel;
 
@@ -70,6 +71,7 @@ public partial class Level : Button
 
     private void OnButtonDown()
     {
+        AudioManager.Instance.PlayClick();
         var tween = CreateTween();
 
         tween.TweenProperty(this, "scale", new Vector2(0.98f, 0.98f), 0.05f)

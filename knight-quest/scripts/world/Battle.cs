@@ -23,6 +23,7 @@ public partial class Battle : Node2D
 
     public override async void _Ready()
     {
+        AudioManager.Instance.StopMusic();
         // Setup RunManager
         runManager.EncounterStarted += OnEncounterStarted;
         runManager.SetConfiguration(GameManager.Config.Level.CombatSequence);

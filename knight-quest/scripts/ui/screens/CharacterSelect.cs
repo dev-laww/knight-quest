@@ -43,7 +43,7 @@ public partial class CharacterSelect : CanvasLayer
         };
 
         if (!pressed) return;
-
+        AudioManager.Instance.PlayClick();
         GameManager.SetCharacter(character);
         Navigator.Push("res://scenes/ui/screens/grade_level_select.tscn");
     }

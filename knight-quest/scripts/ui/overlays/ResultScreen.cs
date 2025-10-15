@@ -33,15 +33,20 @@ public partial class ResultScreen : CanvasLayer
         
     }
 
-    private void OnMenuButtonPress()
+    private async void OnMenuButtonPress()
     {
-
+        AudioManager.Instance.PlayClick();
+        AudioManager.Instance.ResumeMusic();
+        await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
         Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
         QueueFree();
     }
 
-    private void OnRetryButtonPress()
+    private async void OnRetryButtonPress()
     {
+        AudioManager.Instance.PlayClick();
+        AudioManager.Instance.ResumeMusic();
+        await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
         GetTree().ReloadCurrentScene();
         QueueFree();
     }

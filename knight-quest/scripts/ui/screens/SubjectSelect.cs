@@ -10,7 +10,7 @@ public partial class SubjectSelect : CanvasLayer
 {
     [Node] private Panel math;
     [Node] private Panel english;
-
+     
 
     public override void _Notification(int what)
     {
@@ -35,7 +35,7 @@ public partial class SubjectSelect : CanvasLayer
         };
 
         if (!pressed) return;
-
+        AudioManager.Instance.PlayClick();
         GameManager.SetSubjectArea(subject);
         Navigator.Push("res://scenes/ui/screens/character_select.tscn");
     }

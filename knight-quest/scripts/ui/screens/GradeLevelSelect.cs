@@ -56,7 +56,7 @@ public partial class GradeLevelSelect : CanvasLayer
         };
 
         if (!pressed) return;
-
+        AudioManager.Instance.PlayClick();
         GameManager.SetGradeLevel(gradeLevel);
         Navigator.Push("res://scenes/ui/screens/level_select.tscn");
     }

@@ -10,6 +10,7 @@ public partial class Slot : Panel
     [Node] public TextureRect icon;
     [Node] private AnimationPlayer animationPlayer;
     [Node] private Label label;
+    [Node] private AudioStreamPlayer2D buttonClickedSound;
 
     [Signal] public delegate void PressedEventHandler(Consumable consumable);
 
@@ -42,9 +43,10 @@ public partial class Slot : Panel
 
     private void OnGuiInput(InputEvent @event)
     {
+        
         if (@event is not InputEventMouseButton mouseAction) return;
         if (!mouseAction.Pressed || mouseAction.ButtonIndex != MouseButton.Left) return;
-
+        buttonClickedSound.Play();
         EmitSignalPressed(ItemGroup.Item as Consumable);
     }
 }

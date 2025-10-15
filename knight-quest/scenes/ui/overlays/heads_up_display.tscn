@@ -80,6 +80,10 @@ size_flags_stretch_ratio = 0.4
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Bottom/ItemsContainer"]
 layout_mode = 1
@@ -143,6 +147,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
 theme = ExtResource("1_n0k8k")
 region_rect = Rect2(50, 0.26125336, 44, 46.738747)
+patch_margin_top = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Bottom/QuestionsContainer"]
 layout_mode = 1

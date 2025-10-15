@@ -47,6 +47,7 @@ public partial class LevelSelect : CanvasLayer
 
     private static void OnLevelPressed(LevelInfo level)
     {
+        AudioManager.Instance.PlayClick();
         GameManager.SetLevel(level);
         QuestionManager.Instance.LoadQuestions(level.Questions);
         Navigator.Push("res://scenes/world/battle.tscn");

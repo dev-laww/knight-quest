@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://df6ouxjtq5fcc"]
+[gd_scene load_steps=4 format=3 uid="uid://df6ouxjtq5fcc"]
 
 [ext_resource type="Theme" uid="uid://c5ct36yck13hr" path="res://resources/knight_theme.tres" id="1_5u32p"]
 [ext_resource type="Script" uid="uid://b6os00ul6rlvg" path="res://scripts/ui/common/Slot.cs" id="3_3y3i6"]
+[ext_resource type="AudioStream" uid="uid://cgj22kpv1277t" path="res://assets/audio/UI/UI button.ogg" id="3_5u32p"]
 
 [node name="Slot" type="Panel"]
 custom_minimum_size = Vector2(40, 40)
@@ -9,6 +10,12 @@ offset_right = 32.0
 offset_bottom = 32.0
 theme = ExtResource("1_5u32p")
 script = ExtResource("3_3y3i6")
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="ButtonClickedSound" type="AudioStreamPlayer2D" parent="SFX"]
+unique_name_in_owner = true
+stream = ExtResource("3_5u32p")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
