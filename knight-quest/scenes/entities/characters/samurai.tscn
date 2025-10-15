@@ -1,12 +1,12 @@
-[gd_scene load_steps=52 format=3 uid="uid://crbs2e2ij4nel"]
+[gd_scene load_steps=53 format=3 uid="uid://crbs2e2ij4nel"]
 
 [ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/entity.tscn" id="1_i7vfm"]
 [ext_resource type="Script" uid="uid://by6ow73qm0ksp" path="res://scripts/entities/characters/Samurai.cs" id="2_xx47m"]
 [ext_resource type="Texture2D" uid="uid://v2bun00s6ioe" path="res://assets/art/entities/characters/samurai/spritesheet.png" id="3_0pyue"]
-[ext_resource type="AudioStream" uid="uid://ca00hoy0io4wi" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai slash 1.wav" id="4_womre"]
-[ext_resource type="AudioStream" uid="uid://nesahsyrmmmn" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai slash 2.wav" id="5_klnqx"]
-[ext_resource type="AudioStream" uid="uid://coq6q24k0t66e" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai death.wav" id="6_itas7"]
-[ext_resource type="AudioStream" uid="uid://cooyxi32njutk" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai damage.wav" id="7_51ufj"]
+[ext_resource type="AudioStream" uid="uid://bifapmfx8fovs" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai slash 1.ogg" id="4_womre"]
+[ext_resource type="AudioStream" uid="uid://bb0pss6ovfi6s" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai slash 2.ogg" id="5_klnqx"]
+[ext_resource type="AudioStream" uid="uid://doxvg4paxkgkj" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai death.ogg" id="6_itas7"]
+[ext_resource type="AudioStream" uid="uid://ctj7ubntu3ux1" path="res://assets/audio/Characters/character 1 - Aiko - male samurai/samurai damage.ogg" id="7_51ufj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xx47m"]
 atlas = ExtResource("3_0pyue")
@@ -239,6 +239,30 @@ tracks/1/keys = {
 "update": 1,
 "values": ["attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Attack1:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.625),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SFX/Attack2:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.2083033),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_0pyue"]
 length = 0.375
@@ -266,6 +290,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["die"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vmggr"]
 length = 0.5
@@ -292,6 +328,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["hurt"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Hurt:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_nw53u"]
@@ -322,8 +370,60 @@ tracks/1/keys = {
 "values": ["idle"]
 }
 
+[sub_resource type="Animation" id="Animation_womre"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX/Hurt:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SFX/Death:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Attack1:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SFX/Attack2:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_womre"]
 _data = {
+&"RESET": SubResource("Animation_womre"),
 &"attack": SubResource("Animation_xx47m"),
 &"die": SubResource("Animation_0pyue"),
 &"hurt": SubResource("Animation_vmggr"),
@@ -381,15 +481,17 @@ script = ExtResource("2_xx47m")
 position = Vector2(0, -46)
 scale = Vector2(1.523, 1.523)
 sprite_frames = SubResource("SpriteFrames_t810p")
-animation = &"idle"
-frame = 3
+animation = &"attack"
+frame = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+callback_mode_discrete = 0
 libraries = {
 &"": SubResource("AnimationLibrary_womre")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4"]
+callback_mode_discrete = 0
 tree_root = SubResource("AnimationNodeStateMachine_xx47m")
 anim_player = NodePath("../AnimationPlayer")
 

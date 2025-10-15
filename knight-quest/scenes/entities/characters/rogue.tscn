@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://c1csm6bllq6iv"]
+[gd_scene load_steps=47 format=3 uid="uid://cuqy4qbp6ya1i"]
 
 [ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/entity.tscn" id="1_8tjjh"]
 [ext_resource type="Script" uid="uid://244skkr5efep" path="res://scripts/entities/characters/Rogue.cs" id="2_ajgby"]
@@ -171,6 +171,57 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="Animation" id="Animation_f17p5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX/Attack1:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SFX/Attack2:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Hurt:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SFX/Death:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_ojrrc"]
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -195,6 +246,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["attack"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Attack1:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.36666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SFX/Attack2:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_ajgby"]
@@ -222,6 +297,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["die"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_bfx7a"]
 length = 0.8
@@ -248,6 +335,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["hurt"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Hurt:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_e71yp"]
@@ -280,6 +379,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f17p5"]
 _data = {
+&"RESET": SubResource("Animation_f17p5"),
 &"attack": SubResource("Animation_ojrrc"),
 &"die": SubResource("Animation_ajgby"),
 &"hurt": SubResource("Animation_bfx7a"),
@@ -337,15 +437,17 @@ script = ExtResource("2_ajgby")
 position = Vector2(-1, -49)
 scale = Vector2(1.523, 1.523)
 sprite_frames = SubResource("SpriteFrames_hv62p")
-animation = &"idle"
+animation = &""
 autoplay = "idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+callback_mode_discrete = 0
 libraries = {
 &"": SubResource("AnimationLibrary_f17p5")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4"]
+callback_mode_discrete = 0
 tree_root = SubResource("AnimationNodeStateMachine_xx47m")
 anim_player = NodePath("../AnimationPlayer")
 
@@ -364,4 +466,5 @@ unique_name_in_owner = true
 stream = ExtResource("6_btpab")
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="SFX" index="3"]
+unique_name_in_owner = true
 stream = ExtResource("7_p62xr")

@@ -1,5 +1,8 @@
+using Godot;
 using GodotUtilities;
 
 namespace Game.Entities;
-
-public partial class Samurai : Player { }
+[Scene]
+public partial class Samurai : Player
+{
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dobch6gvxe73h"]
+[gd_scene load_steps=50 format=3 uid="uid://dobch6gvxe73h"]
 
 [ext_resource type="PackedScene" uid="uid://bg4dy7ywkl3qd" path="res://scenes/entities/entity.tscn" id="1_awk2a"]
 [ext_resource type="Texture2D" uid="uid://nj6gscpsfn2p" path="res://assets/art/entities/characters/mage/mage.png" id="2_lfmna"]
@@ -224,6 +224,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Attack:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_u4nar"]
 length = 0.8
@@ -251,6 +263,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["die"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_nrpo8"]
 length = 0.625
@@ -277,6 +301,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["hurt"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Hurt:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_34vml"]
@@ -307,8 +343,48 @@ tracks/1/keys = {
 "values": ["idle"]
 }
 
+[sub_resource type="Animation" id="Animation_d7ip8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX/Attack:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SFX/Death:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX/Hurt:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vrdes"]
 _data = {
+&"RESET": SubResource("Animation_d7ip8"),
 &"attack": SubResource("Animation_i26h1"),
 &"die": SubResource("Animation_u4nar"),
 &"hurt": SubResource("Animation_nrpo8"),
@@ -366,15 +442,16 @@ script = ExtResource("2_qcukw")
 position = Vector2(-1, -43)
 scale = Vector2(1.52344, 1.375)
 sprite_frames = SubResource("SpriteFrames_mybmo")
-animation = &"idle"
-frame = 1
+animation = &"hurt"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+callback_mode_discrete = 0
 libraries = {
 &"": SubResource("AnimationLibrary_vrdes")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4"]
+callback_mode_discrete = 0
 tree_root = SubResource("AnimationNodeStateMachine_xx47m")
 anim_player = NodePath("../AnimationPlayer")
 
