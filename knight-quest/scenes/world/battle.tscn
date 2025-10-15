@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://0ioux0qjw16k"]
+[gd_scene load_steps=6 format=3 uid="uid://0ioux0qjw16k"]
 
 [ext_resource type="Script" uid="uid://dw0w0v0uwrdqj" path="res://scripts/world/Battle.cs" id="1_5r7dh"]
 [ext_resource type="PackedScene" uid="uid://cf6rph7p0k8y7" path="res://scenes/ui/overlays/heads_up_display.tscn" id="1_hjx2g"]
 [ext_resource type="PackedScene" uid="uid://dfdm55jit0843" path="res://scenes/components/managers/run_manager.tscn" id="4_t5uxl"]
 [ext_resource type="Texture2D" uid="uid://cvlomnjiupynt" path="res://assets/art/ui/battle background with ground (dark).png" id="5_kvbus"]
+[ext_resource type="AudioStream" uid="uid://dsuktoao7jkol" path="res://assets/audio/UI/Battle Background Music.ogg" id="5_t5uxl"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_5r7dh")
@@ -48,3 +49,10 @@ flip_v = true
 unique_name_in_owner = true
 
 [node name="Entities" type="Node" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_t5uxl")
+autoplay = true
+bus = &"Background_Music"
+playback_type = 1
+parameters/looping = true

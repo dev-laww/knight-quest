@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="Question" load_steps=2 format=3 uid="uid://generated_Grade3_English_23"]
+[gd_resource type="Resource" script_class="Question" load_steps=2 format=3 uid="uid://b0v5d6t8d5cks"]
 
 [ext_resource type="Script" uid="uid://bnxvkuvcnicjq" path="res://scripts/data/question/Question.cs" id="1_script"]
 
 [resource]
 script = ExtResource("1_script")
-QuestionText = "What is the correct past tense of "eat"?"
+QuestionText = "What is the correct past tense of \"eat\""
 Answers = PackedStringArray("Eats", "Ate", "Eating", "Eated")
 CorrectAnswerIndex = 1
 CorrectAnswer = "Ate"
