@@ -12,6 +12,8 @@ public partial class LevelSelect : CanvasLayer
     [Node] private ResourcePreloader resourcePreloader;
     [Node] public GridContainer levelsContainer;
 
+    private PackedScene getCertScene = GD.Load<PackedScene>("res://scenes/ui/overlays/get_cert.tscn");
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
@@ -43,6 +45,23 @@ public partial class LevelSelect : CanvasLayer
                 level.DisableLevel();
             }
         }
+
+        if (!AreAllLevelsFinished()) return;
+        ShowScreen();
+    }
+
+    private void ShowScreen()
+    {
+        var screen = getCertScene.Instantiate();
+        GetTree().Root.AddChild(screen);
+        GD.Print("All levels are finished!");
+    }
+
+    private static bool AreAllLevelsFinished()
+    {
+        var allLevelIds = LevelRegistry.PublicResources.Keys.ToHashSet();
+        var finishedLevelIds = SaveManager.LoadFinishedLevels().Select(l => l.Id).ToHashSet();
+        return allLevelIds.All(id => finishedLevelIds.Contains(id));
     }
 
     private static void OnLevelPressed(LevelInfo level)

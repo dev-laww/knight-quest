@@ -16,6 +16,29 @@ public partial class GetCert : CanvasLayer
 
     public override void _Ready()
     {
-    
+        getCertBtn.Pressed += OnOpenLinkButtonPressed;
+    }
+    public void OnOpenLinkButtonPressed()
+    {
+        string url = ""; 
+        OpenLink(url);
+    }
+
+    private void OpenLink(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+        {
+            GD.PrintErr("URL is empty!");
+            return;
+        }
+
+        if (OS.HasFeature("web"))
+        {
+            JavaScriptBridge.Eval($"window.open('{url}', '_blank')");
+        }
+        else
+        {
+            OS.ShellOpen(url);
+        }
     }
 }
