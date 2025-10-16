@@ -2,7 +2,6 @@ import type { Handler } from 'express'
 import { prisma } from '@utils/database'
 import { Role } from '@prisma/client'
 import { getToken } from '@utils/oauth/google'
-import { logger } from '@utils/logging'
 
 type GoogleUserInfo = {
     sub: string
@@ -16,11 +15,11 @@ type GoogleUserInfo = {
 
 async function fetchGoogleUser(accessToken: string): Promise<GoogleUserInfo> {
     const resp = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
-        headers: { Authorization: `Bearer ${accessToken}` }
+        headers: { Authorization: `Bearer ${ accessToken }` }
     })
 
     if (!resp.ok) {
-        throw new Error(`Failed to fetch userinfo: ${resp.status} ${await resp.text()}`)
+        throw new Error(`Failed to fetch userinfo: ${ resp.status } ${ await resp.text() }`)
     }
 
     return await resp.json() as GoogleUserInfo
@@ -33,45 +32,42 @@ export const get: Handler = async (req, res) => {
         return res.redirect('knightquest://login/?error=missing_code')
     }
 
-    try {
-        const tokens = await getToken(code)
-        const userinfo = await fetchGoogleUser(tokens.access_token)
+    const tokens = await getToken(code)
+    const userinfo = await fetchGoogleUser(tokens.access_token)
 
-        // Use email as username; generate placeholder fields if missing
-        const username = userinfo.email
-        const firstName = userinfo.given_name || (userinfo.name?.split(' ')[0] ?? 'Google')
-        const lastName = userinfo.family_name || (userinfo.name?.split(' ').slice(1).join(' ') || 'User')
+    const username = userinfo.email
+    const firstName = userinfo.given_name || (userinfo.name?.split(' ')[0] ?? 'Google')
+    const lastName = userinfo.family_name || (userinfo.name?.split(' ').slice(1).join(' ') || 'User')
 
-        // Upsert user by username (email)
-        const user = await prisma.user.upsert({
-            where: { username },
-            create: {
-                username,
-                password: 'google-oauth-no-password',
-                firstName,
-                lastName,
-                role: Role.Student,
-                save: { create: {} }
-            },
-            update: {
-                firstName,
-                lastName
-            },
-            omit: { password: true, createdAt: true, updatedAt: true }
-        })
+    const user = await prisma.user.upsert({
+        where: { username },
+        create: {
+            username,
+            password: 'google-oauth-no-password',
+            firstName,
+            lastName,
+            role: Role.Student,
+            save: { create: {} }
+        },
+        update: {
+            firstName,
+            lastName
+        },
+        omit: { password: true, createdAt: true, updatedAt: true }
+    })
 
-        const jwt = await prisma.user.generateJwt(user.id)
-        if (!jwt) {
-            return res.redirect('knightquest://login/?error=token_issue')
-        }
+    const jwt = await prisma.user.generateJwt(user.id)
 
-        const qs = new URLSearchParams({ token: jwt })
-        if (state) qs.set('state', state)
-        return res.redirect(`knightquest://login/?${qs.toString()}`)
-    } catch (err) {
-        logger.error(err)
-        return res.redirect('knightquest://login/?error=oauth_failed')
+    if (!jwt) {
+        return res.redirect('knightquest://login/?error=token_issue')
     }
+
+    const qs = new URLSearchParams({ token: jwt })
+    if (state) qs.set('state', state)
+
+    qs.set('token', jwt)
+
+    return res.redirect(`knightquest://login/?${ qs.toString() }`)
 }
 
 

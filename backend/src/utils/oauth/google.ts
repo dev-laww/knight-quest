@@ -28,7 +28,7 @@ export function getAuthorizationUrl(req: Request, state?: string) {
         return null
     }
 
-    const redirectUri = `https://${ host }/auth/google/callback`
+    const redirectUri = env.GOOGLE_REDIRECT_URI
 
     return client.authorizeURL({
         redirect_uri: redirectUri,
