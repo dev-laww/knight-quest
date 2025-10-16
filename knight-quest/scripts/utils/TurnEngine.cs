@@ -81,6 +81,7 @@ public sealed class DamageStep : ITurnStep
         {
             target.StatsManager.ReceiveAttack(attack);
         }
+
         return Task.CompletedTask;
     }
 }
@@ -111,6 +112,7 @@ public sealed class TickStatusEffectsStep : ITurnStep
             if (GodotObject.IsInstanceValid(e))
                 e.StatsManager.TickStatusEffects();
         }
+
         return Task.CompletedTask;
     }
 }
@@ -134,6 +136,20 @@ public sealed class PlayAnimationTreeStateStep : ITurnStep
         playback.Travel(_stateName);
         await ctx.Run.ToSignal(_animationTree, "animation_finished");
     }
+
+    public sealed class CustomStep : ITurnStep
+    {
+        private readonly Action<TurnContext> _action;
+
+        public CustomStep(Action<TurnContext> action)
+        {
+            _action = action;
+        }
+
+        public Task ExecuteAsync(TurnContext ctx, CancellationToken ct)
+        {
+            _action?.Invoke(ctx);
+            return Task.CompletedTask;
+        }
+    }
 }
-
-

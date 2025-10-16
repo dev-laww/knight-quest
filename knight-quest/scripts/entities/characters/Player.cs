@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Game.Components;
+using Game.UI;
 using Godot;
 using GodotUtilities;
 
@@ -13,7 +14,7 @@ public abstract partial class Player : Entity
     protected const string DIE = "die";
 
     [Node] private AnimationTree animationTree;
-
+    [Export] public PackedScene ProjectileScene;
     private AnimationNodeStateMachinePlayback playback;
 
     public override void _Notification(int what)
@@ -50,10 +51,12 @@ public abstract partial class Player : Entity
             Targets = [target],
             Steps = new System.Collections.Generic.List<Utils.ITurnStep>
             {
+                new Utils.PlayAnimationTreeStateStep.CustomStep(ctx => Shoot()),
                 new Utils.PlayAnimationTreeStateStep(animationTree, ATTACK),
                 new Utils.DamageStep(ctx => ctx.ActorStats.CreateAttack()),
                 new Utils.ResolveDeathsStep()
             },
+
             Name = "PlayerAttack"
         };
     }
@@ -70,5 +73,18 @@ public abstract partial class Player : Entity
         if (stat != StatsManager.Stat.Health) return;
 
         playback.Travel(HURT);
+    }
+
+    private async void Shoot()
+    {
+        if (ProjectileScene == null) return;
+
+        await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+
+        var projectileInstance = (Projectile)ProjectileScene.Instantiate();
+        GetTree().CurrentScene.AddChild(projectileInstance);
+
+        projectileInstance.GlobalPosition = GetNode<Marker2D>("ProjectileSpawnPoint").GlobalPosition;
+        projectileInstance.Direction = Vector2.Right; 
     }
 }
