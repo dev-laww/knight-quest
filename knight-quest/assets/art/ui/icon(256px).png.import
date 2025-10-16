@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v2bun00s6ioe"
-path="res://.godot/imported/spritesheet.png-2fdd534c9f0bd8dcf4c910c12049f103.ctex"
+uid="uid://dvos6pb64h60i"
+path="res://.godot/imported/icon(256px).png-f3418fab0f4afa5ed6a67025aeaa8193.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/entities/characters/samurai/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-2fdd534c9f0bd8dcf4c910c12049f103.ctex"]
+source_file="res://assets/art/ui/icon(256px).png"
+dest_files=["res://.godot/imported/icon(256px).png-f3418fab0f4afa5ed6a67025aeaa8193.ctex"]
 
 [params]
 
