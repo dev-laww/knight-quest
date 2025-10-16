@@ -8,24 +8,18 @@
 [node name="GetCert" type="CanvasLayer"]
 script = ExtResource("1_klmbq")
 
-[node name="NinePatchRect" parent="." instance=ExtResource("1_rgq67")]
-self_modulate = Color(0.0305156, 0.0305156, 0.0305156, 0.43137255)
-custom_minimum_size = Vector2(450, 320)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
-[node name="GetCertBtn" type="Button" parent="NinePatchRect"]
+[node name="NinePatchRect" parent="CenterContainer" instance=ExtResource("1_rgq67")]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+
+[node name="GetCertBtn" type="Button" parent="CenterContainer/NinePatchRect"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 1

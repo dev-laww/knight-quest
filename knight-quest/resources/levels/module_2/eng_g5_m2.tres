@@ -7,7 +7,7 @@
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question1.tres" id="4_sigb7"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question2.tres" id="5_afxg5"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question3.tres" id="6_f436g"]
-[ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question4.tres" id="7_u8qx8"]
+[ext_resource type="Resource" uid="uid://cyre8tdbk663" path="res://resources/questions/grade_5/eng_2/question4.tres" id="7_u8qx8"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question5.tres" id="8_q3axj"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question6.tres" id="9_lol74"]
 [ext_resource type="Resource" path="res://resources/questions/grade_5/eng_2/question7.tres" id="10_arpfi"]

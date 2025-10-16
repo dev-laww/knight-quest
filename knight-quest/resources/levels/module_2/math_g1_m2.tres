@@ -27,7 +27,7 @@
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question30.tres" id="24_6lijx"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question29.tres" id="25_cxqik"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question28.tres" id="26_1d1h5"]
-[ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question27.tres" id="27_4dkxk"]
+[ext_resource type="Resource" uid="uid://cl2e7efqb774p" path="res://resources/questions/grade_1/math_2/question27.tres" id="27_4dkxk"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question26.tres" id="28_ox6bm"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question25.tres" id="29_4y1lc"]
 [ext_resource type="Resource" path="res://resources/questions/grade_1/math_2/question24.tres" id="30_1ws4x"]

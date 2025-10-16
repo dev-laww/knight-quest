@@ -2,13 +2,12 @@ using Game.Data;
 using Game.Utils;
 using Godot;
 using GodotUtilities;
-
 using Logger = Game.Utils.Logger;
 
 namespace Game;
 
 [Scene]
-public partial class CharacterPanel : Panel
+public partial class CharacterPanel : Control
 {
     [Export] public Character character;
 
@@ -33,7 +32,7 @@ public partial class CharacterPanel : Panel
             if (instance == null) return;
 
             AddChild(instance);
-            instance.Position = PivotOffset+ new Vector2(0, 40);;
+            instance.Position = PivotOffset + new Vector2(0, 40);
         }).CallDeferred();
     }
 }

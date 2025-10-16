@@ -30,14 +30,14 @@ public partial class GradeLevelSelect : CanvasLayer
 
             panel.GradeLevel = gradeLevel;
             gradeLevelsContainer.AddChild(panel);
-            panel.Panel.GuiInput += e => OnGradeLevelPanelGuiInput(e, gradeLevel);
+            panel.NinePatchRect.GuiInput += e => OnGradeLevelPanelGuiInput(e, gradeLevel);
             var label = new Label
             {
                 Text = gradeLevel.ToString(),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 AutowrapMode = TextServer.AutowrapMode.Off,
-                
+
                 SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
                 SizeFlagsVertical = Control.SizeFlags.ExpandFill
             };

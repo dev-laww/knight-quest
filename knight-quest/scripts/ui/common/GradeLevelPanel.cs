@@ -9,7 +9,7 @@ public partial class GradeLevelPanel : Control
 {
     public RunConfig.GradeLevel GradeLevel { get; set; }
 
-    [Node] public Panel Panel;
+    [Node] public NinePatchRect NinePatchRect;
 
     public override void _Notification(int what)
     {
