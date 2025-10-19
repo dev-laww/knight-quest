@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://c5ct36yck13hr"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://c5ct36yck13hr"]
 
 [ext_resource type="Texture2D" uid="uid://dr42d47a3xg60" path="res://assets/art/ui/buttons.png" id="1_iodi1"]
 [ext_resource type="Texture2D" uid="uid://boytvlouj3t24" path="res://assets/art/ui/scroller.png" id="2_avjmq"]
@@ -37,6 +37,8 @@ texture_margin_top = 8.0
 texture_margin_right = 3.0
 texture_margin_bottom = 6.0
 region_rect = Rect2(128, 0, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t76x4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wy8bg"]
 texture = ExtResource("2_avjmq")
@@ -81,6 +83,7 @@ Button/styles/focus = SubResource("StyleBoxEmpty_iodi1")
 Button/styles/hover = SubResource("StyleBoxTexture_iodi1")
 Button/styles/normal = SubResource("StyleBoxTexture_t76x4")
 Button/styles/pressed = SubResource("StyleBoxTexture_1ls0k")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_t76x4")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
