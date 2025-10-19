@@ -2,29 +2,28 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using Game.Data;
-
+using GodotUtilities;
 using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
 
 public partial class QuestionManager : Autoload<QuestionManager>
 {
-    [Signal] 
-    public delegate void QuestionRequestedEventHandler(Question question);
+    [Signal] public delegate void QuestionRequestedEventHandler(Question question);
 
     public Question CurrentQuestion { get; private set; }
-    private List<Question> questions = new();
+    private List<Question> questions = [];
     private int currentIndex = -1;
-    private Random rng = new();
 
     public void LoadQuestions(Question[] question)
     {
-        this.questions = new List<Question>(question);
-        for (int i = this.questions.Count - 1; i > 0; i--)
+        questions = new List<Question>(question);
+        for (var i = questions.Count - 1; i > 0; i--)
         {
-            int j = rng.Next(i + 1);
-            (this.questions[i], this.questions[j]) = (this.questions[j], this.questions[i]);
+            var j = MathUtil.RNG.RandiRange(0, i);
+            (questions[i], questions[j]) = (questions[j], this.questions[i]);
         }
+
         currentIndex = -1;
     }
 

@@ -7,12 +7,10 @@ using Logger = Game.Utils.Logger;
 
 namespace Game.Autoloads;
 
-// TODO: Separate shop management and inventory management
 [GlobalClass]
 public partial class ShopManager : Autoload<ShopManager>
 {
     [Signal] public delegate void CoinsChangedEventHandler(int coins);
-
     [Signal] public delegate void ItemBoughtEventHandler(Item item);
 
     public static int Stars { get; set; }
@@ -25,34 +23,18 @@ public partial class ShopManager : Autoload<ShopManager>
     public override void _Ready()
     {
         LoadShopItems();
-        InitializeAccountData();
     }
 
     private void LoadShopItems()
     {
         shopItems[typeof(Consumable)] = ItemRegistry.GetItemsByType<Consumable>().Select(Item (item) => item).ToList();
-        GD.Print($"[DEBUG] Consumables loaded: {shopItems[typeof(Consumable)].Count}");
+        Logger.Debug($"Consumables loaded: {shopItems[typeof(Consumable)].Count}");
 
+        if (!OS.IsDebugBuild() || shopItems[typeof(Consumable)].Count <= 0) return;
 
-        if (OS.IsDebugBuild() && shopItems[typeof(Consumable)].Count > 0)
-        {
-            var firstConsumable = shopItems[typeof(Consumable)][0];
-            InventoryManager.Instance.AddItem(firstConsumable);
-            GD.Print($"[DEBUG] Added {firstConsumable.Name} to inventory.");
-        }
-    }
-
-    private void InitializeAccountData()
-    {
-        if (SaveManager.Data == null)
-        {
-            Stars = 0;
-            Logger.Warn("ShopManager: No account logged in yet, defaulting stars to 0.");
-            return;
-        }
-
-        Stars = SaveManager.Data.Shop.Stars;
-        GD.Print($"[DEBUG] Stars set to {Stars} from account {SaveManager.Data.Account.Username}");
+        var firstConsumable = shopItems[typeof(Consumable)][0];
+        InventoryManager.Instance.AddItem(firstConsumable);
+        Logger.Debug($"Added {firstConsumable.Name} to inventory.");
     }
 
     public static void AddCoins(int amount)

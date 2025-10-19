@@ -49,6 +49,8 @@ public partial class SaveManager : Autoload<SaveManager>
             file.Close();
 
             Data = JsonConvert.DeserializeObject<Save>(content) ?? new Save();
+            LoadInventory();
+            LoadShopData();
         }
         else
         {
@@ -67,7 +69,6 @@ public partial class SaveManager : Autoload<SaveManager>
         file.Close();
     }
 
-    // Inventory
     public static void SaveInventory()
     {
         if (InventoryManager.Instance == null || InventoryManager.Instance.Items == null)
@@ -114,7 +115,6 @@ public partial class SaveManager : Autoload<SaveManager>
         Save();
     }
 
-
     public static void LoadInventory()
     {
         if (Data == null) return;
@@ -142,7 +142,13 @@ public partial class SaveManager : Autoload<SaveManager>
         }
     }
 
-    // Finished Levels
+    public static void LoadShopData()
+    {
+        if (Data == null) return;
+
+        ShopManager.Stars = Data.Shop.Stars;
+    }
+
     public static void SaveFinishedLevel(string levelId, int starsEarned)
     {
         if (Data == null) return;
@@ -161,7 +167,6 @@ public partial class SaveManager : Autoload<SaveManager>
         return Data?.Progression.LevelsFinished ?? new List<FinishedLevel>();
     }
 
-    // Shop
     public static void SaveShopPurchase(string itemId, int quantity, int cost)
     {
         if (Data == null) return;
@@ -178,6 +183,6 @@ public partial class SaveManager : Autoload<SaveManager>
 
     public static List<PurchaseHistory> LoadShopHistory()
     {
-        return Data?.Shop.PurchaseHistory ?? new List<PurchaseHistory>();
+        return Data?.Shop.PurchaseHistory ?? [];
     }
 }

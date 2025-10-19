@@ -1,6 +1,8 @@
+using System;
 using Godot;
 using Game.Autoloads;
 using Game.Utils;
+using Game.Data;
 using GodotUtilities;
 using Logger = Game.Utils.Logger;
 using System.Collections.Generic;
@@ -65,8 +67,6 @@ public partial class Login : CanvasLayer
 
             SaveManager.Data.Account.Token = token;
 
-            SaveManager.Save();
-
             Logger.Info($"User authenticated successfully: {SaveManager.Data.Account.Username}");
 
             Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
@@ -98,20 +98,81 @@ public partial class Login : CanvasLayer
 
     private async void OnLoginPressed()
     {
-        var username = usernameField.Text;
+        var username = usernameField.Text.Trim();
         var password = passwordField.Text;
 
-        SaveManager.Data.Account.Username = username;
-
-        var body = new
+        // Validate input
+        if (string.IsNullOrEmpty(username))
         {
-            username = username,
-            password = password
-        };
-        var res = await ApiClient.PostAsync("/auth/login", body);
+            PopupFactory.ShowError("Please enter your username.");
+            return;
+        }
 
-        AudioManager.Instance.PlayClick();
-        Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
+        if (string.IsNullOrEmpty(password))
+        {
+            PopupFactory.ShowError("Please enter your password.");
+            return;
+        }
+
+        // Disable login button to prevent multiple requests
+        loginButton.Disabled = true;
+        loginButton.Text = "Logging in...";
+
+        try
+        {
+            var body = new
+            {
+                username = username,
+                password = password
+            };
+
+            var response = await ApiClient.PostWithResponseAsync<LoginResponseData>("/auth/login", body);
+
+            if (response.Success && response.Data != null)
+            {
+                // Store user data
+                SaveManager.Data.Account.Username = response.Data.Username;
+                SaveManager.Data.Account.Token = response.Data.Token;
+                SaveManager.Save();
+
+                Logger.Info($"User authenticated successfully: {response.Data.Username}");
+                PopupFactory.ShowSuccess(response.Message);
+                
+                AudioManager.Instance.PlayClick();
+                Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
+            }
+            else
+            {
+                // Handle different error types
+                var errorMessage = response.Message ?? "Login failed. Please try again.";
+                
+                if (response.Code == 401)
+                {
+                    PopupFactory.ShowError("Invalid username or password. Please check your credentials and try again.");
+                }
+                else if (response.Code == 0)
+                {
+                    PopupFactory.ShowError("Unable to connect to server. Please check your internet connection and try again.");
+                }
+                else
+                {
+                    PopupFactory.ShowError(errorMessage);
+                }
+                
+                Logger.Error($"Login failed: {errorMessage}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"Unexpected error during login: {ex.Message}");
+            PopupFactory.ShowError("An unexpected error occurred. Please try again later.");
+        }
+        finally
+        {
+            // Re-enable login button
+            loginButton.Disabled = false;
+            loginButton.Text = "Login";
+        }
     }
 
     private void OnRegisterPressed()
