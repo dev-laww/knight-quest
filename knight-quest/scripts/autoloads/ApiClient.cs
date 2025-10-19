@@ -220,7 +220,7 @@ public partial class ApiClient : Autoload<ApiClient>
             var response = await Instance.client.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
 
-            var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(content, Instance.jsonOptions);
+            var apiResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(content);
 
             if (apiResponse == null)
             {

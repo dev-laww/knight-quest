@@ -10,13 +10,10 @@ namespace Game.UI;
 [Scene]
 public partial class ResultScreen : CanvasLayer
 {
-
-    
     [Node] private RichTextLabel resultLabel;
     [Node] private Label rewardsLabel;
     [Node] private Button menuButton;
     [Node] private Button retryButton;
-    
 
 
     public override void _Notification(int what)
@@ -30,7 +27,6 @@ public partial class ResultScreen : CanvasLayer
     {
         menuButton.Pressed += OnMenuButtonPress;
         retryButton.Pressed += OnRetryButtonPress;
-        
     }
 
     private async void OnMenuButtonPress()
@@ -52,22 +48,21 @@ public partial class ResultScreen : CanvasLayer
     }
 
 
+    public void ShowResult(bool victory, int starsEarned = 0)
+    {
+        SaveManager.Save();
 
-public void ShowResult(bool victory, int starsEarned = 0)
-{
-    if (victory)
-    {
-        SaveManager.Save();
-        resultLabel.Text = "Victory!";
-        resultLabel.AddThemeColorOverride("font_color", Colors.Green);
-        rewardsLabel.Text = $"Stars earned: {starsEarned}";
-    }
-    else
-    {
-        SaveManager.Save();
-        resultLabel.Text = "Defeat...";
-        resultLabel.AddThemeColorOverride("font_color", Colors.Red);
-        rewardsLabel.Text = "No stars earned.";
+        if (victory)
+        {
+            resultLabel.Text = "Victory!";
+            resultLabel.AddThemeColorOverride("font_color", Colors.Green);
+            rewardsLabel.Text = $"Stars earned: {starsEarned}";
+        }
+        else
+        {
+            resultLabel.Text = "Defeat...";
+            resultLabel.AddThemeColorOverride("font_color", Colors.Red);
+            rewardsLabel.Text = "No stars earned.";
+        }
     }
 }
-    }

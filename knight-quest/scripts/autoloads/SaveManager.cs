@@ -16,20 +16,9 @@ public partial class SaveManager : Autoload<SaveManager>
 
     private static bool loaded;
 
-    public override async void _ExitTree()
+    public override void _ExitTree()
     {
         Save();
-
-        var serverSuccess = await SaveToServer();
-
-        if (serverSuccess)
-        {
-            Logger.Info("Successfully saved data to server on exit");
-        }
-        else
-        {
-            Logger.Warn("Failed to save to server on exit");
-        }
     }
 
     private static string GetSaveDir()
@@ -49,16 +38,12 @@ public partial class SaveManager : Autoload<SaveManager>
     public static void StartSaving()
     {
         Load();
-
-        var timer = new Timer { WaitTime = OS.IsDebugBuild() ? 15 : 60, Autostart = false };
-        Instance.AddChild(timer);
-        timer.Timeout += Save;
-        timer.Start();
     }
 
     public static async void Load()
     {
         if (loaded) return;
+        loaded = true;
 
         Logger.Info("Loading save data...");
 
@@ -88,8 +73,6 @@ public partial class SaveManager : Autoload<SaveManager>
             DirAccess.MakeDirAbsolute(dir);
             Data = new Save();
         }
-
-        loaded = true;
     }
 
     public static async void Save()
@@ -193,12 +176,13 @@ public partial class SaveManager : Autoload<SaveManager>
             CompletedAt = System.DateTime.UtcNow.ToString("s")
         };
         Data.Progression.LevelsFinished.Add(finishedLevel);
+        Data.Progression.TotalStarsEarned += starsEarned;
         Save();
     }
 
     public static List<FinishedLevel> LoadFinishedLevels()
     {
-        return Data?.Progression.LevelsFinished ?? new List<FinishedLevel>();
+        return Data?.Progression.LevelsFinished ?? [];
     }
 
     public static void SaveShopPurchase(string itemId, int quantity, int cost)
@@ -241,11 +225,9 @@ public partial class SaveManager : Autoload<SaveManager>
 
                 return serverSave;
             }
-            else
-            {
-                Logger.Warn($"Failed to load from server: {response.Message}");
-                return null;
-            }
+
+            Logger.Warn($"Failed to load from server: {response.Message}");
+            return null;
         }
         catch (System.Exception ex)
         {
@@ -278,11 +260,9 @@ public partial class SaveManager : Autoload<SaveManager>
                 Logger.Info("Successfully saved to server");
                 return true;
             }
-            else
-            {
-                Logger.Warn($"Failed to save to server: {response.Message}");
-                return false;
-            }
+
+            Logger.Warn($"Failed to save to server: {response.Message}");
+            return false;
         }
         catch (System.Exception ex)
         {
