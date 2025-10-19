@@ -40,6 +40,7 @@ public partial class MainMenu : CanvasLayer
 
         startButton.Pressed += OnStartButtonPressed;
         shopButton.Pressed += OnShopButtonPressed;
+        SaveManager.StartSaving();
     }
 
     private void OnStartButtonPressed()
