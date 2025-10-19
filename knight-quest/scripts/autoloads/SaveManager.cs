@@ -13,15 +13,6 @@ public partial class SaveManager : Autoload<SaveManager>
     private static readonly string dir = GetSaveDir();
     private static readonly string path = $"{dir}/save.json";
 
-    private Timer timer;
-
-    public override void _EnterTree()
-    {
-        timer = new Timer { WaitTime = OS.IsDebugBuild() ? 15 : 60, Autostart = false };
-        AddChild(timer);
-        timer.Timeout += Save;
-    }
-
     public override void _ExitTree() => Save();
 
     private static string GetSaveDir()
@@ -41,7 +32,11 @@ public partial class SaveManager : Autoload<SaveManager>
     public static void StartSaving()
     {
         Load();
-        Instance.timer.Start();
+
+        var timer = new Timer { WaitTime = OS.IsDebugBuild() ? 15 : 60, Autostart = false };
+        Instance.AddChild(timer);
+        timer.Timeout += Save;
+        timer.Start();
     }
 
     public static void Load()

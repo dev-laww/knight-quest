@@ -47,7 +47,6 @@ enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/Deeplink
 
 folder_colors={
 "res://addons/": "gray",
-"res://android/": "gray",
 "res://assets/": "orange",
 "res://builds/": "gray",
 "res://resources/": "teal",

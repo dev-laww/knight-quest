@@ -107,13 +107,11 @@ public partial class Login : CanvasLayer
         {
             username = username,
             password = password
-        }; 
+        };
         var res = await ApiClient.PostAsync("/auth/login", body);
 
-        Logger.Debug(res);
-
         AudioManager.Instance.PlayClick();
-        // Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
+        Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
     }
 
     private void OnRegisterPressed()
