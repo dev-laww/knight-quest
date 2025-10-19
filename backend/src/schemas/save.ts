@@ -40,7 +40,7 @@ export const shopSchema = z.object({
 });
 
 export const SaveSchema = z.object({
-  account: AccountSchema.optional(),
+  account: AccountSchema.nullish(),
   progression: progressionSchema,
   inventory: z.array(InventoryItemSchema),
   shop: shopSchema,
