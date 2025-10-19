@@ -17,7 +17,6 @@ public partial class SaveManager : Autoload<SaveManager>
 
     public override void _EnterTree()
     {
-        Load();
         timer = new Timer { WaitTime = OS.IsDebugBuild() ? 15 : 60, Autostart = false };
         AddChild(timer);
         timer.Timeout += Save;
@@ -41,6 +40,7 @@ public partial class SaveManager : Autoload<SaveManager>
 
     public static void StartSaving()
     {
+        Load();
         Instance.timer.Start();
     }
 
