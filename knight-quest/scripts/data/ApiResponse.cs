@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
 namespace Game.Data;
-
+#nullable enable
 public class ApiResponse<T>
 {
     [JsonPropertyName("code")]
@@ -30,7 +30,7 @@ public class ApiResponse : ApiResponse<object>
 public class LoginResponseData
 {
     [JsonPropertyName("id")]
-    public string Id { get; set; } = string.Empty;
+    public int Id { get; set; }
 
     [JsonPropertyName("username")]
     public string Username { get; set; } = string.Empty;
@@ -43,6 +43,9 @@ public class LoginResponseData
 
     [JsonPropertyName("role")]
     public string Role { get; set; } = string.Empty;
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("token")]
     public string Token { get; set; } = string.Empty;
@@ -51,7 +54,7 @@ public class LoginResponseData
 public class RegisterResponseData
 {
     [JsonPropertyName("id")]
-    public string Id { get; set; } = string.Empty;
+    public int Id { get; set; }
 
     [JsonPropertyName("username")]
     public string Username { get; set; } = string.Empty;
@@ -64,6 +67,9 @@ public class RegisterResponseData
 
     [JsonPropertyName("role")]
     public string Role { get; set; } = string.Empty;
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("token")]
     public string Token { get; set; } = string.Empty;
