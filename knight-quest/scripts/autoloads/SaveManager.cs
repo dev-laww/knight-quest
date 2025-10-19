@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Game.Data;
 using Godot;
 using Newtonsoft.Json;
@@ -13,7 +14,23 @@ public partial class SaveManager : Autoload<SaveManager>
     private static readonly string dir = GetSaveDir();
     private static readonly string path = $"{dir}/save.json";
 
-    public override void _ExitTree() => Save();
+    private static bool loaded;
+
+    public override async void _ExitTree()
+    {
+        Save();
+
+        var serverSuccess = await SaveToServer();
+
+        if (serverSuccess)
+        {
+            Logger.Info("Successfully saved data to server on exit");
+        }
+        else
+        {
+            Logger.Warn("Failed to save to server on exit");
+        }
+    }
 
     private static string GetSaveDir()
     {
@@ -39,9 +56,22 @@ public partial class SaveManager : Autoload<SaveManager>
         timer.Start();
     }
 
-    public static void Load()
+    public static async void Load()
     {
+        if (loaded) return;
+
         Logger.Info("Loading save data...");
+
+        var serverData = await LoadFromServer();
+        if (serverData != null)
+        {
+            Logger.Info("Successfully loaded save data from server");
+            Data = serverData;
+            LoadInventory();
+            LoadShopData();
+            return;
+        }
+
         if (FileAccess.FileExists(path))
         {
             var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
@@ -58,15 +88,19 @@ public partial class SaveManager : Autoload<SaveManager>
             DirAccess.MakeDirAbsolute(dir);
             Data = new Save();
         }
+
+        loaded = true;
     }
 
-    public static void Save()
+    public static async void Save()
     {
-        Logger.Info("Saving data...");
+        Logger.Info("Saving data locally...");
         var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
         var json = JsonConvert.SerializeObject(Data, Formatting.Indented);
         file.StoreString(json);
         file.Close();
+
+        await SaveToServer();
     }
 
     public static void SaveInventory()
@@ -132,7 +166,7 @@ public partial class SaveManager : Autoload<SaveManager>
             var item = ItemRegistry.Get(saved.Id);
             if (item != null)
             {
-                for (int i = 0; i < saved.Quantity; i++)
+                for (var i = 0; i < saved.Quantity; i++)
                     InventoryManager.Instance.AddItem(item);
             }
             else
@@ -184,5 +218,76 @@ public partial class SaveManager : Autoload<SaveManager>
     public static List<PurchaseHistory> LoadShopHistory()
     {
         return Data?.Shop.PurchaseHistory ?? [];
+    }
+
+    private static async Task<Save> LoadFromServer()
+    {
+        try
+        {
+            Logger.Info("Attempting to load save data from server...");
+
+            if (!string.IsNullOrEmpty(Data.Account.Token))
+            {
+                ApiClient.SetAuthorizationBearer(Data.Account.Token);
+            }
+
+            var response = await ApiClient.GetWithResponseAsync<Save>("/save");
+
+            if (response.Success && response.Data != null)
+            {
+                var serverSave = response.Data;
+
+                serverSave.Account = Data.Account;
+
+                return serverSave;
+            }
+            else
+            {
+                Logger.Warn($"Failed to load from server: {response.Message}");
+                return null;
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Logger.Error($"Error loading from server: {ex.Message}");
+            return null;
+        }
+    }
+
+    private static async Task<bool> SaveToServer()
+    {
+        try
+        {
+            Logger.Info("Attempting to save data to server...");
+
+            if (!string.IsNullOrEmpty(Data.Account.Token))
+            {
+                ApiClient.SetAuthorizationBearer(Data.Account.Token);
+            }
+
+            var response = await ApiClient.PutWithResponseAsync("/save", new Save
+            {
+                Account = null,
+                Progression = Data.Progression,
+                Inventory = Data.Inventory,
+                Shop = Data.Shop
+            });
+
+            if (response.Success)
+            {
+                Logger.Info("Successfully saved to server");
+                return true;
+            }
+            else
+            {
+                Logger.Warn($"Failed to save to server: {response.Message}");
+                return false;
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Logger.Error($"Error saving to server: {ex.Message}");
+            return false;
+        }
     }
 }

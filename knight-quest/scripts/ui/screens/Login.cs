@@ -114,7 +114,6 @@ public partial class Login : CanvasLayer
             return;
         }
 
-        // Disable login button to prevent multiple requests
         loginButton.Disabled = true;
         loginButton.Text = "Logging in...";
 
@@ -130,35 +129,32 @@ public partial class Login : CanvasLayer
 
             if (response.Success && response.Data != null)
             {
-                // Store user data
                 SaveManager.Data.Account.Username = response.Data.Username;
                 SaveManager.Data.Account.Token = response.Data.Token;
-                SaveManager.Save();
 
                 Logger.Info($"User authenticated successfully: {response.Data.Username}");
                 PopupFactory.ShowSuccess(response.Message);
-                
+
                 AudioManager.Instance.PlayClick();
                 Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
             }
             else
             {
-                // Handle different error types
                 var errorMessage = response.Message ?? "Login failed. Please try again.";
-                
-                if (response.Code == 401)
+
+                switch (response.Code)
                 {
-                    PopupFactory.ShowError("Invalid username or password. Please check your credentials and try again.");
+                    case 401:
+                        PopupFactory.ShowError("Invalid username or password. Please check your credentials and try again.");
+                        break;
+                    case 0:
+                        PopupFactory.ShowError("Unable to connect to server. Please check your internet connection and try again.");
+                        break;
+                    default:
+                        PopupFactory.ShowError(errorMessage);
+                        break;
                 }
-                else if (response.Code == 0)
-                {
-                    PopupFactory.ShowError("Unable to connect to server. Please check your internet connection and try again.");
-                }
-                else
-                {
-                    PopupFactory.ShowError(errorMessage);
-                }
-                
+
                 Logger.Error($"Login failed: {errorMessage}");
             }
         }
@@ -169,7 +165,6 @@ public partial class Login : CanvasLayer
         }
         finally
         {
-            // Re-enable login button
             loginButton.Disabled = false;
             loginButton.Text = "Login";
         }

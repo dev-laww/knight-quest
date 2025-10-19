@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HttpClient = System.Net.Http.HttpClient;
 using Game.Data;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Game.Autoloads;
 
@@ -144,7 +146,7 @@ public partial class ApiClient : Autoload<ApiClient>
         var content = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<T>(content, Instance.jsonOptions);
     }
-    
+
     public static async Task<ApiResponse<T>> PostWithResponseAsync<T>(string url, object data)
     {
         try
@@ -153,9 +155,9 @@ public partial class ApiClient : Autoload<ApiClient>
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             var response = await Instance.client.PostAsync(url, content);
             var responseContent = await response.Content.ReadAsStringAsync();
-            
+
             var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, Instance.jsonOptions);
-            
+
             if (apiResponse == null)
             {
                 return new ApiResponse<T>
@@ -165,7 +167,7 @@ public partial class ApiClient : Autoload<ApiClient>
                     Code = (int)response.StatusCode
                 };
             }
-            
+
             return apiResponse;
         }
         catch (HttpRequestException ex)
@@ -217,9 +219,9 @@ public partial class ApiClient : Autoload<ApiClient>
         {
             var response = await Instance.client.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
-            
+
             var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(content, Instance.jsonOptions);
-            
+
             if (apiResponse == null)
             {
                 return new ApiResponse<T>
@@ -229,7 +231,7 @@ public partial class ApiClient : Autoload<ApiClient>
                     Code = (int)response.StatusCode
                 };
             }
-            
+
             return apiResponse;
         }
         catch (HttpRequestException ex)
@@ -264,6 +266,75 @@ public partial class ApiClient : Autoload<ApiClient>
     public static async Task<ApiResponse> GetWithResponseAsync(string url)
     {
         var response = await GetWithResponseAsync<object>(url);
+        return new ApiResponse
+        {
+            Code = response.Code,
+            Success = response.Success,
+            Message = response.Message,
+            Data = response.Data,
+            Error = response.Error,
+            ErrorCode = response.ErrorCode
+        };
+    }
+
+    public static async Task<ApiResponse<T>> PutWithResponseAsync<T>(string url, object data)
+    {
+        try
+        {
+            var json = JsonConvert.SerializeObject(data, Formatting.None);
+            
+            Utils.Logger.Debug(json);
+            
+            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var response = await Instance.client.PutAsync(url, content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, Instance.jsonOptions);
+
+            if (apiResponse == null)
+            {
+                return new ApiResponse<T>
+                {
+                    Success = false,
+                    Message = "Failed to parse server response",
+                    Code = (int)response.StatusCode
+                };
+            }
+
+            return apiResponse;
+        }
+        catch (HttpRequestException ex)
+        {
+            return new ApiResponse<T>
+            {
+                Success = false,
+                Message = $"Network error: {ex.Message}",
+                Code = 0
+            };
+        }
+        catch (TaskCanceledException ex)
+        {
+            return new ApiResponse<T>
+            {
+                Success = false,
+                Message = "Request timed out",
+                Code = 0
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ApiResponse<T>
+            {
+                Success = false,
+                Message = $"Unexpected error: {ex.Message}",
+                Code = 0
+            };
+        }
+    }
+
+    public static async Task<ApiResponse> PutWithResponseAsync(string url, object data)
+    {
+        var response = await PutWithResponseAsync<object>(url, data);
         return new ApiResponse
         {
             Code = response.Code,

@@ -75,7 +75,6 @@ public partial class Register : CanvasLayer
             return;
         }
 
-        // Disable register button to prevent multiple requests
         registerButton.Disabled = true;
         registerButton.Text = "Creating Account...";
 
