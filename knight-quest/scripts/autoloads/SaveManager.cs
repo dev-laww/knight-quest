@@ -13,10 +13,12 @@ public partial class SaveManager : Autoload<SaveManager>
     private static readonly string dir = GetSaveDir();
     private static readonly string path = $"{dir}/save.json";
 
+    private Timer timer;
+
     public override void _EnterTree()
     {
         Load();
-        var timer = new Timer { WaitTime = OS.IsDebugBuild() ? 15 : 60, Autostart = true };
+        timer = new Timer { WaitTime = OS.IsDebugBuild() ? 15 : 60, Autostart = false };
         AddChild(timer);
         timer.Timeout += Save;
     }
@@ -35,6 +37,11 @@ public partial class SaveManager : Autoload<SaveManager>
         }
 
         return "user://data";
+    }
+
+    public static void StartSaving()
+    {
+        Instance.timer.Start();
     }
 
     public static void Load()
@@ -91,7 +98,7 @@ public partial class SaveManager : Autoload<SaveManager>
                 GD.PrintErr($"[SaveInventory] Could not resolve ID for item '{group.Item.Name}', skipping...");
                 continue;
             }
-        
+
 
             var existing = Data.Inventory.FirstOrDefault(i => i.Id == id);
             if (existing != null)
