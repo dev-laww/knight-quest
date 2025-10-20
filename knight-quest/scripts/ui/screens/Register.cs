@@ -88,7 +88,14 @@ public partial class Register : CanvasLayer
                 password = passwordText,
             };
 
-            var response = await ApiClient.PostWithResponseAsync<RegisterResponseData>("/auth/register", body);
+            var response = await ApiClient.Post<AuthResponseData>("/auth/register", body);
+
+            if (response == null)
+            {
+                PopupFactory.ShowError("Unable to connect to server. Please check your internet connection and try again.");
+                Logger.Error("Registration failed: No response from server");
+                return;
+            }
 
             if (response.Success && response.Data != null)
             {
@@ -98,14 +105,14 @@ public partial class Register : CanvasLayer
 
                 Logger.Info($"User registered successfully: {response.Data.Username}");
                 PopupFactory.ShowSuccess(response.Message);
-                
+
                 AudioManager.Instance.PlayClick();
                 Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
             }
             else
             {
-                var errorMessage = response.Message ?? "Registration failed. Please try again.";
-                
+                var errorMessage = response.Message;
+
                 switch (response.Code)
                 {
                     case 400 when errorMessage.Contains("Username already taken"):
@@ -121,13 +128,14 @@ public partial class Register : CanvasLayer
                         PopupFactory.ShowError(errorMessage);
                         break;
                     case 0:
-                        PopupFactory.ShowError("Unable to connect to server. Please check your internet connection and try again.");
+                        PopupFactory.ShowError(
+                            "Unable to connect to server. Please check your internet connection and try again.");
                         break;
                     default:
                         PopupFactory.ShowError(errorMessage);
                         break;
                 }
-                
+
                 Logger.Error($"Registration failed: {errorMessage}");
             }
         }
@@ -141,5 +149,5 @@ public partial class Register : CanvasLayer
             registerButton.Disabled = false;
             registerButton.Text = "Register";
         }
-    }   
+    }
 }

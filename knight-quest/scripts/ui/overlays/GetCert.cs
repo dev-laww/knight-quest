@@ -1,13 +1,16 @@
 using Godot;
-using System;
 using Game.Autoloads;
 using GodotUtilities;
 
 namespace Game.UI;
+
 [Scene]
 public partial class GetCert : CanvasLayer
 {
     [Node] private Button getCertBtn;
+
+    [Export] private string url = "https://knight.lawrenceallen.tech/certificate";
+
     public override void _Notification(int what)
     {
         if (what != NotificationSceneInstantiated) return;
@@ -19,28 +22,10 @@ public partial class GetCert : CanvasLayer
     {
         getCertBtn.Pressed += OnOpenLinkButtonPressed;
     }
+
     public void OnOpenLinkButtonPressed()
     {
         AudioManager.Instance.PlayClick();
-        string url = ""; 
-        OpenLink(url);
-    }
-
-    private void OpenLink(string url)
-    {
-        if (string.IsNullOrEmpty(url))
-        {
-            GD.PrintErr("URL is empty!");
-            return;
-        }
-
-        if (OS.HasFeature("web"))
-        {
-            JavaScriptBridge.Eval($"window.open('{url}', '_blank')");
-        }
-        else
-        {
-            OS.ShellOpen(url);
-        }
+        OS.ShellOpen(url);
     }
 }

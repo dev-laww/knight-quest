@@ -13,7 +13,11 @@ public partial class ShopManager : Autoload<ShopManager>
     [Signal] public delegate void CoinsChangedEventHandler(int coins);
     [Signal] public delegate void ItemBoughtEventHandler(Item item);
 
-    public static int Stars { get; set; }
+    public static int Stars
+    {
+        get => SaveManager.Data.Shop.Stars;
+        set => SaveManager.Data.Shop.Stars = value;
+    }
 
     private static readonly Dictionary<Type, List<Item>> shopItems = new()
     {
@@ -77,14 +81,10 @@ public partial class ShopManager : Autoload<ShopManager>
         Instance.EmitSignalItemBought(item);
 
         Logger.Info($"Bought {item.Name}");
-        if (InventoryManager.Instance.Items.TryGetValue(item, out var itemGroup))
-        {
-            Logger.Info($"{item.Name} Quantity: {itemGroup.Quantity}");
-        }
-        else
-        {
-            Logger.Info($"{item.Name} not found in inventory.");
-        }
+
+        Logger.Info(InventoryManager.Instance.Items.TryGetValue(item, out var itemGroup)
+            ? $"{item.Name} Quantity: {itemGroup.Quantity}"
+            : $"{item.Name} not found in inventory.");
 
         SaveManager.SaveInventory();
     }

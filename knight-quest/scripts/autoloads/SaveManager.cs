@@ -53,7 +53,6 @@ public partial class SaveManager : Autoload<SaveManager>
             Logger.Info("Successfully loaded save data from server");
             Data = serverData;
             LoadInventory();
-            LoadShopData();
             return;
         }
 
@@ -65,7 +64,6 @@ public partial class SaveManager : Autoload<SaveManager>
 
             Data = JsonConvert.DeserializeObject<Save>(content) ?? new Save();
             LoadInventory();
-            LoadShopData();
         }
         else
         {
@@ -90,17 +88,17 @@ public partial class SaveManager : Autoload<SaveManager>
     {
         if (InventoryManager.Instance == null || InventoryManager.Instance.Items == null)
         {
-            GD.PrintErr("[SaveInventory] InventoryManager or Items not initialized.");
+            Logger.Error("[SaveInventory] InventoryManager or Items not initialized.");
             return;
         }
 
-        GD.Print($"[SaveInventory] Saving {InventoryManager.Instance.Items.Count} items...");
+        Logger.Debug($"[SaveInventory] Saving {InventoryManager.Instance.Items.Count} items...");
 
         foreach (var group in InventoryManager.Instance.Items.Values)
         {
             if (group.Item == null)
             {
-                GD.PrintErr("[SaveInventory] Tried to save null item, skipping...");
+                Logger.Error("[SaveInventory] Tried to save null item, skipping...");
                 continue;
             }
 
@@ -108,7 +106,7 @@ public partial class SaveManager : Autoload<SaveManager>
 
             if (string.IsNullOrEmpty(id))
             {
-                GD.PrintErr($"[SaveInventory] Could not resolve ID for item '{group.Item.Name}', skipping...");
+                Logger.Error($"[SaveInventory] Could not resolve ID for item '{group.Item.Name}', skipping...");
                 continue;
             }
 
@@ -142,7 +140,7 @@ public partial class SaveManager : Autoload<SaveManager>
         {
             if (string.IsNullOrEmpty(saved.Id))
             {
-                GD.PrintErr("[LoadInventory] Skipping item with null/empty Id");
+                Logger.Error("Skipping item with null/empty Id");
                 continue;
             }
 
@@ -154,16 +152,9 @@ public partial class SaveManager : Autoload<SaveManager>
             }
             else
             {
-                GD.PrintErr($"[LoadInventory] Failed to load item with id: {saved.Id}");
+                Logger.Error($"Failed to load item with id: {saved.Id}");
             }
         }
-    }
-
-    public static void LoadShopData()
-    {
-        if (Data == null) return;
-
-        ShopManager.Stars = Data.Shop.Stars;
     }
 
     public static void SaveFinishedLevel(string levelId, int starsEarned)
@@ -176,6 +167,7 @@ public partial class SaveManager : Autoload<SaveManager>
             CompletedAt = System.DateTime.UtcNow.ToString("s")
         };
         Data.Progression.LevelsFinished.Add(finishedLevel);
+        Data.Shop.Stars += starsEarned;
         Data.Progression.TotalStarsEarned += starsEarned;
         Save();
     }
@@ -215,7 +207,13 @@ public partial class SaveManager : Autoload<SaveManager>
                 ApiClient.SetAuthorizationBearer(Data.Account.Token);
             }
 
-            var response = await ApiClient.GetWithResponseAsync<Save>("/save");
+            var response = await ApiClient.Get<Save>("/save");
+
+            if (response == null)
+            {
+                Logger.Warn("No response from server when loading save data.");
+                return null;
+            }
 
             if (response.Success && response.Data != null)
             {
@@ -247,13 +245,19 @@ public partial class SaveManager : Autoload<SaveManager>
                 ApiClient.SetAuthorizationBearer(Data.Account.Token);
             }
 
-            var response = await ApiClient.PutWithResponseAsync("/save", new Save
+            var response = await ApiClient.Put<Save>("/save", new Save
             {
                 Account = null,
                 Progression = Data.Progression,
                 Inventory = Data.Inventory,
                 Shop = Data.Shop
             });
+
+            if (response == null)
+            {
+                Logger.Warn("No response from server when saving data.");
+                return false;
+            }
 
             if (response.Success)
             {

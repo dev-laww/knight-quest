@@ -169,7 +169,6 @@ public partial class RunManager : Node
 
         if (SaveManager.Data == null) return;
 
-        SaveManager.Data.Shop.Stars += starsEarned;
         SaveManager.Save();
     }
 

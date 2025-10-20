@@ -125,37 +125,47 @@ public partial class Login : CanvasLayer
                 password = password
             };
 
-            var response = await ApiClient.PostWithResponseAsync<LoginResponseData>("/auth/login", body);
+            var response = await ApiClient.Post<AuthResponseData>("/auth/login", body);
 
-            if (response.Success && response.Data != null)
+            switch (response)
             {
-                SaveManager.Data.Account.Username = response.Data.Username;
-                SaveManager.Data.Account.Token = response.Data.Token;
+                case null:
+                    PopupFactory.ShowError(
+                        "Unable to connect to server. Please check your internet connection and try again.");
+                    Logger.Error("Login failed: No response from server");
+                    return;
+                case { Success: true, Data: not null }:
+                    SaveManager.Data.Account.Username = response.Data.Username;
+                    SaveManager.Data.Account.Token = response.Data.Token;
 
-                Logger.Info($"User authenticated successfully: {response.Data.Username}");
-                PopupFactory.ShowSuccess(response.Message);
+                    Logger.Info($"User authenticated successfully: {response.Data.Username}");
+                    PopupFactory.ShowSuccess(response.Message);
 
-                AudioManager.Instance.PlayClick();
-                Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
-            }
-            else
-            {
-                var errorMessage = response.Message ?? "Login failed. Please try again.";
-
-                switch (response.Code)
+                    AudioManager.Instance.PlayClick();
+                    Navigator.Push("res://scenes/ui/screens/main_menu.tscn");
+                    break;
+                default:
                 {
-                    case 401:
-                        PopupFactory.ShowError("Invalid username or password. Please check your credentials and try again.");
-                        break;
-                    case 0:
-                        PopupFactory.ShowError("Unable to connect to server. Please check your internet connection and try again.");
-                        break;
-                    default:
-                        PopupFactory.ShowError(errorMessage);
-                        break;
-                }
+                    var errorMessage = response.Message;
 
-                Logger.Error($"Login failed: {errorMessage}");
+                    switch (response.Code)
+                    {
+                        case 401:
+                            PopupFactory.ShowError(
+                                "Invalid username or password. Please check your credentials and try again.");
+                            break;
+                        case 0:
+                            PopupFactory.ShowError(
+                                "Unable to connect to server. Please check your internet connection and try again.");
+                            break;
+                        default:
+                            PopupFactory.ShowError(errorMessage);
+                            break;
+                    }
+
+                    Logger.Error($"Login failed: {errorMessage}");
+                    break;
+                }
             }
         }
         catch (Exception ex)

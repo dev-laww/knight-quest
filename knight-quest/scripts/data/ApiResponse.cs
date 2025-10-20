@@ -16,18 +16,7 @@ public class ApiResponse<T>
 
 public class ApiResponse : ApiResponse<object> { }
 
-public class LoginResponseData
-{
-    [JsonProperty("id")] public int Id { get; set; }
-    [JsonProperty("username")] public string Username { get; set; } = string.Empty;
-    [JsonProperty("firstName")] public string FirstName { get; set; } = string.Empty;
-    [JsonProperty("lastName")] public string LastName { get; set; } = string.Empty;
-    [JsonProperty("role")] public string Role { get; set; } = string.Empty;
-    [JsonProperty("name")] public string Name { get; set; } = string.Empty;
-    [JsonProperty("token")] public string Token { get; set; } = string.Empty;
-}
-
-public class RegisterResponseData
+public class AuthResponseData
 {
     [JsonProperty("id")] public int Id { get; set; }
     [JsonProperty("username")] public string Username { get; set; } = string.Empty;
