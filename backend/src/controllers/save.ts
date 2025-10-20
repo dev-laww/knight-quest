@@ -17,7 +17,7 @@ export const getSave: RequestHandler = async (req, res) => {
 
     res.ok({
         message: 'Save data retrieved successfully.',
-        data: save
+        data: save.data
     })
 }
 
