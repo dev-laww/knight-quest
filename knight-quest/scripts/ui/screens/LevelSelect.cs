@@ -3,6 +3,7 @@ using Game.Autoloads;
 using Game.Data;
 using Godot;
 using GodotUtilities;
+using Logger = Game.Utils.Logger;
 
 namespace Game.UI;
 
@@ -57,12 +58,21 @@ public partial class LevelSelect : CanvasLayer
         GD.Print("All levels are finished!");
     }
 
-    private static bool AreAllLevelsFinished()
-    {
-        var allLevelIds = LevelRegistry.PublicResources.Keys.ToHashSet();
-        var finishedLevelIds = SaveManager.LoadFinishedLevels().Select(l => l.Id).ToHashSet();
-        return allLevelIds.All(id => finishedLevelIds.Contains(id));
-    }
+private static bool AreAllLevelsFinished()
+{
+    var allLevelIds = LevelRegistry.PublicResources.Values
+        .Select(l => l.ResourcePath)
+        .ToHashSet();
+    var finishedLevelIds = SaveManager.LoadFinishedLevels()
+        .Select(l => l.Id)
+        .ToHashSet();
+
+    var missing = allLevelIds.Except(finishedLevelIds).ToList();
+    if (missing.Count > 0)
+        Logger.Info("Missing finished levels: ", string.Join(", ", missing));
+
+    return allLevelIds.All(id => finishedLevelIds.Contains(id));
+}
 
     private static void OnLevelPressed(LevelInfo level)
     {
