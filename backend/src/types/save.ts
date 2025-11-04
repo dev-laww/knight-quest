@@ -14,8 +14,8 @@ export type PerformanceStats = {
     correctanswers: number;
     wronganswers: number;
     accuracy: number;
-    totaldamagedealt: number;
-    totaldamagetaken: number;
+    totaldamage_dealt: number;  // ✅ WITH UNDERSCORE!
+    totaldamage_taken: number;  // ✅ WITH UNDERSCORE!
 };
 
 export type LevelCompletion = {
