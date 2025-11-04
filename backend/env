@@ -1,0 +1,8 @@
+NODE_ENV=development
+PORT=8000
+JWT_SECRET=secret
+DATABASE_URL=postgresql://postgres:password@localhost/knight-quest
+GOOGLE_CLIENT_ID=1069565736993-nut1bn5svdttieap0uadb4q5e2ovkdns.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
+
