@@ -6,42 +6,59 @@ export const AccountSchema = z.object({
   username: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  role: z.string(),
-});
+  role: z.string().nullable(),
+}).passthrough();
+
+export const PerformanceStatsSchema = z.object({
+  totalturns: z.number(),
+  remaininghealth: z.number(),
+  maxhealth: z.number(),
+  healthpercentage: z.number(),
+  correctanswers: z.number(),
+  wronganswers: z.number(),
+  accuracy: z.number(),
+  totaldamagedealt: z.number(),
+  totaldamagetaken: z.number(),
+}).passthrough();
 
 export const LevelCompletionSchema = z.object({
   id: z.string(),
-  duration: z.number(),
+  duration: z.number().default(0),
   starsEarned: z.number(),
   completedAt: z.string(),
-});
+  performance: PerformanceStatsSchema.optional(),
+  testTurns: z.number().optional(),
+}).passthrough();  // ⬅️ CRITICAL!
 
-export const progressionSchema = z.object({
+export const ProgressionSchema = z.object({
   totalStarsEarned: z.number(),
   levelsFinished: z.array(LevelCompletionSchema),
-});
+  current_level_id: z.string().optional(),
+  testTurns: z.number().optional(),  // ✨ BAGO: For testing
+}).passthrough();
 
 export const InventoryItemSchema = z.object({
   id: z.string(),
   quantity: z.number(),
   acquiredAt: z.string(),
-});
+}).passthrough();
 
 export const PurchaseHistoryItemSchema = z.object({
   id: z.string(),
   quantity: z.number(),
   cost: z.number(),
   purchasedAt: z.string(),
-});
+}).passthrough();
 
-export const shopSchema = z.object({
+export const ShopSchema = z.object({
   stars: z.number(),
   purchaseHistory: z.array(PurchaseHistoryItemSchema),
-});
+}).passthrough();
 
 export const SaveSchema = z.object({
-  account: AccountSchema.nullish(),
-  progression: progressionSchema,
+  account: AccountSchema.optional(),
+  progression: ProgressionSchema,
   inventory: z.array(InventoryItemSchema),
-  shop: shopSchema,
-});
+  shop: ShopSchema,
+  testTurns: z.number().optional(),
+}).passthrough();
