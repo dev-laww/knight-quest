@@ -17,8 +17,8 @@ export const PerformanceStatsSchema = z.object({
   correctanswers: z.number(),
   wronganswers: z.number(),
   accuracy: z.number(),
-  totaldamagedealt: z.number(),
-  totaldamagetaken: z.number(),
+  totaldamage_dealt: z.number(),  // ✅ MATCH SA C#
+  totaldamage_taken: z.number(),  // ✅ MATCH SA C#
 }).passthrough();
 
 export const LevelCompletionSchema = z.object({
@@ -27,14 +27,12 @@ export const LevelCompletionSchema = z.object({
   starsEarned: z.number(),
   completedAt: z.string(),
   performance: PerformanceStatsSchema.optional(),
-  testTurns: z.number().optional(),
-}).passthrough();  // ⬅️ CRITICAL!
+}).passthrough();
 
 export const ProgressionSchema = z.object({
   totalStarsEarned: z.number(),
   levelsFinished: z.array(LevelCompletionSchema),
   current_level_id: z.string().optional(),
-  testTurns: z.number().optional(),  // ✨ BAGO: For testing
 }).passthrough();
 
 export const InventoryItemSchema = z.object({
@@ -60,5 +58,4 @@ export const SaveSchema = z.object({
   progression: ProgressionSchema,
   inventory: z.array(InventoryItemSchema),
   shop: ShopSchema,
-  testTurns: z.number().optional(),
 }).passthrough();
