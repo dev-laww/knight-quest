@@ -3,7 +3,19 @@ export type Account = {
     username: string;
     firstName: string;
     lastName: string;
-    role: string;
+    role: string | null;
+};
+
+export type PerformanceStats = {
+    totalturns: number;
+    remaininghealth: number;
+    maxhealth: number;
+    healthpercentage: number;
+    correctanswers: number;
+    wronganswers: number;
+    accuracy: number;
+    totaldamagedealt: number;
+    totaldamagetaken: number;
 };
 
 export type LevelCompletion = {
@@ -11,11 +23,13 @@ export type LevelCompletion = {
     duration: number;
     starsEarned: number;
     completedAt: string;
+    performance?: PerformanceStats;
 };
 
 export type Progression = {
     totalStarsEarned: number;
     levelsFinished: LevelCompletion[];
+    current_level_id?: string;
 };
 
 export type InventoryItem = {
