@@ -14,9 +14,18 @@ const addErrorToRequestLog: ErrorRequestHandler = (err, _req, res, next) => {
         return res.respond(Response.badRequest({ message: err.message }))
     }
 
-    logger.error(err, `${ err }`)
+    // ✅ FIX: Only log safe error properties
+    const safeError = {
+        message: err.message || 'Unknown error',
+        name: err.name,
+        stack: env.isProduction ? undefined : err.stack
+    }
 
-    res.respond(Response.error({ error: (env.isProduction ? err.message : err) ?? 'An unexpected error occurred' }))
+    logger.error(safeError, safeError.message)
+
+    res.respond(Response.error({ 
+        error: env.isProduction ? err.message : safeError.message 
+    }))
 
     next(err)
 }
